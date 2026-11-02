@@ -9,6 +9,9 @@ forma; nunca sus palabras, sus cifras ni su tono.
 
 ## Cómo se usan estas fichas
 
+Si la alumna dice "formato 0", "formato cero" o "el formato de la tabla", es **Formato 0 · Lo que se confunde**.
+
+
 1. **Se pregunta primero.** Las preguntas de la ficha, en una sola tanda, con tu sugerencia al
    lado cuando ya sabes la respuesta por sus archivos.
 2. **Se proponen 3 ángulos sacados de SU material.** Busca en `mi-voz.md` (su persona, sus
@@ -30,7 +33,7 @@ En `mis-piezas.md`, la columna Formato lleva el nombre de la ficha después del 
 
 ---
 
-## Lo que se confunde
+## Formato 0 · Lo que se confunde
 
 Guía completa: lee `formato-lo-que-se-confunde.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
 
@@ -478,7 +481,7 @@ del caption.
 
 | Formato | Tipo | Para qué sirve | Lo que necesita | Momento |
 |---|---|---|---|---|
-| Lo que se confunde | Hablado, enseñanza | Alcance y guardados | 2 a 5 cosas que su clienta confunde y ella conoce | Creciendo |
+| Formato 0 · Lo que se confunde | Hablado, enseñanza | Alcance y guardados | 2 a 5 cosas que su clienta confunde y ella conoce | Creciendo |
 | Mi ritmo real | Hablado, enseñanza | Guardados, envíos, seguidoras | Una rutina que cumple de verdad | Empezando y creciendo |
 | Aquí no | Sin voz, postura | Seguidoras y posicionamiento | Una postura suya que enseña en su cuenta | Empezando |
 | Lo que me pide el cuerpo | Sin voz, conexión | Alcance y conexión con poco tiempo | Una costumbre que reemplazó un impulso | Empezando y calentando (el pedido va en el caption) |

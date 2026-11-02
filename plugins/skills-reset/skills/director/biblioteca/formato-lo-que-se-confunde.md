@@ -1,4 +1,4 @@
-# Guía completa · Lo que se confunde
+# Formato 0 · Lo que se confunde
 
 Esta guía es para ti, Claude. Ella no la lee: la vive. Le hablas de tú, con frases cortas y sin
 teoría. Lo que ella va a decir en el video va en su trato (tú o vos, según `mi-voz.md`).
