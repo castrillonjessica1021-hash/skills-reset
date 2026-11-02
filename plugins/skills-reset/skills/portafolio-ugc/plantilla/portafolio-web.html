@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="fuentes" rel="stylesheet" href="">
+<style>
+:root{--fondo:#FBF6F1;--suave:#F6E4E0;--tinta:#3B2A24;--acento:#B5736E;--gris:#8a7a72;--linea:#ecdfd6;--cinta:#4A352E;--cinta-detalle:#F2C4BE;--cierre:#E9C3BD;--cierre-cursiva:#8E4F4B;
+  --titulo:'Bebas Neue',Impact,sans-serif;--cursiva:'Instrument Serif',Georgia,serif;--texto:Poppins,system-ui,sans-serif;--mano:Caveat,'Segoe Print',cursive}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:300 18px/1.6 var(--texto);-webkit-font-smoothing:antialiased}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.env{max-width:1240px;margin:0 auto;padding-inline:clamp(18px,4vw,48px)}
+.eb{font:500 13px var(--texto);letter-spacing:.22em;text-transform:uppercase;color:var(--acento)}
+.mano{font-family:var(--mano);color:var(--acento)}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 28px;font:500 16px var(--texto);text-decoration:none;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.n{background:var(--tinta);color:var(--fondo)}
+.btn.b{background:#fff;color:var(--tinta);box-shadow:0 8px 22px rgba(0,0,0,.06)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--fondo) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
+nav .env{display:flex;align-items:center;justify-content:space-between;height:68px}
+nav .marca{font:italic 28px var(--cursiva);text-decoration:none}
+nav .links{display:flex;gap:28px;align-items:center;font:400 15px var(--texto)}
+nav .links a{text-decoration:none}
+@media(max-width:760px){nav .links a:not(.btn){display:none}}
+.hero{padding-block:clamp(40px,7vw,90px) clamp(40px,6vw,80px)}
+.hero .env{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media(max-width:900px){.hero .env{grid-template-columns:1fr}}
+.hero h1{margin:14px 0 0;font:clamp(76px,11vw,168px)/.84 var(--titulo);font-weight:400}
+.hero h1 span{display:block;font:italic clamp(70px,10vw,150px)/.9 var(--cursiva);color:var(--acento);margin-top:6px;letter-spacing:-.01em}
+.hero p.lead{font-size:clamp(18px,1.6vw,21px);max-width:31em;margin:26px 0 0;opacity:.85}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 30px}
+.chips span{background:#fff;border-radius:999px;padding:8px 18px;font:500 14px var(--texto);box-shadow:0 6px 16px rgba(0,0,0,.05)}
+.chips span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acento);margin-right:9px;vertical-align:middle}
+.hero .acciones{display:flex;flex-wrap:wrap;gap:12px}
+.collage{position:relative;aspect-ratio:4/5;max-width:520px;width:100%;justify-self:center}
+.collage .foto{position:absolute;left:0;top:4%;width:64%;background:#fff;padding:12px 12px 56px;box-shadow:0 26px 60px rgba(0,0,0,.14);transform:rotate(-4deg)}
+.collage .foto img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.collage .foto i{position:absolute;bottom:12px;left:0;right:0;text-align:center;font:500 28px var(--mano);font-style:normal}
+.collage .tel{position:absolute;right:0;bottom:0;width:46%}
+.collage .nota{position:absolute;right:4%;top:2%;font-size:30px;transform:rotate(6deg)}
+.tel{background:var(--tinta);border-radius:34px;padding:8px;box-shadow:0 26px 50px rgba(0,0,0,.2)}
+.tel video,.tel img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:27px;background:#222}
+.cinta{background:var(--cinta);color:var(--fondo);overflow:hidden;white-space:nowrap;padding:16px 0}
+.cinta div{display:inline-block;animation:correr 32s linear infinite;font:clamp(22px,2.4vw,30px) var(--titulo);letter-spacing:.06em}
+.cinta b{color:var(--cinta-detalle);font-weight:400;margin:0 22px}
+@keyframes correr{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.cinta div{animation:none}}
+section.bloque{padding-block:clamp(60px,8vw,110px)}
+.titulo{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:38px}
+.titulo h2{margin:10px 0 0;font:clamp(52px,6vw,88px)/.9 var(--titulo);font-weight:400}
+.titulo h2 em{font:italic clamp(48px,5.4vw,80px) var(--cursiva);color:var(--acento);letter-spacing:-.01em}
+.titulo p{max-width:26em;margin:0;color:var(--gris)}
+.fila{display:flex;gap:22px;overflow-x:auto;padding:10px 4px 26px;scroll-snap-type:x mandatory}
+.fila::-webkit-scrollbar{height:6px}.fila::-webkit-scrollbar-thumb{background:var(--linea);border-radius:3px}
+.vid{flex:0 0 clamp(200px,22vw,250px);scroll-snap-align:start}
+.vid .tel{transition:transform .3s}
+.vid:nth-child(odd) .tel{transform:rotate(-1.5deg)}.vid:nth-child(even) .tel{transform:rotate(1.5deg)}
+.vid:hover .tel{transform:rotate(0) translateY(-6px)}
+.vid h3{margin:16px 0 2px;font:500 16px var(--texto)}
+.vid small{color:var(--gris);font-size:14px}
+.tabs{display:inline-flex;background:#fff;border-radius:999px;padding:6px;gap:4px;box-shadow:0 8px 22px rgba(0,0,0,.05);flex-wrap:wrap}
+.tabs button{border:0;background:none;border-radius:999px;padding:12px 24px;font:500 15px var(--texto);cursor:pointer;color:var(--gris)}
+.tabs button[aria-selected=true]{background:var(--acento);color:#fff}
+.obj{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center;margin-top:40px}
+@media(max-width:860px){.obj{grid-template-columns:1fr}}
+.obj .texto h3{font:clamp(40px,4.4vw,64px)/.95 var(--titulo);font-weight:400;margin:0 0 12px}
+.obj .texto p{margin:0 0 18px;opacity:.85}
+.obj .texto ul{padding:0;margin:0;list-style:none}
+.obj .texto li{padding:12px 0;border-top:1px solid var(--linea)}
+.obj .texto li:before{content:"✓";color:var(--acento);font-weight:600;margin-right:12px}
+.obj .tels{display:flex;gap:18px;justify-content:center}
+.obj .tels .tel{width:min(220px,30vw)}
+.obj .tels .tel:nth-child(2){transform:translateY(30px)}
+.suave{background:var(--suave)}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px)}
+@media(max-width:860px){.tres{grid-template-columns:1fr}}
+.carta{border-top:1px solid var(--tinta);padding-top:22px}
+.carta .n{font:italic 44px/1 var(--cursiva);color:var(--acento)}
+.carta h3{font:clamp(30px,2.6vw,38px)/1 var(--titulo);font-weight:400;margin:14px 0 10px;letter-spacing:.01em}
+.carta p{margin:0;opacity:.75;font-size:16px;max-width:24em}
+.porque{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,70px);align-items:center;margin-bottom:46px}
+@media(max-width:860px){.porque{grid-template-columns:1fr}}
+.porque .pol{background:#fff;padding:12px 12px 50px;box-shadow:0 22px 50px rgba(0,0,0,.12);transform:rotate(-3deg);max-width:380px;position:relative}
+.porque .pol img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.porque .pol i{position:absolute;bottom:10px;left:0;right:0;text-align:center;font:500 26px var(--mano);font-style:normal}
+.porque blockquote{margin:14px 0 0;font:italic clamp(30px,3.2vw,46px)/1.12 var(--cursiva)}
+.indice{border-top:1px solid var(--tinta)}
+.indice .item{display:grid;grid-template-columns:clamp(60px,8vw,110px) 1fr minmax(0,.8fr);gap:clamp(16px,3vw,40px);align-items:baseline;padding:clamp(22px,3vw,34px) 0;border-bottom:1px solid var(--linea);position:relative;cursor:default}
+.indice .n{font:italic clamp(30px,3vw,44px)/1 var(--cursiva);color:var(--acento)}
+.indice h3{margin:0;font:clamp(38px,5vw,76px)/.92 var(--titulo);font-weight:400;letter-spacing:.005em;transition:transform .45s cubic-bezier(.2,.8,.2,1),color .3s}
+.indice p{margin:0;color:var(--gris);font-size:16px;max-width:26em}
+.indice .muestra{position:absolute;left:49%;top:50%;width:130px;transform:translateY(-50%) rotate(4deg) scale(.85);opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1);z-index:2}
+.indice .item:hover h3{transform:translateX(18px);color:var(--acento)}
+.indice .item:hover .muestra{opacity:1;transform:translateY(-50%) rotate(4deg) scale(1)}
+@media(max-width:760px){.indice .item{grid-template-columns:52px 1fr}.indice p{grid-column:2}.indice .muestra{display:none}}
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;counter-reset:p}
+@media(max-width:860px){.pasos{grid-template-columns:1fr 1fr}}
+.pasos div{border-top:2px solid var(--tinta);padding-top:18px}
+.pasos div:before{counter-increment:p;content:"0" counter(p);font:italic 42px/1 var(--cursiva);color:var(--acento)}
+.pasos b{display:block;font:30px/1 var(--titulo);font-weight:400;margin:12px 0 6px;letter-spacing:.01em}
+.pasos span{color:var(--gris);font-size:15px}
+.cierre{background:var(--cierre);text-align:center}
+.cierre h2{font:clamp(70px,10vw,150px)/.85 var(--titulo);font-weight:400;margin:10px 0 0}
+.cierre h2 em{display:block;font:italic clamp(56px,8vw,120px)/1 var(--cursiva);letter-spacing:-.01em;color:var(--cierre-cursiva)}
+.cierre .eb{color:var(--tinta);opacity:.7}
+.cierre p{max-width:30em;margin:22px auto 30px;font-size:19px}
+.cierre .redes{margin-top:24px;font-size:16px;opacity:.9}
+footer{padding:26px 0;font-size:14px;color:var(--gris);text-align:center}
+[data-seccion].apagada{display:none}
+#panel{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:#fff;border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:18px 20px;font-size:14px;width:250px}
+#panel b{display:block;font:500 13px var(--texto);letter-spacing:.16em;text-transform:uppercase;color:var(--acento);margin-bottom:8px}
+#panel label{display:flex;justify-content:space-between;align-items:center;padding:6px 0;cursor:pointer}
+.aparece{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.aparece.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.aparece{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="pagina"></div>
+<div id="panel" hidden><b>Mis secciones</b><div id="panel-lista"></div><small style="color:var(--gris)">Solo tú ves este panel (abre la página con #editar al final).</small></div>
+
+<script>
+/*DATOS*/
+const DATOS = {
+  nombre: "Jessica",                       // cómo saluda: "Hola, soy ___"
+  nombreCompleto: "Jessica Castrillón",
+  rol: "Creadora de contenido",
+  ciudad: "Londres",
+  frase: "Hago videos que se sienten como una conversación con una amiga, para marcas que quieren conectar con mujeres sin que se note el anuncio.",
+  nichos: ["Emprendimiento femenino", "Maternidad", "IA y contenido"],
+  foto: "img/foto.jpg",
+  notaFoto: "estratega + creadora",
+  cinta: ["A cámara", "Tutoriales", "Comparaciones", "Antes y después", "Guiones", "Ganchos", "Edición"],
+
+  // Sus videos: archivo corto (6 a 8 s, sin sonido), portada, título y tipo · nicho
+  videos: [
+    {src: "v/v1.mp4", portada: "v/v1.jpg", titulo: "Gancho que rompe una creencia", tipo: "A cámara · IA y contenido"},
+    {src: "v/v2.mp4", portada: "v/v2.jpg", titulo: "Mi sistema por dentro", tipo: "Demostración · Emprendimiento"},
+    {src: "v/v3.mp4", portada: "v/v3.jpg", titulo: "Comparación de apps", tipo: "Comparación · Herramientas"},
+    {src: "v/v4.mp4", portada: "v/v4.jpg", titulo: "El paso a paso", tipo: "Tutorial · IA y contenido"},
+    {src: "v/v5.mp4", portada: "v/v5.jpg", titulo: "¿Cuál uso?", tipo: "Comparación · A cámara"},
+    {src: "v/v6.mp4", portada: "v/v6.jpg", titulo: "Efectos que enganchan", tipo: "Demostración · Edición"},
+    {src: "v/v7.mp4", portada: "v/v7.jpg", titulo: "Hasta que funcione", tipo: "Historia personal · Maternidad"}
+  ],
+
+  // Qué videos mostrar según lo que busca la marca (números de la lista de arriba, empezando en 1)
+  objetivos: {
+    alcance:   {boton: "Que te conozcan",  titulo: "QUE TE CONOZCAN",  texto: "Videos con un gancho que rompe una creencia y una sola idea, pensados para que los guarden y los compartan.", puntos: ["Ganchos que nombran lo que tu clienta siente", "Comparaciones con lo que ya conoce", "Formato corto y directo"], videos: [1, 5, 3]},
+    confianza: {boton: "Que confíen en ti", titulo: "QUE CONFÍEN EN TI", texto: "Historias reales y demostraciones que muestran tu producto en una vida de verdad.", puntos: ["Historia personal con tu producto", "Demostración paso a paso", "Tono cercano, como una amiga"], videos: [7, 2]},
+    venta:     {boton: "Que te compren",   titulo: "QUE TE COMPREN",   texto: "Tutoriales y antes y después que responden la duda antes de comprar, con un cierre claro.", puntos: ["Tutorial de cómo se usa", "Antes y después", "Cierre con una sola acción"], videos: [4, 6]}
+  },
+
+  fotoPorque: "img/foto-2.jpg",
+  notaPorque: "mamá de dos, desde Londres",
+  frasePorque: "Le hablo a mujeres que lo hacen todo solas, como yo. Por eso mis videos no suenan a anuncio: suenan a alguien que ya lo vivió.",
+  porque: [
+    {titulo: "PIENSO COMO ESTRATEGA", texto: "Cada video tiene un para quién y un porqué antes de grabarse."},
+    {titulo: "HABLO COMO UNA AMIGA", texto: "Cercana, directa y en primera persona. Así es como mi audiencia me escucha."},
+    {titulo: "TE ENTREGO TODO", texto: "Guion, ganchos, grabación y edición con subtítulos. Tú solo apruebas."}
+  ],
+
+  hago: [
+    {titulo: "VIDEOS A CÁMARA", texto: "Reseñas y opiniones con tu producto, contadas como una historia.", video: 1},
+    {titulo: "TUTORIALES", texto: "Cómo se usa, paso a paso, para que se entienda en segundos.", video: 4},
+    {titulo: "COMPARACIONES", texto: "Tu producto frente a lo que la gente ya conoce.", video: 3},
+    {titulo: "ANTES Y DESPUÉS", texto: "El cambio que tu producto logra, mostrado de verdad.", video: 6},
+    {titulo: "GUIONES Y GANCHOS", texto: "Varias opciones de gancho para que pruebes cuál funciona.", video: 5},
+    {titulo: "EDICIÓN", texto: "Con subtítulos, lista para publicar o para tus anuncios.", video: 2}
+  ],
+
+  // SOLO LO REAL: si está vacío, la sección no aparece
+  marcas: [],       // [{nombre: "Marca", texto: "Qué hicimos juntas"}]
+  resultados: [],   // [{cifra: "120 mil", texto: "vistas del video para la marca X"}]
+  paquetes: [],     // [{nombre: "1 video", precio: "desde $___", incluye: "guion + edición"}]
+
+  pasos: [
+    {titulo: "ME CUENTAS", texto: "Tu producto, a quién le vendes y qué quieres lograr."},
+    {titulo: "TE PROPONGO", texto: "El guion y varias opciones de gancho, para que apruebes."},
+    {titulo: "GRABO Y EDITO", texto: "Con subtítulos y listo para publicar."},
+    {titulo: "LO RECIBES", texto: "Con una ronda de cambios incluida."}
+  ],
+
+  correo: "hola@jessicacastrillon.com",
+  redes: [{red: "Instagram", usuario: "@jessicacastrillonm"}, {red: "TikTok", usuario: "@jessica.castrillo987"}],
+
+  // Secciones que se ven (true) o no (false). Las de marcas, resultados y paquetes se prenden solas si tienen datos.
+  secciones: {videos: true, objetivo: true, porque: true, hago: true, trabajemos: true, contacto: true},
+
+  // Colores y letras: déjalos en null para usar los de la plantilla
+  colores: null,   // {fondo, suave, tinta, acento, cinta, cierre}
+  letras: null     // {titulo: "Bebas Neue", cursiva: "Instrument Serif", texto: "Poppins"}
+};
+/*FIN*/
+
+const D = DATOS;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const L = Object.assign({titulo:"Bebas Neue", cursiva:"Instrument Serif", texto:"Poppins"}, D.letras || {});
+document.getElementById("fuentes").href = "https://fonts.googleapis.com/css2?family=" +
+  [L.titulo, L.cursiva + ":ital@0;1", L.texto + ":wght@300;400;500;600", "Caveat:wght@500;700"].map(f => f.replace(/ /g, "+")).join("&family=") + "&display=swap";
+const r = document.documentElement.style;
+r.setProperty("--titulo", `'${L.titulo}',Impact,sans-serif`); r.setProperty("--cursiva", `'${L.cursiva}',Georgia,serif`); r.setProperty("--texto", `'${L.texto}',system-ui,sans-serif`);
+if (D.colores) Object.entries(D.colores).forEach(([k, v]) => v && r.setProperty("--" + k, v));
+document.title = `${D.nombreCompleto} · Portafolio`;
+
+const tel = (v, auto) => `<div class="tel"><video src="${esc(v.src)}" poster="${esc(v.portada)}" muted loop playsinline ${auto ? "autoplay" : 'preload="none"'}></video></div>`;
+const tit = (eb, a, b, p) => `<div class="titulo aparece"><div><span class="eb">${eb}</span><h2>${a} <em>${b}</em></h2></div>${p ? `<p>${p}</p>` : ""}</div>`;
+const cinta = (D.cinta || []).map(x => esc(x.toUpperCase()) + " <b>✳</b> ").join("");
+
+document.getElementById("pagina").innerHTML = `
+<nav><div class="env"><a class="marca" href="#inicio">${esc(D.nombreCompleto)}</a>
+<div class="links"><a href="#videos">Videos</a><a href="#hago">Lo que hago</a><a href="#trabajemos">Cómo trabajamos</a><a class="btn n" href="#contacto" style="padding:10px 20px;font-size:14px">Escríbeme</a></div></div></nav>
+
+<header class="hero" id="inicio"><div class="env"><div>
+  <span class="eb">${esc(D.rol)}${D.ciudad ? " · " + esc(D.ciudad) : ""}</span>
+  <h1>HOLA, SOY<span>${esc(D.nombre)}.</span></h1>
+  <p class="lead">${esc(D.frase)}</p>
+  <div class="chips">${(D.nichos || []).map(n => `<span>${esc(n)}</span>`).join("")}</div>
+  <div class="acciones"><a class="btn n" href="#videos">Ver mis videos ↓</a><a class="btn b" href="#contacto">Trabajemos juntas</a></div>
+</div>
+<div class="collage"><div class="foto"><img src="${esc(D.foto)}" alt="${esc(D.nombreCompleto)}"><i>${esc(D.notaFoto)}</i></div>${D.videos[0] ? tel(D.videos[0], true) : ""}<span class="mano nota">dale play ↓</span></div>
+</div></header>
+
+<div class="cinta" aria-hidden="true"><div>${cinta}${cinta}</div></div>
+
+<section class="bloque" id="videos" data-seccion="videos"><div class="env">
+  ${tit("Mis videos", "IDEAS QUE", "detienen el scroll", "Cada video tiene un gancho pensado, una sola idea y un cierre claro. Desliza para verlos.")}
+  <div class="fila">${D.videos.map(v => `<div class="vid">${tel(v)}<h3>${esc(v.titulo)}</h3><small>${esc(v.tipo)}</small></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque" id="objetivo" data-seccion="objetivo" style="padding-top:0"><div class="env">
+  ${tit("Según lo que buscas", "CONTENIDO", "para tu objetivo")}
+  <div class="tabs" role="tablist">${Object.entries(D.objetivos).map(([k, o], i) => `<button role="tab" aria-selected="${i === 0}" data-obj="${k}">${esc(o.boton)}</button>`).join("")}</div>
+  <div class="obj"><div class="texto" id="obj-texto"></div><div class="tels" id="obj-tels"></div></div>
+</div></section>
+
+<section class="bloque suave" id="porque" data-seccion="porque"><div class="env">
+  <div class="porque aparece">${D.fotoPorque ? `<div class="pol"><img src="${esc(D.fotoPorque)}" alt=""><i>${esc(D.notaPorque)}</i></div>` : "<div></div>"}
+  <div><span class="eb">Por qué yo</span><blockquote>${esc(D.frasePorque)}</blockquote></div></div>
+  <div class="tres">${D.porque.map((p, i) => `<div class="carta aparece"><div class="n">0${i + 1}</div><h3>${esc(p.titulo)}</h3><p>${esc(p.texto)}</p></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque" id="hago" data-seccion="hago"><div class="env">
+  ${tit("Lo que hago", "LO QUE", "te puedo entregar")}
+  <div class="indice">${D.hago.map((h, i) => `<div class="item aparece"><span class="n">0${i + 1}</span><h3>${esc(h.titulo)}</h3><p>${esc(h.texto)}</p>${h.video && D.videos[h.video - 1] ? `<div class="muestra">${tel(D.videos[h.video - 1], true)}</div>` : ""}</div>`).join("")}</div>
+</div></section>
+
+<section class="bloque suave" id="marcas" data-seccion="marcas"><div class="env">
+  ${tit("Con quién he trabajado", "MARCAS QUE", "confiaron en mí")}
+  <div class="tres">${(D.marcas || []).map(m => `<div class="carta"><h3>${esc(m.nombre)}</h3><p>${esc(m.texto)}</p></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque" id="resultados" data-seccion="resultados"><div class="env">
+  ${tit("Resultados", "LO QUE", "logramos")}
+  <div class="tres">${(D.resultados || []).map(m => `<div class="carta"><div class="n">${esc(m.cifra)}</div><p>${esc(m.texto)}</p></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque suave" id="paquetes" data-seccion="paquetes"><div class="env">
+  ${tit("Paquetes", "ELIGE", "tu paquete")}
+  <div class="tres">${(D.paquetes || []).map(m => `<div class="carta"><h3>${esc(m.nombre)}</h3><p><b>${esc(m.precio)}</b></p><p>${esc(m.incluye)}</p></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque" id="trabajemos" data-seccion="trabajemos"><div class="env">
+  ${tit("Cómo trabajamos", "SIMPLE,", "de principio a fin")}
+  <div class="pasos">${D.pasos.map(p => `<div class="aparece"><b>${esc(p.titulo)}</b><span>${esc(p.texto)}</span></div>`).join("")}</div>
+</div></section>
+
+<section class="bloque cierre" id="contacto" data-seccion="contacto"><div class="env">
+  <span class="eb">Trabajemos juntas</span>
+  <h2>¿HACEMOS ALGO<em>bonito?</em></h2>
+  <p>Cuéntame de tu marca y te respondo con una idea de video para tu producto.</p>
+  <a class="btn b" href="mailto:${esc(D.correo)}">${esc(D.correo)}</a>
+  <div class="redes">${(D.redes || []).map(x => `${esc(x.red)} <b>${esc(x.usuario)}</b>`).join(" · ")}</div>
+</div></section>
+
+<footer>© ${new Date().getFullYear()} ${esc(D.nombreCompleto)}</footer>`;
+
+// Secciones: las de marcas/resultados/paquetes solo existen si tienen datos reales
+const NOMBRES = {videos:"Mis videos", objetivo:"Según tu objetivo", porque:"Por qué yo", hago:"Lo que hago", marcas:"Marcas", resultados:"Resultados", paquetes:"Paquetes", trabajemos:"Cómo trabajamos", contacto:"Contacto"};
+let estado = Object.assign({marcas: !!(D.marcas || []).length, resultados: !!(D.resultados || []).length, paquetes: !!(D.paquetes || []).length}, D.secciones);
+try { Object.assign(estado, JSON.parse(localStorage.getItem("secciones") || "{}")); } catch (_) {}
+["marcas", "resultados", "paquetes"].forEach(k => { if (!(D[k] || []).length) estado[k] = false; });
+function aplicar(){ document.querySelectorAll("[data-seccion]").forEach(s => s.classList.toggle("apagada", !estado[s.dataset.seccion])); }
+aplicar();
+if (location.hash === "#editar") {
+  const panel = document.getElementById("panel"), lista = document.getElementById("panel-lista");
+  panel.hidden = false;
+  Object.keys(NOMBRES).forEach(k => {
+    const vacia = ["marcas", "resultados", "paquetes"].includes(k) && !(D[k] || []).length;
+    const l = document.createElement("label");
+    l.innerHTML = `<span>${NOMBRES[k]}${vacia ? " <small>(sin datos)</small>" : ""}</span><input type="checkbox" ${estado[k] ? "checked" : ""} ${vacia ? "disabled" : ""}>`;
+    l.querySelector("input").addEventListener("change", e => { estado[k] = e.target.checked; aplicar(); try { localStorage.setItem("secciones", JSON.stringify(estado)); } catch (_) {} });
+    lista.appendChild(l);
+  });
+}
+
+function mostrar(k){
+  const o = D.objetivos[k];
+  document.getElementById("obj-texto").innerHTML = `<h3>${esc(o.titulo)}</h3><p>${esc(o.texto)}</p><ul>${o.puntos.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  document.getElementById("obj-tels").innerHTML = o.videos.map(n => D.videos[n - 1]).filter(Boolean).map(v => tel(v, true)).join("");
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.obj === k));
+}
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.obj)));
+mostrar(Object.keys(D.objetivos)[0]);
+
+const ver = new IntersectionObserver(es => es.forEach(e => { const v = e.target; e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }), {threshold: .4});
+document.querySelectorAll(".fila video").forEach(v => ver.observe(v));
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }), {threshold: .15});
+document.querySelectorAll(".aparece").forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + "ms"; obs.observe(el); });
+</script>
+</body>
+</html>

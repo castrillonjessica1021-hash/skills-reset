@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Tu carrusel</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;600;800;900&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;700&family=Archivo+Black&family=Montserrat:ital,wght@0,400;0,800;1,400&family=Cormorant+Garamond:ital,wght@1,500&family=Poppins:wght@400;700;900&family=Dancing+Script:wght@600&family=Oswald:wght@500;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+/* ===== el visor ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body.visor{background:#ECE8E2;font-family:'DM Sans',Arial,sans-serif;color:#1b1b1b;padding:24px 16px 80px}
+.cab{max-width:1100px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.cab h1{font-size:22px}
+.cab p{font-size:14px;opacity:.7;max-width:640px}
+.btn{border:0;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;background:#1b1b1b;color:#fff}
+.btn.sec{background:#fff;color:#1b1b1b;border:1px solid #ccc}
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
+.item{background:#fff;border-radius:16px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.marco{width:100%;aspect-ratio:1080/1350;overflow:hidden;border-radius:8px;position:relative}
+.marco .slide{transform-origin:0 0;position:absolute;left:0;top:0}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.tools .num{font-weight:700;font-size:14px;margin-right:auto}
+.tools button,.tools label{font-size:12px;border:1px solid #ddd;background:#fafafa;border-radius:999px;padding:6px 10px;cursor:pointer}
+.tools input{display:none}
+.panel{max-width:1100px;margin:0 auto 20px;background:#fff;border-radius:16px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.panel .g{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.panel .g>b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-right:2px}
+.panel select{font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid #ccc;background:#fafafa;max-width:170px}
+.panel input[type=color]{width:34px;height:30px;border:1px solid #ccc;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
+.panel label{display:flex;flex-direction:column;align-items:center;font-size:11px;opacity:.85}
+.panel .mini{font-size:12px;border:1px solid #ccc;background:#fafafa;border-radius:999px;padding:6px 12px;cursor:pointer}
+body.editando .slide [contenteditable]{outline:2px dashed rgba(0,120,255,.55);outline-offset:4px}
+.cap{max-width:1100px;margin:26px auto 0;background:#fff;border-radius:16px;padding:18px;white-space:pre-wrap;font-size:14px;line-height:1.5}
+.nota{max-width:1100px;margin:10px auto 0;font-size:13px;opacity:.7}
+.ver{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:9;padding:20px}
+.ver img{max-height:80vh;max-width:92vw;border-radius:8px;background:#fff}
+.ver p{color:#fff;font-size:15px;text-align:center}
+
+/* ===== la slide (1080x1350) ===== */
+.slide{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--fondo);color:var(--tinta);font-family:var(--f-cuerpo)}
+.slide [contenteditable]{outline:none}
+.slide [contenteditable]:focus{box-shadow:0 0 0 3px rgba(0,120,255,.35)}
+.ph{position:absolute;background-size:cover;background-position:center;background-color:rgba(0,0,0,.08)}
+.ph.vacia{display:flex;align-items:center;justify-content:center;color:rgba(0,0,0,.35);font-size:34px;font-family:'DM Sans',sans-serif;background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.04) 0 20px,transparent 20px 40px)}
+.vel{position:absolute;inset:0}
+.tx{position:absolute;left:80px;right:80px}
+.eti{font-size:26px;letter-spacing:.24em;font-weight:700;text-transform:uppercase}
+.tit{font-family:var(--f-titulo);line-height:1.02;padding-top:.05em}
+.tit .k{font-family:var(--f-serif);font-style:italic;color:var(--acento);text-transform:none;font-weight:400}
+.apo{font-size:36px;line-height:1.42;margin-top:36px;max-width:860px}
+.mano{font-family:var(--f-mano);font-weight:700}
+.firma{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:22px;letter-spacing:.22em;opacity:.6;text-transform:uppercase}
+.lst{margin-top:40px}
+.lst div{background:var(--tarjeta);color:var(--tinta);border-radius:22px;padding:34px 38px;margin-bottom:24px;font-size:46px;font-weight:700;display:flex;gap:22px;align-items:center}
+.lst div b{font-family:var(--f-mano);color:var(--acento);font-size:60px;line-height:.8}
+.cmp{display:flex;gap:28px;margin-top:44px}
+.cmp>div{flex:1;border-radius:24px;padding:40px 36px;font-size:40px;line-height:1.45;min-height:620px;background:var(--tarjeta);color:var(--tinta)}
+.cmp>div:nth-child(2){background:var(--tinta);color:var(--fondo)}
+.cmp h4{font-size:24px;letter-spacing:.2em;margin-bottom:18px;color:var(--acento)}
+.chat{margin-top:44px;background:var(--tarjeta);border-radius:26px;padding:40px 36px}
+.chat p{border-radius:24px;padding:22px 30px;font-size:40px;margin:22px 0;max-width:80%;background:rgba(0,0,0,.06);color:var(--tinta)}
+.chat p.yo{margin-left:auto;background:var(--tinta);color:var(--fondo)}
+.palabra{display:inline-block;background:var(--acento);color:#fff;padding:6px 40px 18px;margin-top:18px}
+.palabra span{font-family:var(--f-serif);font-style:italic;font-size:150px;line-height:1}
+
+/* posiciones del texto (se cambian con el botón para no tapar la cara) */
+.pos-arriba .tx{top:130px}
+.pos-abajo .tx{bottom:130px}
+.pos-centro .tx{top:50%;transform:translateY(-50%)}
+
+/* ===== 1 · editorial con foto ===== */
+.st-editorial .ph{top:0;right:0;width:46%;height:100%}
+.st-editorial.sinfoto .tx,.st-editorial .tx{right:46%;padding-right:40px}
+.st-editorial.sinfoto .tx{right:80px}
+.st-editorial .tit{font-size:150px;text-transform:uppercase}
+.st-editorial.r-cierre .ph{width:100%;height:46%;top:auto;bottom:0}
+.st-editorial.r-cierre .tx{right:80px;text-align:center;top:110px;bottom:auto;transform:none}
+/* ===== 2 · portada de revista ===== */
+.st-revista{color:#fff}
+.st-revista .ph{inset:0}
+.st-revista .vel{background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.08) 40%,rgba(0,0,0,.65))}
+.st-revista:not(.r-portada) .vel{background:rgba(10,6,6,.6)}
+.st-revista .tit{font-size:150px;text-transform:uppercase}
+.st-revista.r-portada .tit{font-size:210px;text-align:center;line-height:.92}
+.st-revista.r-portada .tx{left:30px;right:30px;text-align:center}
+.st-revista .tit .k{display:inline-block;background:var(--acento);color:#fff;padding:0 22px 10px;transform:rotate(-3deg);font-size:.42em}
+.st-revista .apo{text-transform:uppercase;letter-spacing:.12em;font-size:30px;font-weight:700}
+.st-revista .firma{opacity:.8}
+/* ===== 3 · guía tipo cuaderno ===== */
+.st-cuaderno{background-color:var(--fondo);background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);background-size:54px 54px}
+.st-cuaderno .tit{font-family:var(--f-cuerpo);font-weight:900;letter-spacing:-.04em;font-size:124px;line-height:1}
+.st-cuaderno .eti{font-family:var(--f-mano);text-transform:none;letter-spacing:0;font-size:52px;color:var(--acento)}
+.st-cuaderno .ph{width:440px;height:520px;right:110px;bottom:120px;border:14px solid #fff;border-bottom-width:56px;box-shadow:0 14px 30px rgba(0,0,0,.16);transform:rotate(3deg)}
+/* ===== 4 · foto oscura con una palabra en color ===== */
+.st-oscura{color:#fff;background:#111}
+.st-oscura .ph{inset:0}
+.st-oscura .vel{background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.8) 75%)}
+.st-oscura.pos-arriba .vel{background:linear-gradient(0deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.8) 75%)}
+.st-oscura .tit{font-family:var(--f-cuerpo);font-weight:900;letter-spacing:-.05em;font-size:120px;line-height:.95}
+.st-oscura .tit .k{font-family:var(--f-cuerpo);font-style:normal;font-weight:900;color:var(--resalte)}
+.st-oscura .apo{text-transform:uppercase;font-size:30px;letter-spacing:.06em;font-weight:600}
+/* ===== 5 · collage juguetón ===== */
+.st-collage{background:var(--suave)}
+.st-collage .tit{font-family:var(--f-cuerpo);font-weight:900;letter-spacing:-.04em;font-size:130px;line-height:.95}
+.st-collage .eti{font-family:var(--f-mano);text-transform:none;letter-spacing:0;font-size:52px;color:var(--acento)}
+.st-collage .ph{width:420px;height:500px;right:90px;bottom:140px;border:14px solid #fff;border-bottom-width:56px;box-shadow:0 14px 30px rgba(0,0,0,.18);transform:rotate(5deg)}
+.st-collage .ph::before{content:"";position:absolute;left:150px;top:-50px;width:100px;height:56px;border:9px solid #C9A227;border-bottom:none;border-radius:40px 40px 0 0}
+.st-collage .deco{position:absolute;font-size:70px;color:var(--acento)}
+/* ===== 6 · oferta o curso ===== */
+.st-oferta .banda{position:absolute;left:0;right:0;top:0;height:58%;background:var(--acento)}
+.st-oferta.r-portada .tx{color:#fff}
+.st-oferta .tit{font-size:190px;text-transform:uppercase}
+.st-oferta.r-portada .tit .k{color:#fff}
+.st-oferta .ph{width:52%;height:84%;right:-20px;top:100px;background-size:contain;background-repeat:no-repeat;background-position:bottom center;background-color:transparent}
+.st-oferta:not(.r-portada) .banda{display:none}
+.st-oferta:not(.r-portada) .tit{font-size:120px}
+.st-oferta .precio{margin-top:30px;background:var(--tinta);color:var(--fondo);border-radius:24px;padding:30px 40px;display:flex;justify-content:space-between;align-items:center}
+.st-oferta .precio b{font-family:var(--f-titulo);font-size:120px;color:var(--resalte);font-weight:400}
+/* ===== 7 · mi día tipo agenda ===== */
+.st-agenda{color:#fff}
+.st-agenda .ph{inset:0}
+.st-agenda .vel{background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.2) 55%,rgba(0,0,0,.1))}
+.st-agenda .eti{display:inline-block;border:3px solid var(--resalte);border-radius:999px;padding:4px 36px;font-family:var(--f-mano);text-transform:none;letter-spacing:0;font-size:58px;color:var(--resalte)}
+.st-agenda .tx{text-align:center}
+.st-agenda .tit{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:92px;text-shadow:0 3px 18px rgba(0,0,0,.7)}
+.st-agenda .tit .k{color:var(--resalte)}
+.st-agenda .lst{background:#fff;border-radius:22px;padding:26px 30px;text-align:left}
+.st-agenda .lst div{background:var(--fondo);font-size:30px;border-left:8px solid var(--acento);border-radius:12px;margin-bottom:12px;padding:16px 22px}
+.st-agenda .lst div b{display:none}
+/* ===== 8 · aesthetic de la vida real ===== */
+.st-aesthetic{color:#fff}
+.st-aesthetic .ph{inset:0}
+.st-aesthetic .vel{background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.6) 88%)}
+.st-aesthetic.pos-arriba .vel{background:linear-gradient(0deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.6) 88%)}
+.st-aesthetic .tit{font-family:var(--f-cuerpo);font-weight:900;letter-spacing:-.05em;font-size:140px;line-height:.9;color:var(--resalte)}
+.st-aesthetic .tit .k{font-family:var(--f-mano);font-style:normal;color:#fff;font-size:.6em;display:block}
+.st-aesthetic .etqs span{display:inline-block;background:rgba(255,255,255,.92);color:#1b1b1b;border-radius:999px;padding:8px 22px;font-size:28px;font-weight:700;margin:0 10px 12px 0}
+
+/* ===== otras formas: cambian cómo se organiza la slide, en cualquier estilo ===== */
+/* portada */
+.slide.r-portada.var-1 .ph{inset:0;width:100%;height:100%;transform:none;border:0;right:0;top:0}
+.slide.r-portada.var-1 .vel{background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,0) 58%)}
+.slide.r-portada.var-1 .tx{left:80px!important;right:80px!important;top:auto!important;bottom:130px!important;transform:none!important;color:#fff;text-align:left;padding:0!important}
+.slide.r-portada.var-2 .ph{display:none}
+.slide.r-portada.var-2 .tx{left:80px!important;right:80px!important;top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;text-align:center;padding:0!important}
+.slide.r-portada.var-2 .tit{font-size:170px}
+.slide.r-portada.var-3 .ph{inset:auto;left:270px;top:110px;width:540px;height:540px;border-radius:50%;transform:none;border:10px solid var(--tarjeta)}
+.slide.r-portada.var-3 .tx{left:80px!important;right:80px!important;top:auto!important;bottom:120px!important;transform:none!important;text-align:center;padding:0!important}
+.slide.r-portada.var-3 .tit{font-size:110px}
+/* texto */
+.slide.r-texto.var-1 .ph,.slide.r-texto.var-2 .ph{display:none}
+.slide.r-texto.var-1 .tx,.slide.r-texto.var-2 .tx{left:90px!important;right:90px!important;top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;text-align:center;padding:0!important}
+.slide.r-texto.var-1 .tit{font-size:180px;line-height:.95}
+.slide.r-texto.var-2 .tit{font-family:var(--f-serif);font-style:italic;text-transform:none;font-size:96px;line-height:1.1;font-weight:400}
+.slide.r-texto.var-2 .tit::before{content:"\201C";display:block;font-size:220px;line-height:.6;color:var(--acento)}
+.slide.r-texto.var-3 .ph{inset:auto;right:70px;bottom:110px;left:auto;top:auto;width:430px;height:520px;border:14px solid #fff;border-bottom-width:56px;transform:rotate(3deg);box-shadow:0 14px 30px rgba(0,0,0,.18)}
+.slide.r-texto.var-3 .tx{left:80px!important;right:80px!important;top:120px!important;bottom:auto!important;transform:none!important;padding:0!important}
+.slide.r-texto.var-3 .apo{font-family:var(--f-mano);font-size:56px;color:var(--acento);max-width:480px}
+/* lista */
+.slide.r-lista.var-1 .lst div{background:none;border-bottom:3px solid rgba(0,0,0,.12);border-radius:0;padding:26px 0;margin:0}
+.slide.r-lista.var-1 .lst div b{font-size:0;width:64px;height:64px;flex:none;border-radius:50%;background:var(--acento);position:relative}
+.slide.r-lista.var-1 .lst div b::after{content:"✓";font-size:40px;color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-cuerpo)}
+.slide.r-lista.var-2 .lst div{background:none;padding:6px 0;margin-bottom:18px;font-size:52px}
+.slide.r-lista.var-2 .lst div b{font-family:var(--f-titulo);font-size:150px;line-height:.9;min-width:120px}
+.slide.r-lista.var-3 .lst{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.slide.r-lista.var-3 .lst div{flex-direction:column;align-items:flex-start;min-height:330px;margin:0;font-size:42px}
+/* comparación */
+.slide.r-comparacion.var-1 .cmp{flex-direction:column;gap:22px}
+.slide.r-comparacion.var-1 .cmp>div{min-height:0}
+.slide.r-comparacion.var-2 .cmp>div{background:none!important;color:var(--tinta)!important;border-radius:0;padding:26px 0 0;border-top:10px solid rgba(0,0,0,.25)}
+.slide.r-comparacion.var-2 .cmp>div:nth-child(2){border-top-color:var(--acento)}
+.slide.r-comparacion.var-2 .cmp>div:first-child h4::before{content:"✗  ";color:#9a9a9a}
+.slide.r-comparacion.var-2 .cmp>div:nth-child(2) h4::before{content:"✓  "}
+.slide.r-comparacion.var-3 .cmp{gap:90px;position:relative}
+.slide.r-comparacion.var-3 .cmp::after{content:"→";position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:var(--acento);color:#fff;font-size:70px;display:flex;align-items:center;justify-content:center;font-family:var(--f-cuerpo)}
+/* chat */
+.slide.r-chat.var-1 .chat{width:640px;margin:36px auto 0;border:18px solid #141414;border-radius:72px;padding:70px 28px;min-height:880px}
+/* oferta */
+.slide.r-oferta.var-1 .precio{flex-direction:column;align-items:flex-start;background:none;color:var(--tinta);padding:0}
+.slide.r-oferta.var-1 .precio b{font-size:250px;color:var(--acento)}
+/* cierre */
+.slide.r-cierre.var-1 .ph{display:none}
+.slide.r-cierre.var-1 .tx{left:80px!important;right:80px!important;top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;text-align:center;padding:0!important}
+.slide.r-cierre.var-1 .palabra{background:none;padding:0}
+.slide.r-cierre.var-1 .palabra span{font-size:230px;color:var(--acento)}
+.slide.r-cierre.var-2 .ph{inset:0;width:100%;height:100%;transform:none;border:0;top:0;bottom:0}
+.slide.r-cierre.var-2 .vel{background:linear-gradient(0deg,rgba(0,0,0,.75),rgba(0,0,0,0) 60%)}
+.slide.r-cierre.var-2 .tx{left:80px!important;right:80px!important;top:auto!important;bottom:130px!important;transform:none!important;text-align:center;color:#fff;padding:0!important}
+/* ===== cada estilo con su propio diseño (la forma "la del estilo" = var-0) ===== */
+.mast,.n2,.vs,.antes{display:none}
+.antes{font-size:60px;opacity:.55;margin-right:24px}
+/* REVISTA: cabecera de revista, índice, entrevista, sticker de precio */
+.st-revista .mast{display:flex;position:absolute;left:60px;right:60px;top:42px;justify-content:space-between;font-family:var(--f-cuerpo);font-weight:700;font-size:21px;letter-spacing:.3em;text-transform:uppercase;border-bottom:2px solid currentColor;padding-bottom:12px;z-index:3}
+.st-revista.sinfoto,.st-revista.r-lista,.st-revista.r-oferta{color:var(--tinta)}
+.st-revista.r-lista .ph,.st-revista.r-lista .vel,.st-revista.r-oferta .ph,.st-revista.r-oferta .vel,.st-revista.sinfoto .vel{display:none}
+.st-revista.var-0.r-lista .tx,.st-revista.var-0.r-comparacion .tx,.st-revista.var-0.r-chat .tx,.st-revista.var-0.r-oferta .tx{top:150px;transform:none;bottom:auto}
+.st-revista.var-0.r-lista .tit,.st-revista.var-0.r-comparacion .tit,.st-revista.var-0.r-chat .tit,.st-revista.var-0.r-oferta .tit{font-size:118px}
+.st-revista.var-0 .lst div{background:none;border-radius:0;border-top:2px solid var(--tinta);padding:22px 0;margin:0;font-family:var(--f-cuerpo);font-weight:800;text-transform:uppercase;font-size:40px;letter-spacing:.02em;color:var(--tinta)}
+.st-revista.var-0 .lst div:last-child{border-bottom:2px solid var(--tinta)}
+.st-revista.var-0 .lst b{display:none}
+.st-revista.var-0 .lst .n2{display:block;font-family:var(--f-serif);font-style:italic;font-size:92px;color:var(--acento);min-width:150px;line-height:1}
+.st-revista.var-0 .cmp{position:relative;gap:150px}
+.st-revista.var-0 .cmp>div{background:none!important;color:var(--tinta)!important;border-radius:0;padding:0;min-height:0}
+.st-revista.var-0 .cmp h4{display:inline-block;background:var(--acento);color:#fff;padding:8px 18px;transform:rotate(-2deg);font-size:26px}
+.st-revista.var-0 .vs{display:flex;position:absolute;left:50%;top:120px;width:110px;height:110px;margin-left:-55px;align-items:center;justify-content:center;font-family:var(--f-serif);font-style:italic;font-size:76px;color:var(--acento);border:2px solid var(--acento);border-radius:50%;background:var(--fondo)}
+.st-revista.var-0 .chat{background:none;padding:0}
+.st-revista.var-0 .chat p{background:none;max-width:none;padding:0;margin:30px 0;font-size:40px;color:var(--tinta);border-radius:0}
+.st-revista.var-0 .chat p.yo{font-weight:800;margin-left:0}
+.st-revista.var-0 .chat p.yo::before{content:"P. ";color:var(--acento)}
+.st-revista.var-0 .chat p:not(.yo){font-family:var(--f-serif);font-style:italic;font-size:50px;line-height:1.2}
+.st-revista.var-0 .chat p:not(.yo)::before{content:"R. ";color:var(--acento);font-family:var(--f-cuerpo);font-style:normal;font-weight:800;font-size:40px}
+.st-revista.var-0 .precio{width:420px;height:420px;border-radius:50%;flex-direction:column;justify-content:center;transform:rotate(-8deg);margin:50px auto 0;background:var(--acento);color:#fff;text-align:center}
+.st-revista.var-0 .precio b{color:#fff;font-size:130px}
+.st-revista.var-0.r-cierre .palabra{background:none;padding:0 0 6px;border-bottom:10px solid var(--resalte)}
+.st-revista.var-0.r-cierre .palabra span{font-family:var(--f-titulo);font-style:normal;font-size:190px;color:inherit;text-transform:uppercase}
+/* CUADERNO: hoja rayada con espiral, letra a mano, post-its, celular pegado con cinta */
+.st-cuaderno{background-color:#FBF8F1;background-image:linear-gradient(90deg,transparent 128px,rgba(176,11,0,.45) 128px,rgba(176,11,0,.45) 131px,transparent 131px),repeating-linear-gradient(transparent 0 66px,rgba(70,110,170,.2) 66px 68px);background-size:auto}
+.st-cuaderno::before{content:"";position:absolute;left:36px;top:0;bottom:0;width:44px;background:radial-gradient(circle at 22px 50%,#d9d1c4 12px,transparent 13px) 0 20px/44px 92px repeat-y;z-index:2}
+.st-cuaderno .tx{left:170px!important}
+.st-cuaderno .tit{font-family:var(--f-mano);font-weight:700;letter-spacing:0;font-size:124px;line-height:1}
+.st-cuaderno .tit .k{font-family:var(--f-mano);font-style:normal;color:var(--tinta);background:linear-gradient(transparent 58%,rgba(244,199,15,.8) 58%)}
+.st-cuaderno .apo{font-family:var(--f-mano);font-size:50px;line-height:1.25}
+.st-cuaderno.var-0 .lst div{background:none;border-radius:0;padding:12px 0;margin:0;font-family:var(--f-mano);font-weight:700;font-size:62px;color:var(--tinta)}
+.st-cuaderno.var-0 .lst b{font-size:0;width:50px;height:50px;border:4px solid var(--tinta);border-radius:6px;position:relative;flex:none}
+.st-cuaderno.var-0 .lst b::after{content:"✓";position:absolute;left:6px;top:-34px;font-size:78px;color:var(--acento);font-family:var(--f-mano)}
+.st-cuaderno.var-0 .cmp{gap:40px;margin-top:60px}
+.st-cuaderno.var-0 .cmp>div{border-radius:3px;min-height:560px;font-family:var(--f-mano);font-size:48px;line-height:1.25;box-shadow:0 14px 26px rgba(0,0,0,.16);color:var(--tinta)!important;background:#FFF2A0!important;transform:rotate(-3deg);position:relative}
+.st-cuaderno.var-0 .cmp>div:nth-child(2){background:#FFD3DC!important;transform:rotate(2.5deg)}
+.st-cuaderno.var-0 .cmp>div::before{content:"";position:absolute;left:50%;top:-24px;width:150px;height:44px;margin-left:-75px;background:rgba(200,190,170,.7);transform:rotate(-3deg)}
+.st-cuaderno.var-0 .cmp h4{font-family:var(--f-mano);font-size:58px;letter-spacing:0;color:var(--acento)}
+.st-cuaderno.var-0 .chat{border:16px solid #222;border-radius:62px;width:600px;margin:40px auto 0;transform:rotate(-2deg);position:relative;background:#fff;padding:60px 26px}
+.st-cuaderno.var-0 .chat::before{content:"";position:absolute;left:50%;top:-40px;width:200px;height:56px;margin-left:-100px;background:rgba(244,199,15,.6);transform:rotate(3deg)}
+.st-cuaderno.var-0 .precio{background:#fff;border:3px dashed var(--tinta);color:var(--tinta);transform:rotate(-1.5deg);border-radius:6px}
+.st-cuaderno.var-0 .precio b{color:var(--acento);font-family:var(--f-mano);font-size:130px;border:6px solid var(--acento);border-radius:50%;padding:0 34px}
+.st-cuaderno.var-0.r-cierre .palabra{background:none;padding:0}
+.st-cuaderno.var-0.r-cierre .palabra span{font-family:var(--f-mano);font-style:normal;color:var(--acento);font-size:160px;border:7px solid var(--acento);border-radius:50%;padding:0 54px;display:inline-block;transform:rotate(-3deg)}
+/* FOTO OSCURA: todo sobre negro o tu foto, líneas finas, el resalte como único color */
+.st-oscura.sinfoto{background:radial-gradient(circle at 70% 18%,#2b2623,#0c0b0a 70%)}
+.st-oscura.var-0 .lst div{background:none;color:#fff;border-bottom:1px solid rgba(255,255,255,.28);border-radius:0;padding:22px 0;margin:0;font-size:46px;font-weight:600}
+.st-oscura.var-0 .lst b{font-family:var(--f-cuerpo);font-weight:900;color:var(--resalte);font-size:46px}
+.st-oscura.var-0 .cmp>div{background:none!important;border-radius:0;padding:10px 0 10px 30px;min-height:0}
+.st-oscura.var-0 .cmp>div:first-child{color:rgba(255,255,255,.45)!important;text-decoration:line-through;border-left:4px solid rgba(255,255,255,.25)}
+.st-oscura.var-0 .cmp>div:nth-child(2){color:#fff!important;border-left:6px solid var(--resalte)}
+.st-oscura.var-0 .cmp h4{color:var(--resalte)}
+.st-oscura.var-0 .chat{background:none;padding:0}
+.st-oscura.var-0 .chat p{background:rgba(255,255,255,.13);color:#fff}
+.st-oscura.var-0 .chat p.yo{background:var(--resalte);color:#111}
+.st-oscura.var-0 .precio{background:none;color:#fff;border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);border-radius:0}
+.st-oscura.var-0 .precio b{color:var(--resalte);font-size:160px}
+.st-oscura.var-0.r-cierre .palabra{background:none;padding:0}
+.st-oscura.var-0.r-cierre .palabra span{font-family:var(--f-cuerpo);font-style:normal;font-weight:900;color:var(--resalte);font-size:190px;letter-spacing:-.04em}
+/* OFERTA: tarjetas con sombra dura, tabla de precios con recomendado, botón */
+.st-oferta.var-0 .lst div{background:var(--tarjeta);border:3px solid var(--tinta);border-radius:20px;box-shadow:8px 8px 0 var(--tinta);font-size:42px;margin-bottom:28px}
+.st-oferta.var-0 .lst b{background:var(--acento);color:#fff;border-radius:14px;width:76px;height:76px;flex:none;font-family:var(--f-cuerpo);font-size:40px;display:flex;align-items:center;justify-content:center}
+.st-oferta.var-0 .cmp{align-items:center}
+.st-oferta.var-0 .cmp>div:first-child{background:var(--tarjeta)!important;color:var(--tinta)!important;border:3px solid rgba(0,0,0,.15);min-height:520px}
+.st-oferta.var-0 .cmp>div:nth-child(2){background:var(--acento)!important;color:#fff!important;min-height:600px;box-shadow:0 20px 40px rgba(0,0,0,.25);position:relative}
+.st-oferta.var-0 .cmp>div:nth-child(2)::before{content:"RECOMENDADO";position:absolute;top:-26px;left:50%;transform:translateX(-50%);background:var(--resalte);color:var(--tinta);font-weight:900;font-size:24px;letter-spacing:.12em;padding:10px 22px;border-radius:999px;white-space:nowrap}
+.st-oferta.var-0 .cmp>div:nth-child(2) h4{color:#fff}
+.st-oferta.var-0 .chat{background:var(--tarjeta);border:3px solid var(--tinta);box-shadow:10px 10px 0 var(--tinta)}
+.st-oferta.var-0 .antes{display:inline;text-decoration:line-through}
+.st-oferta.var-0.r-cierre .palabra{background:var(--acento);border-radius:999px;padding:18px 70px 28px;box-shadow:0 14px 0 rgba(0,0,0,.22)}
+.st-oferta.var-0.r-cierre .palabra span{font-family:var(--f-cuerpo);font-style:normal;font-weight:900;font-size:104px;color:#fff}
+.st-oferta.var-0.r-cierre .palabra span::after{content:"  →"}
+
+.st-oferta.r-portada .tx{right:46%!important}
+.st-oferta.r-portada .tit{font-size:150px}
+/* EDITORIAL: limpio, columnas, números finos, citas */
+.st-editorial.var-0 .lst div{background:none;border-radius:0;border-top:1px solid rgba(0,0,0,.25);padding:20px 0;margin:0;font-size:38px;font-weight:600}
+.st-editorial.var-0 .lst div:last-child{border-bottom:1px solid rgba(0,0,0,.25)}
+.st-editorial.var-0 .lst b{font-family:var(--f-cuerpo);font-weight:300;font-size:64px;color:rgba(0,0,0,.35);min-width:80px}
+.st-editorial.var-0 .cmp{gap:60px}
+.st-editorial.var-0 .cmp>div{background:none!important;color:var(--tinta)!important;border-radius:0;border-top:2px solid var(--tinta);padding:24px 0 0;min-height:0;font-size:38px}
+.st-editorial.var-0 .cmp>div:nth-child(2){border-top-color:var(--acento)}
+.st-editorial.var-0 .chat{background:none;padding:0}
+.st-editorial.var-0 .chat p{background:none;max-width:none;border-radius:0;border-left:4px solid rgba(0,0,0,.2);padding:6px 0 6px 28px;font-size:40px}
+.st-editorial.var-0 .chat p.yo{background:none;color:var(--tinta);border-left-color:var(--acento);margin-left:0;font-family:var(--f-serif);font-style:italic;font-size:54px;line-height:1.15}
+.st-editorial.var-0 .precio{background:none;color:var(--tinta);border-top:1px solid var(--tinta);border-bottom:1px solid var(--tinta);border-radius:0;padding:24px 0}
+.st-editorial.var-0 .precio b{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:140px;color:var(--acento)}
+.st-editorial.var-0.r-cierre .palabra{background:none;padding:0;border-bottom:3px solid var(--acento)}
+.st-editorial.var-0.r-cierre .palabra span{color:var(--acento)}
+/* COLLAGE: álbum de recortes, post-its de colores, globos de diálogo, etiqueta de precio */
+.st-collage.var-0 .lst{display:grid;grid-template-columns:1fr 1fr;gap:34px 30px;margin-top:50px}
+.st-collage.var-0 .lst div{flex-direction:column;align-items:flex-start;min-height:300px;margin:0;border-radius:4px;padding:34px 30px;font-size:44px;box-shadow:0 12px 22px rgba(0,0,0,.14);position:relative}
+.st-collage.var-0 .lst div:nth-child(1){background:#FFF2A0;transform:rotate(-3deg)}
+.st-collage.var-0 .lst div:nth-child(2){background:#CDEBD9;transform:rotate(2.5deg)}
+.st-collage.var-0 .lst div:nth-child(3){background:#FFD3DC;transform:rotate(1.5deg)}
+.st-collage.var-0 .lst div:nth-child(4){background:#D7E4FA;transform:rotate(-2deg)}
+.st-collage.var-0 .lst div::before{content:"";position:absolute;left:50%;top:-22px;width:120px;height:40px;margin-left:-60px;background:rgba(255,255,255,.65)}
+.st-collage.var-0 .cmp{gap:40px;margin-top:60px}
+.st-collage.var-0 .cmp>div{background:#fff!important;color:var(--tinta)!important;border-radius:6px;box-shadow:0 14px 26px rgba(0,0,0,.16);transform:rotate(-2.5deg);position:relative;padding-top:80px}
+.st-collage.var-0 .cmp>div:nth-child(2){transform:rotate(2deg)}
+.st-collage.var-0 .cmp h4{position:absolute;top:-34px;left:24px;width:130px;height:130px;border-radius:50%;background:var(--acento);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;transform:rotate(-12deg)}
+.st-collage.var-0 .cmp>div:nth-child(2) h4{background:var(--resalte);color:var(--tinta)}
+.st-collage.var-0 .chat{background:none;padding:0}
+.st-collage.var-0 .chat p{background:#fff;border:4px solid var(--tinta);border-radius:40px;font-size:42px;position:relative;transform:rotate(-1.5deg);max-width:86%}
+.st-collage.var-0 .chat p.yo{background:var(--resalte);color:var(--tinta);transform:rotate(1.5deg)}
+.st-collage.var-0 .precio{background:#fff;color:var(--tinta);border:4px solid var(--tinta);border-radius:16px 70px 70px 16px;transform:rotate(-4deg);position:relative;padding-left:90px}
+.st-collage.var-0 .precio::before{content:"";position:absolute;left:30px;top:50%;width:30px;height:30px;margin-top:-15px;border-radius:50%;border:4px solid var(--tinta)}
+.st-collage.var-0 .precio b{color:var(--acento)}
+.st-collage.var-0.r-cierre .palabra{background:#fff;padding:14px 46px 22px;transform:rotate(-3deg);box-shadow:0 12px 24px rgba(0,0,0,.15);position:relative}
+.st-collage.var-0.r-cierre .palabra::before{content:"";position:absolute;left:50%;top:-20px;width:140px;height:40px;margin-left:-70px;background:rgba(244,199,15,.65);transform:rotate(4deg)}
+.st-collage.var-0.r-cierre .palabra span{color:var(--acento)}
+/* MI DÍA: planificador, tarjetas tipo app y notificaciones sobre tu foto */
+.st-agenda.sinfoto{background:linear-gradient(160deg,#5d5048,#2d2622);color:#fff}
+.st-agenda.var-0 .lst{background:#fff;border-radius:28px;padding:0 0 18px;overflow:hidden;text-align:left;box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.st-agenda.var-0 .lst::before{content:"HOY";display:block;background:var(--acento);color:#fff;font-weight:900;letter-spacing:.3em;font-size:26px;padding:20px 30px;margin-bottom:10px}
+.st-agenda.var-0 .lst div{background:none;border-left:0;border-radius:0;margin:0 30px;padding:16px 0;border-bottom:1px solid rgba(0,0,0,.1);font-size:36px;color:var(--tinta)}
+.st-agenda.var-0 .lst b{display:block!important;font-size:0;width:34px;height:34px;border-radius:50%;border:4px solid var(--acento);flex:none}
+.st-agenda.var-0 .cmp{flex-direction:column;gap:18px}
+.st-agenda.var-0 .cmp>div{background:rgba(255,255,255,.92)!important;color:var(--tinta)!important;border-radius:30px;min-height:0;padding:26px 30px;font-size:34px;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.st-agenda.var-0 .cmp h4{font-size:22px;color:var(--gris,#777)}
+.st-agenda.var-0 .chat{background:rgba(255,255,255,.9);border-radius:36px}
+.st-agenda.var-0 .precio{background:#fff;color:var(--tinta);border-radius:28px;overflow:hidden;flex-direction:column;align-items:stretch;padding:0}
+.st-agenda.var-0 .precio>div{background:var(--acento);color:#fff;padding:16px 30px}
+.st-agenda.var-0 .precio b{padding:20px 30px;color:var(--tinta)}
+.st-agenda.var-0.r-cierre .palabra{background:rgba(255,255,255,.95);border-radius:30px;padding:24px 34px;text-align:left;box-shadow:0 18px 36px rgba(0,0,0,.3)}
+.st-agenda.var-0.r-cierre .palabra::before{content:"NUEVO MENSAJE";display:block;font-family:var(--f-cuerpo);font-size:22px;font-weight:800;letter-spacing:.2em;color:var(--acento);margin-bottom:6px}
+.st-agenda.var-0.r-cierre .palabra span{font-family:var(--f-cuerpo);font-style:normal;font-weight:900;font-size:96px;color:var(--tinta)}
+/* AESTHETIC: etiquetas sobre tu foto, tarjetas suaves, letra a mano */
+.st-aesthetic.sinfoto{background:linear-gradient(170deg,var(--suave),var(--fondo));color:var(--tinta)}
+.st-aesthetic.var-0 .lst div{display:inline-flex;background:rgba(255,255,255,.92);color:#1b1b1b;border-radius:999px;padding:14px 30px;margin:0 0 20px;font-size:36px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.st-aesthetic.var-0 .lst div:nth-child(even){margin-left:150px}
+.st-aesthetic.var-0 .lst b{font-family:var(--f-mano);color:var(--acento);font-size:44px}
+.st-aesthetic.var-0 .lst{display:flex;flex-direction:column;align-items:flex-start}
+.st-aesthetic.var-0 .cmp>div{background:rgba(255,255,255,.75)!important;color:var(--tinta)!important;border-radius:44px;min-height:0;padding:40px 34px;font-size:36px}
+.st-aesthetic.var-0 .cmp h4{font-family:var(--f-mano);font-size:58px;letter-spacing:0;color:var(--acento)}
+.st-aesthetic.var-0 .chat{background:rgba(255,255,255,.6);border-radius:44px}
+.st-aesthetic.var-0 .chat p{border-radius:34px}
+.st-aesthetic.var-0 .chat p.yo{background:var(--acento);color:#fff}
+.st-aesthetic.var-0 .precio{background:rgba(255,255,255,.85);color:var(--tinta);border-radius:44px}
+.st-aesthetic.var-0 .precio b{font-family:var(--f-mano);color:var(--acento);font-size:130px}
+.st-aesthetic.var-0.r-cierre .palabra{background:none;padding:0}
+.st-aesthetic.var-0.r-cierre .palabra span{font-family:var(--f-cuerpo);font-style:normal;font-weight:900;color:var(--resalte);font-size:170px;letter-spacing:-.04em}
+
+.st-agenda .vel{background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.08) 38%,rgba(0,0,0,.72))!important}
+.st-agenda.var-0 .precio b{display:block;font-family:var(--f-titulo);font-size:110px;color:var(--tinta)!important;padding:18px 30px 24px}
+/*ELEM*/
+.el{position:absolute;z-index:30;cursor:grab;line-height:1.15;user-select:none;touch-action:none;white-space:nowrap}
+.el svg{display:block;overflow:visible}
+.el .em{font-size:130px;line-height:1;font-family:'Noto Color Emoji','Segoe UI Emoji','Apple Color Emoji',sans-serif}
+.el.som .em,.el.som .man,.el.som .ttl{text-shadow:0 10px 24px rgba(0,0,0,.35)}
+.el [data-tx]{outline:none;white-space:pre-wrap}
+.el.sel{outline:4px dashed rgba(0,120,255,.85);outline-offset:12px}
+.el .bub{position:relative;font-family:var(--f-cuerpo,'Inter Tight'),sans-serif;font-size:40px;font-weight:600;padding:28px 40px;border-radius:44px;max-width:620px;white-space:normal;text-align:center}
+.el .cola{position:absolute;left:70px;bottom:-16px;width:46px;height:46px;transform:rotate(45deg);border-radius:6px}
+.el .pen{border-radius:999px;padding:34px 54px}
+.el .bol{position:absolute;border-radius:50%}.el .b1{width:40px;height:40px;left:60px;bottom:-34px}.el .b2{width:22px;height:22px;left:30px;bottom:-62px}
+.el .xchat{border-radius:40px;font-weight:500;text-align:left}.el .xchat.xyo{border-bottom-right-radius:10px}
+.el .xchat.xotro{background:#E9E9EB;color:#111;border-bottom-left-radius:10px}
+.el .pil{font-family:var(--f-cuerpo,'Inter Tight'),sans-serif;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:16px 38px;font-size:42px}
+.el .pit{width:320px;min-height:300px;padding:40px 34px;font-family:var(--f-mano,'Caveat'),cursive;font-size:56px;color:#2a2a2a;white-space:normal;display:flex;align-items:center;justify-content:center;text-align:center}
+.el .man{font-family:var(--f-mano,'Caveat'),cursive;font-size:70px;font-weight:700}
+.el .ttl{font-family:var(--f-titulo,'Anton'),sans-serif;font-size:110px;text-transform:uppercase;line-height:.95}
+.el .cja{font-family:var(--f-cuerpo,'Inter Tight'),sans-serif;font-size:40px;font-weight:600;padding:30px 40px;border-radius:18px;max-width:640px;white-space:normal}
+.el.som .bub,.el.som .pil,.el.som .pit,.el.som .cja,.el.som .mk{box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.el .pan{background:#d9d6d0 center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:60px;font-family:'Noto Color Emoji','Segoe UI Emoji',sans-serif}
+.el .cel{width:340px;height:700px;background:#111;border-radius:56px;padding:14px;position:relative}
+.el .cel .pan{width:100%;height:100%;border-radius:44px}.el .cel .isla{position:absolute;left:50%;top:28px;width:110px;height:30px;margin-left:-55px;background:#111;border-radius:20px;z-index:2}
+.el .lap{width:640px;height:410px;background:#1b1b1b;border-radius:22px 22px 0 0;padding:16px}.el .lap .pan{width:100%;height:100%;border-radius:6px}
+.el .base{width:780px;height:30px;margin-left:-70px;background:linear-gradient(#d7d7d7,#a9a9a9);border-radius:0 0 26px 26px}
+.el .pol{background:#fff;padding:22px 22px 0;width:420px}.el .pol .pan{width:376px;height:376px}
+.el .pol [data-tx]{display:block;font-family:var(--f-mano,'Caveat'),cursive;font-size:46px;color:#2a2a2a;text-align:center;padding:18px 0 26px}
+.el .pst{background:#fff;width:520px;border-radius:14px;overflow:hidden;color:#111;font-family:'Inter Tight',sans-serif}
+.el .pst .xcab{display:flex;gap:14px;align-items:center;padding:18px 20px;font-size:26px}.el .pst .xcab i{width:46px;height:46px;border-radius:50%;background:linear-gradient(45deg,#f9a825,#e91e63,#8e24aa)}
+.el .pst .pan{width:520px;height:560px}.el .pst .ico{font-size:34px;padding:16px 22px;display:flex;align-items:center}.el .pst .ico span{margin-left:auto}
+.el .ven{background:#fff;width:640px;border-radius:18px;overflow:hidden}.el .ven .bar{height:46px;background:#ECECEC;display:flex;gap:10px;align-items:center;padding:0 18px}
+.el .ven .bar i{width:15px;height:15px;border-radius:50%;background:#FF5F57}.el .ven .bar i:nth-child(2){background:#FEBC2E}.el .ven .bar i:nth-child(3){background:#28C840}
+.el .ven .pan{width:640px;height:400px}
+.el .cir{width:380px;height:380px;border-radius:50%;border:12px solid;overflow:hidden}.el .cir .pan{width:100%;height:100%}
+.el .fot{width:420px;height:520px;border-radius:24px;overflow:hidden}.el .fot .pan{width:100%;height:100%}
+/* barra y panel (no salen en la imagen) */
+.elbar{display:inline-flex;flex-wrap:wrap;gap:4px;background:#EAF2FF;border-radius:10px;padding:4px;margin-top:4px}
+.elbar button{min-width:34px}
+.elcaja{background:#fff;color:#1b1b1b;border-radius:16px;padding:16px 18px;max-width:520px;width:94vw;text-align:left;max-height:88vh;display:flex;flex-direction:column;font-family:'DM Sans',Arial,sans-serif}
+.eltop{display:flex;justify-content:space-between;align-items:center}.eltop b{font-size:18px}.elx{border:0;background:#f1f1f1;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:15px}
+.elcaja small{display:block;font-size:13px;opacity:.7;margin-top:4px}
+.eltabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 6px}.eltabs button{border:1px solid #ddd;background:#fafafa;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.eltabs button.on{background:#1b1b1b;color:#fff;border-color:#1b1b1b}
+.elcuerpo{overflow:auto;padding-right:4px}
+.elcuerpo h5{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin:14px 0 6px}
+.elgr{display:flex;flex-wrap:wrap;gap:4px}
+.elgr button{width:42px;height:42px;border:0;background:transparent;border-radius:10px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Noto Color Emoji','Segoe UI Emoji',sans-serif}
+.elgr button:hover{background:#f0f0f0}
+.elgr.anchos{gap:8px;margin-top:8px}
+.elgr .fm{width:92px;height:84px;border:1px solid #e6e6e6;background:#fafafa;flex-direction:column;gap:6px}
+.elgr .fm span{font-size:11px;font-family:'DM Sans',sans-serif;color:#555;line-height:1.1;text-align:center}
+.elgr .pilb{width:auto;height:auto;padding:6px 12px;font-size:12px;font-weight:800;font-family:'DM Sans',sans-serif;border:1px solid #e3e3e3;border-radius:999px}
+/*FINELEM*/
+</style></head>
+<body class="visor">
+<div class="cab"><div><h1 id="titulo">Tu carrusel</h1>
+<p>Toca 📷 en cada slide para poner tu foto. Toca cualquier texto para corregirlo. Si el texto te tapa la cara, usa ↕ para moverlo.</p></div>
+<div><button class="btn" onclick="todas()">⬇ Descargar todas</button></div></div>
+<div class="panel" id="panel"></div>
+<div class="grid" id="grid"></div>
+<div class="cap" id="cap"></div>
+<p class="nota">Las imágenes salen en 1080 × 1350 (el tamaño de Instagram). Si una foto se ve cortada, prueba otra más vertical.</p>
+<script>
+/*ELEM*/
+/* ===== elementos tipo Canva: emojis, formas, flechas, textos y mockups que ella pone, arrastra, agranda, gira y pinta ===== */
+const ELEM = (() => {
+  const LIN = 'fill="none" stroke="C" stroke-width="W" stroke-linecap="round" stroke-linejoin="round"';
+  /* [nombre, viewBox, dibujo, tipo]  tipo: "caja" se puede rellenar o dejar en borde; "linea" es trazo; "llena" es relleno */
+  const FORMAS = [
+    ["rectángulo", "0 0 240 160", '<rect x="8" y="8" width="224" height="144" P/>', "caja"],
+    ["redondeado", "0 0 240 160", '<rect x="8" y="8" width="224" height="144" rx="34" P/>', "caja"],
+    ["círculo", "0 0 240 240", '<circle cx="120" cy="120" r="110" P/>', "caja"],
+    ["píldora", "0 0 260 120", '<rect x="8" y="8" width="244" height="104" rx="52" P/>', "caja"],
+    ["mancha", "0 0 240 200", '<path d="M40 60 C 60 0 170 4 200 50 C 236 104 214 178 140 190 C 70 200 4 170 14 116 C 18 92 30 76 40 60 Z" P/>', "caja"],
+    ["rombo", "0 0 220 220", '<path d="M110 8 L212 110 L110 212 L8 110 Z" P/>', "caja"],
+    ["estrella", "0 0 100 100", '<path d="M50 4 C 54 38 62 46 96 50 C 62 54 54 62 50 96 C 46 62 38 54 4 50 C 38 46 46 38 50 4 Z" fill="C"/>', "llena"],
+    ["estrella 5", "0 0 200 190", '<path d="M100 8 L126 70 L192 74 L140 116 L158 182 L100 144 L42 182 L60 116 L8 74 L74 70 Z" P/>', "caja"],
+    ["corazón", "0 0 100 90", '<path d="M50 86 C 18 62 4 46 4 28 C 4 12 16 4 28 4 C 38 4 46 10 50 20 C 54 10 62 4 72 4 C 84 4 96 12 96 28 C 96 46 82 62 50 86 Z" P/>', "caja"],
+    ["círculo a mano", "0 0 240 160", '<path d="M120 14 C 196 10 230 54 222 92 C 212 140 120 154 62 140 C 16 128 6 84 30 52 C 54 22 110 14 170 22" ' + LIN + '/>', "linea"],
+    ["subrayado", "0 0 240 50", '<path d="M8 34 Q 120 6 232 26" ' + LIN + '/>', "linea"],
+    ["subrayado doble", "0 0 240 70", '<path d="M8 26 Q 120 4 232 20 M20 56 Q 120 36 222 50" ' + LIN + '/>', "linea"],
+    ["tachado", "0 0 240 40", '<path d="M6 24 C 70 12 160 30 234 14" ' + LIN + '/>', "linea"],
+    ["check", "0 0 120 100", '<path d="M12 54 L44 86 L108 14" ' + LIN + '/>', "linea"],
+    ["equis", "0 0 100 100", '<path d="M14 14 L86 86 M86 14 L14 86" ' + LIN + '/>', "linea"],
+    ["chispas", "0 0 120 100", '<path d="M20 70 L8 92 M56 30 L56 4 M92 70 L112 90" ' + LIN + '/>', "linea"],
+    ["línea punteada", "0 0 260 20", '<path d="M8 10 H252" ' + LIN + ' stroke-dasharray="2 22"/>', "linea"],
+    ["espiral", "0 0 160 160", '<path d="M80 80 C 80 70 96 70 96 82 C 96 100 66 102 62 82 C 56 54 104 50 110 82 C 118 124 52 128 44 82 C 36 30 126 26 130 84" ' + LIN + '/>', "linea"],
+    ["marco de esquinas", "0 0 240 160", '<path d="M8 50 V8 H50 M190 8 H232 V50 M232 110 V152 H190 M50 152 H8 V110" ' + LIN + '/>', "linea"]
+  ];
+  const FLECHAS = [
+    ["flecha curva", "0 0 220 160", '<path d="M24 136 Q 50 30 176 40 M150 14 L182 40 L152 70" ' + LIN + '/>'],
+    ["flecha", "0 0 220 80", '<path d="M14 40 H196 M164 12 L200 40 L164 68" ' + LIN + '/>'],
+    ["flecha doble", "0 0 240 80", '<path d="M20 40 H220 M52 12 L18 40 L52 68 M188 12 L222 40 L188 68" ' + LIN + '/>'],
+    ["flecha a mano", "0 0 240 170", '<path d="M14 150 C 40 90 100 140 110 96 C 120 50 60 50 86 90 C 110 128 170 70 210 40 M178 34 L212 38 L204 72" ' + LIN + '/>'],
+    ["flecha zigzag", "0 0 240 120", '<path d="M10 90 L60 40 L110 90 L160 40 L214 40 M186 14 L216 40 L186 66" ' + LIN + '/>'],
+    ["flecha curva abajo", "0 0 160 220", '<path d="M30 14 C 150 20 150 120 92 186 M68 158 L90 192 L124 172" ' + LIN + '/>'],
+    ["flecha circular", "0 0 200 200", '<path d="M170 100 A 70 70 0 1 1 132 38 M118 14 L140 40 L110 58" ' + LIN + '/>'],
+    ["flecha gruesa", "0 0 220 120", '<path d="M8 40 H130 V8 L212 60 L130 112 V80 H8 Z" P/>', "caja"],
+    ["flecha abajo", "0 0 120 200", '<path d="M40 8 H80 V120 H112 L60 192 L8 120 H40 Z" P/>', "caja"],
+    ["punta", "0 0 120 120", '<path d="M20 20 L100 60 L20 100 L40 60 Z" fill="C"/>', "llena"]
+  ];
+  const TEXTOS = [["globo", "Escribe aquí"], ["pensamiento", "Mmm…"], ["chat yo", "¿Y esto cómo lo hiciste?"], ["chat otro", "Con Claude 🤍"],
+    ["etiqueta", "GUÁRDALO"], ["post-it", "Ojo con esto"], ["nota a mano", "esto es lo importante"], ["titular", "TU FRASE"], ["caja de texto", "Un dato importante"]];
+  const ETQS = ["NUEVO", "OJO", "TIP", "PASO 1", "ANTES", "DESPUÉS", "GRATIS", "LINK EN BIO"];
+  const MOCKS = [["celular", "📱"], ["laptop", "💻"], ["polaroid", "🖼"], ["post", "▣"], ["ventana", "🗔"], ["foto círculo", "⬤"], ["foto", "▭"]];
+  const FAV = "🔥 ✨ 💡 👀 🤍 ❤️ 🙌 👇 👉 ✅ ❌ ⭐ 💬 📌 📈 💰 🎯 🙏🏼 😍 🥹 😱 🤯 😅 💪🏼 📸 🎬 ☕ 📲 🧠 🌱 🎉 ❤️‍🔥 🫶🏼 👩🏻‍💻 💅🏼 🤭 🫣 😮‍💨 🥂 🗓️".split(" ");
+  const RANGOS = [["Caras y gente", [[0x1F600, 0x1F64F], [0x1F910, 0x1F92F], [0x1F970, 0x1F97F], [0x1F9D0, 0x1F9DF], [0x1FAE0, 0x1FAE8], [0x1F440, 0x1F450], [0x1F466, 0x1F487], [0x1F48B, 0x1F48F], [0x1F590, 0x1F596], [0x1F918, 0x1F91F], [0x1F930, 0x1F939], [0x1FAF0, 0x1FAF8], [0x270A, 0x270D]]],
+    ["Corazones y símbolos", [[0x1F493, 0x1F49F], [0x2763, 0x2764], [0x1F9E1, 0x1F9E1], [0x1F90D, 0x1F90F], [0x1FA75, 0x1FA77], [0x2705, 0x2705], [0x274C, 0x274E], [0x2753, 0x2757], [0x2728, 0x2728], [0x2B50, 0x2B55], [0x1F4A0, 0x1F4AF], [0x1F500, 0x1F53D], [0x1F7E0, 0x1F7F0], [0x1F534, 0x1F535], [0x2795, 0x27BF], [0x2648, 0x2653], [0x1F170, 0x1F251]]],
+    ["Naturaleza", [[0x1F400, 0x1F43F], [0x1F980, 0x1F9AE], [0x1F330, 0x1F344], [0x1F300, 0x1F32C], [0x2600, 0x2614], [0x26C4, 0x26C5], [0x1FAB0, 0x1FABF]]],
+    ["Comida", [[0x1F345, 0x1F37F], [0x1F950, 0x1F96F], [0x1F9C0, 0x1F9CF], [0x1FAD0, 0x1FADF], [0x2615, 0x2615]]],
+    ["Actividades y viajes", [[0x1F380, 0x1F3FF], [0x1F680, 0x1F6FF], [0x26BD, 0x26FF], [0x1F93A, 0x1F94F], [0x1F6F0, 0x1F6FC]]],
+    ["Objetos", [[0x1F4B0, 0x1F4FF], [0x1F451, 0x1F465], [0x1F488, 0x1F48A], [0x1F9E0, 0x1F9FF], [0x1FA70, 0x1FAAF], [0x231A, 0x23FF], [0x1F550, 0x1F567], [0x1F570, 0x1F5FF], [0x260E, 0x260E], [0x2702, 0x2709]]],
+    ["Banderas", [[0x1F3F3, 0x1F3F4]]]];
+  const BANDERAS = "🇨🇴 🇲🇽 🇪🇸 🇦🇷 🇨🇱 🇵🇪 🇻🇪 🇪🇨 🇺🇾 🇵🇾 🇧🇴 🇨🇷 🇵🇦 🇩🇴 🇵🇷 🇬🇹 🇭🇳 🇸🇻 🇳🇮 🇨🇺 🇺🇸 🇬🇧 🇨🇦 🇮🇹 🇫🇷 🇩🇪 🇵🇹 🇧🇷 🏳️‍🌈".split(" ");
+  let CAT = null;
+  function categorias() {
+    if (CAT) return CAT; const vistos = new Set(), re = /\p{Emoji_Presentation}/u;
+    CAT = [["Los más usados", FAV]].concat(RANGOS.map(([n, rs]) => [n, rs.flatMap(([a, b]) => { const o = []; for (let c = a; c <= b; c++) { const e = String.fromCodePoint(c); if (re.test(e) && !vistos.has(e)) { vistos.add(e); o.push(e); } } return o; })]));
+    CAT[CAT.length - 1][1] = CAT[CAT.length - 1][1].concat(BANDERAS);
+    return CAT;
+  }
+  const COLORES = ["acento", "tinta", "fondo", "resalte", "#FFFFFF", "#000000"];
+  const OPAC = [1, .8, .6, .4, .2];
+  let sel = null, cfg = {}, uid = 0;
+  const color = c => !c ? "var(--acento)" : c.startsWith("#") ? c : `var(--${c})`;
+  const claro = c => ["fondo", "resalte", "#FFFFFF"].includes(c);
+  const tx = (e, j) => `<span data-tx="${j}">${String(e.t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\n/g, "<br>")}</span>`;
+  const buscar = n => FORMAS.find(f => f[0] === n) || FLECHAS.find(f => f[0] === n);
+  function svg(e) {
+    const f = buscar(e.v) || FORMAS[6], [vb, d, tipo] = [f[1], f[2], f[3]], [, , w, h] = vb.split(" ").map(Number);
+    const P = tipo === "caja" && !e.f ? `fill="none" stroke="C" stroke-width="${e.g || 8}"` : 'fill="C"';
+    let cuerpo = d.replace(/ P\//g, " " + P + "/").replace(/stroke-width="W"/g, `stroke-width="${e.g || 11}"`).replace(/"C"/g, '"currentColor"');
+    if (e.sh) { const id = "elsh" + (uid++); cuerpo = `<defs><filter id="${id}" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".35"/></filter></defs><g filter="url(#${id})">${cuerpo}</g>`; }
+    return `<svg viewBox="${vb}" width="${w * 1.3}" height="${h * 1.3}">${cuerpo}</svg>`;
+  }
+  function interior(e, j) {
+    const c = color(e.c), t = claro(e.c) ? "var(--tinta)" : "#fff", img = e.img ? `background-image:url(${e.img})` : "", vacio = e.img ? "" : "📷";
+    switch (e.k) {
+      case "emoji": return `<div class="em">${e.v}</div>`;
+      case "forma": return svg(e);
+      case "texto": switch (e.v) {
+        case "globo": return `<div class="bub" style="background:${c};color:${t}">${tx(e, j)}</div><i class="cola" style="background:${c}"></i>`;
+        case "pensamiento": return `<div class="bub pen" style="background:${c};color:${t}">${tx(e, j)}</div><i class="bol b1" style="background:${c}"></i><i class="bol b2" style="background:${c}"></i>`;
+        case "chat yo": return `<div class="bub xchat xyo" style="background:${c};color:${t}">${tx(e, j)}</div>`;
+        case "chat otro": return `<div class="bub xchat xotro">${tx(e, j)}</div>`;
+        case "etiqueta": return `<div class="pil" style="background:${c};color:${t}">${tx(e, j)}</div>`;
+        case "post-it": return `<div class="pit" style="background:${e.c ? c : "#FFE47A"}">${tx(e, j)}</div>`;
+        case "nota a mano": return `<div class="man" style="color:${c}">${tx(e, j)}</div>`;
+        case "titular": return `<div class="ttl" style="color:${c}">${tx(e, j)}</div>`;
+        default: return `<div class="cja" style="background:${c};color:${t}">${tx(e, j)}</div>`;
+      }
+      case "mock": switch (e.v) {
+        case "celular": return `<div class="mk cel"><div class="isla"></div><div class="pan" data-img style="${img}">${vacio}</div></div>`;
+        case "laptop": return `<div class="mk lap"><div class="pan" data-img style="${img}">${vacio}</div></div><div class="base"></div>`;
+        case "polaroid": return `<div class="mk pol"><div class="pan" data-img style="${img}">${vacio}</div>${tx(e, j)}</div>`;
+        case "post": return `<div class="mk pst"><div class="xcab"><i></i><b>${(typeof M !== "undefined" && M.usuario) || "@tuusuario"}</b></div><div class="pan" data-img style="${img}">${vacio}</div><div class="ico">♡ &nbsp;💬 &nbsp;➤<span>🔖</span></div></div>`;
+        case "ventana": return `<div class="mk ven"><div class="bar"><i></i><i></i><i></i></div><div class="pan" data-img style="${img}">${vacio}</div></div>`;
+        case "foto círculo": return `<div class="mk cir" style="border-color:${c}"><div class="pan" data-img style="${img}">${vacio}</div></div>`;
+        default: return `<div class="mk fot"><div class="pan" data-img style="${img}">${vacio}</div></div>`;
+      }
+    }
+    return "";
+  }
+  function uno(e, j) {
+    const cl = ["el", "k-" + e.k, "v-" + String(e.v).replace(/\s+/g, "-"), e.sh ? "som" : "", sel && sel.j === j && sel.i === cfg.actual ? "sel" : ""].join(" ");
+    const st = `left:${e.x}px;top:${e.y}px;transform:translate(-50%,-50%) rotate(${e.r || 0}deg) scale(${e.s || 1});opacity:${e.o ?? 1};color:${color(e.c)}`;
+    return `<div class="${cl}" data-j="${j}" style="${st}">${interior(e, j)}</div>`;
+  }
+  const html = (o, i) => { cfg.actual = i; return (o.elementos || []).map(uno).join(""); };
+  function boton(o, i) {
+    let b = `<button data-a="elem">✨ Elementos</button>`;
+    const e = sel && sel.i === i && o.elementos && o.elementos[sel.j];
+    if (e) {
+      const caja = e.k === "forma" && (buscar(e.v) || [])[3] === "caja";
+      b += `<span class="elbar"><button data-x="mas">＋</button><button data-x="menos">－</button><button data-x="gira">⟳ Girar</button><button data-x="col">🎨 Color</button>` +
+        `<button data-x="op">◐ ${Math.round((e.o ?? 1) * 100)}%</button><button data-x="sh">${e.sh ? "▣ Con sombra" : "▢ Sombra"}</button>` +
+        (caja ? `<button data-x="f">${e.f ? "⬛ Relleno" : "⬜ Borde"}</button>` : "") + (e.k === "forma" && !(caja && e.f) && (buscar(e.v) || [])[3] !== "llena" ? `<button data-x="g">✎ Grosor</button>` : "") +
+        (e.k === "mock" ? `<button data-x="img">📷 Imagen</button>` : "") + (e.k === "texto" || e.v === "polaroid" ? `<button data-x="tx">✏️ Texto</button>` : "") +
+        `<button data-x="up">⬆ Al frente</button><button data-x="down">⬇ Atrás</button><button data-x="dup">⧉ Copiar</button><button data-x="del">🗑 Quitar</button></span>`;
+    }
+    return b;
+  }
+  function bind(t, o, i) {
+    t.querySelector('[data-a="elem"]').onclick = () => abrir(o, i);
+    t.querySelectorAll("[data-x]").forEach(b => b.onclick = () => {
+      const L = o.elementos, e = L[sel.j], x = b.dataset.x;
+      if (x === "mas") e.s = +((e.s || 1) * 1.15).toFixed(3);
+      if (x === "menos") e.s = +((e.s || 1) / 1.15).toFixed(3);
+      if (x === "gira") e.r = ((e.r || 0) + 15) % 360;
+      if (x === "col") e.c = COLORES[(COLORES.indexOf(e.c || "acento") + 1) % COLORES.length];
+      if (x === "op") e.o = OPAC[(OPAC.indexOf(e.o ?? 1) + 1) % OPAC.length];
+      if (x === "sh") e.sh = !e.sh;
+      if (x === "f") e.f = !e.f;
+      if (x === "g") e.g = [6, 11, 16, 22, 3][([6, 11, 16, 22, 3].indexOf(e.g || 11) + 1) % 5];
+      if (x === "up") { L.push(L.splice(sel.j, 1)[0]); sel.j = L.length - 1; }
+      if (x === "down") { L.unshift(L.splice(sel.j, 1)[0]); sel.j = 0; }
+      if (x === "dup") { L.push(JSON.parse(JSON.stringify({...e, x: e.x + 60, y: e.y + 60}))); sel.j = L.length - 1; }
+      if (x === "del") { L.splice(sel.j, 1); sel = null; }
+      if (x === "img") return subir(e);
+      if (x === "tx") return editar(i, sel.j, e);
+      cfg.guardar(); cfg.pintar();
+    });
+  }
+  function subir(e) {
+    const inp = document.createElement("input"); inp.type = "file"; inp.accept = "image/*";
+    inp.onchange = () => { const f = inp.files[0]; if (!f) return; const fr = new FileReader(); fr.onload = () => { const im = new Image(); im.onload = () => {
+      const z = Math.min(1, 1000 / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = Math.round(im.width * z); c.height = Math.round(im.height * z);
+      c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); e.img = c.toDataURL("image/jpeg", .85); cfg.guardar(); cfg.pintar(); }; im.src = fr.result; }; fr.readAsDataURL(f); };
+    inp.click();
+  }
+  function editar(i, j, e) {
+    const s = document.querySelectorAll(cfg.sel)[i]; const sp = s && s.querySelector(`.el[data-j="${j}"] [data-tx]`); if (!sp) return;
+    sp.contentEditable = "true"; sp.focus(); const r = document.createRange(); r.selectNodeContents(sp); const g = getSelection(); g.removeAllRanges(); g.addRange(r);
+    sp.oninput = () => { e.t = sp.innerText; cfg.guardar(); };
+  }
+  function abrir(o, i) {
+    const v = document.createElement("div"); v.className = "ver elpick";
+    const tabs = [["emo", "😀 Emojis"], ["for", "⬛ Formas"], ["fle", "➜ Flechas"], ["tex", "💬 Textos"], ["mok", "📱 Mockups"]];
+    v.innerHTML = `<div class="elcaja"><div class="eltop"><b>Elementos</b><button class="elx">✕</button></div><small>Toca uno y aparece en el centro. Lo arrastras, y abajo de la slide lo agrandas, lo giras, le cambias el color, la opacidad o le pones sombra.</small>
+      <div class="eltabs">${tabs.map(([k, n], z) => `<button data-t="${k}" class="${z ? "" : "on"}">${n}</button>`).join("")}</div><div class="elcuerpo"></div></div>`;
+    const cuerpo = v.querySelector(".elcuerpo");
+    const muestra = (k, n, d) => `<button data-k="${k}" data-v="${n}" title="${n}" class="fm"><svg viewBox="${d[1]}" width="48" height="38">${d[2].replace(/ P\//g, ' fill="#1b1b1b"/').replace(/stroke-width="W"/g, 'stroke-width="11"').replace(/"C"/g, '"#1b1b1b"')}</svg><span>${n}</span></button>`;
+    const vistas = {
+      emo: () => categorias().map(([n, l]) => `<h5>${n}</h5><div class="elgr">${l.map(x => `<button data-k="emoji" data-v="${x}">${x}</button>`).join("")}</div>`).join("") +
+        `<h5>¿No está? Pégalo aquí</h5><div style="display:flex;gap:8px"><input class="elmio" placeholder="pega tu emoji" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;font-size:18px"><button class="btn sec elok">Poner</button></div>`,
+      for: () => `<div class="elgr anchos">${FORMAS.map(f => muestra("forma", f[0], f)).join("")}</div>`,
+      fle: () => `<div class="elgr anchos">${FLECHAS.map(f => muestra("forma", f[0], f)).join("")}</div>`,
+      tex: () => `<div class="elgr anchos">${TEXTOS.map(([n]) => `<button data-k="texto" data-v="${n}" class="fm"><b style="font-size:20px">${{"globo": "💬", "pensamiento": "💭", "chat yo": "🗨", "chat otro": "🗯", "etiqueta": "🏷", "post-it": "🟨", "nota a mano": "✍️", "titular": "𝗔", "caja de texto": "▭"}[n]}</b><span>${n}</span></button>`).join("")}</div>
+        <h5>Etiquetas listas</h5><div class="elgr">${ETQS.map(n => `<button data-k="texto" data-v="etiqueta" data-t="${n}" class="pilb">${n}</button>`).join("")}</div>`,
+      mok: () => `<div class="elgr anchos">${MOCKS.map(([n, ic]) => `<button data-k="mock" data-v="${n}" class="fm"><b style="font-size:22px">${ic}</b><span>${n}</span></button>`).join("")}</div><small style="margin-top:10px">Después tocas <b>📷 Imagen</b> abajo de la slide y pones tu foto o tu captura adentro.</small>`
+    };
+    const ver = k => { cuerpo.innerHTML = vistas[k](); v.querySelectorAll(".eltabs button").forEach(b => b.classList.toggle("on", b.dataset.t === k));
+      cuerpo.querySelectorAll("[data-k]").forEach(b => b.onclick = () => poner(b.dataset.k, b.dataset.v, b.dataset.t));
+      const ok = cuerpo.querySelector(".elok"); if (ok) ok.onclick = () => { const x = cuerpo.querySelector(".elmio").value.trim(); if (x) poner(x.length <= 14 && /\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(x) ? "emoji" : "texto", x.length <= 14 && /\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(x) ? x : "etiqueta", x); }; };
+    const poner = (k, val, t) => {
+      o.elementos = o.elementos || [];
+      const e = {k, v: val, x: cfg.W / 2, y: cfg.H / 2, s: 1, r: 0, o: 1};
+      if (k === "emoji") e.c = "tinta"; else if (k === "texto" && val === "chat otro") e.c = "tinta"; else if (k === "texto" && val === "post-it") e.c = ""; else e.c = "acento";
+      if (k === "forma" && (buscar(val) || [])[3] === "caja") e.f = true;
+      if (k === "texto") e.t = t || (TEXTOS.find(x => x[0] === val) || [, "Texto"])[1];
+      if (k === "mock" && val === "polaroid") e.t = "un momento";
+      if (k === "mock") e.sh = true;
+      o.elementos.push(e); sel = {i, j: o.elementos.length - 1}; v.remove(); cfg.guardar(); cfg.pintar();
+    };
+    v.querySelectorAll(".eltabs button").forEach(b => b.onclick = () => ver(b.dataset.t));
+    v.querySelector(".elx").onclick = () => v.remove();
+    v.onclick = e => { if (e.target === v) v.remove(); };
+    document.body.appendChild(v); ver("emo");
+  }
+  /* arrastrar: la slide está achicada en pantalla, así que se divide por su escala */
+  let drag = null;
+  document.addEventListener("pointerdown", e => {
+    if (e.target.closest('[data-tx][contenteditable="true"]')) return;
+    const el = e.target.closest(".el"); const s = el && el.closest(cfg.sel);
+    if (!el || !s) { if (sel && !e.target.closest(".elbar,.elpick,[data-x]")) { sel = null; document.querySelectorAll(".el.sel").forEach(x => x.classList.remove("sel")); document.querySelectorAll(".elbar").forEach(x => x.remove()); } return; }
+    const i = +s.dataset.i, j = +el.dataset.j, o = cfg.lista()[i], z = s.getBoundingClientRect().width / cfg.W;
+    drag = {el, o, e: o.elementos[j], i, j, z, x0: e.clientX, y0: e.clientY, ex: o.elementos[j].x, ey: o.elementos[j].y, movio: false};
+    e.preventDefault();
+  });
+  document.addEventListener("pointermove", e => {
+    if (!drag) return; const dx = (e.clientX - drag.x0) / drag.z, dy = (e.clientY - drag.y0) / drag.z;
+    if (Math.abs(dx) + Math.abs(dy) > 4) drag.movio = true;
+    drag.e.x = Math.round(drag.ex + dx); drag.e.y = Math.round(drag.ey + dy);
+    drag.el.style.left = drag.e.x + "px"; drag.el.style.top = drag.e.y + "px";
+  });
+  document.addEventListener("pointerup", () => {
+    if (!drag) return; const d = drag; drag = null;
+    const yaSel = sel && sel.i === d.i && sel.j === d.j;
+    sel = {i: d.i, j: d.j}; cfg.guardar(); cfg.pintar();
+    if (!d.movio && yaSel && d.el.querySelector("[data-tx]")) editar(d.i, d.j, d.e);
+  });
+  /* antes de bajar la imagen: sin marco de selección, sin el ícono de cámara y con los colores reales en los dibujos */
+  function prep(clon) {
+    clon.querySelectorAll(".el.sel").forEach(x => x.classList.remove("sel"));
+    clon.querySelectorAll(".el [data-img]").forEach(x => { if (!x.style.backgroundImage) x.textContent = ""; });
+    clon.querySelectorAll(".el svg").forEach(sv => { const c = getComputedStyle(sv.closest(".el")).color; sv.innerHTML = sv.innerHTML.replace(/currentColor/g, c); });
+  }
+  return {html, boton, bind, prep, init: c => { cfg = c; }};
+})();
+/*FINELEM*/
+
+/* ===== DATOS: esto lo llena Claude ===== */
+const DATA = /*DATOS*/{
+  "marca": {"usuario": "@tuusuario",
+    "colores": {"fondo": "#F4EFE6", "tinta": "#141414", "acento": "#B00B00", "resalte": "#F4C70F", "tarjeta": "#FFFFFF", "suave": "#F6E1DA"},
+    "letras": {"titulo": "Anton", "serif": "Instrument Serif", "cuerpo": "Inter Tight", "mano": "Caveat"}},
+  "estilo": "editorial",
+  "css_extra": "",
+  "slides": [
+    {"tipo": "portada", "eti": "para ti", "titulo": "Tu titular *aquí*", "apoyo": "Una línea que invita a deslizar →", "foto": true, "pos": "arriba"},
+    {"tipo": "cierre", "eti": "¿te sirvió?", "titulo": "Comenta", "palabra": "PALABRA", "apoyo": "y te mando el recurso.", "foto": true}
+  ],
+  "caption": "Tu caption aquí."
+}/*FIN*/;
+
+const M = DATA.marca, C = M.colores, L = M.letras;
+const FB = {titulo: "Impact,'Arial Narrow',sans-serif", serif: "Georgia,serif", cuerpo: "Arial,sans-serif", mano: "'Segoe Script','Comic Sans MS',cursive"};
+const root = document.documentElement.style;
+for (const [k, v] of Object.entries(C)) root.setProperty("--" + k, v);
+for (const [k, v] of Object.entries(L)) root.setProperty("--f-" + k, `'${v}',${FB[k]}`);
+document.getElementById("titulo").textContent = "Tu carrusel · " + DATA.slides.length + " slides";
+document.getElementById("cap").textContent = DATA.caption || "";
+/* su diseño propio: reglas extra que Claude escribe a partir de sus referencias (mi-estilo-carrusel.md) */
+if (DATA.css_extra) { const st = document.createElement("style"); st.textContent = DATA.css_extra; document.head.appendChild(st); }
+
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const tit = s => esc(s).replace(/\*([^*]+)\*/g, '<span class="k">$1</span>').replace(/\n/g, "<br>");
+const POS = ["arriba", "centro", "abajo"];
+/* otras formas de cada tipo de slide: cambian cómo se organiza, no el texto */
+const FORMAS = {portada: ["La del estilo", "Foto grande", "Solo texto", "Foto en círculo"], texto: ["La del estilo", "Frase gigante", "Cita", "Con nota a mano"],
+  lista: ["Tarjetas", "Checklist", "Números grandes", "Cuadrícula"], comparacion: ["Lado a lado", "Arriba y abajo", "Tabla ✗ ✓", "Antes → después"],
+  chat: ["Burbujas", "En un celular"], oferta: ["Tarjeta de precio", "Precio gigante"], cierre: ["Caja de color", "Palabra gigante", "Con foto grande"]};
+const fotos = {};
+
+function cuerpo(sl) {
+  let h = "";
+  if (sl.eti) h += `<div class="eti" contenteditable data-f="eti">${esc(sl.eti)}</div>`;
+  if (sl.titulo) h += `<div class="tit" contenteditable data-f="titulo" style="margin-top:18px">${tit(sl.titulo)}</div>`;
+  if (sl.tipo === "lista" && sl.items) h += `<div class="lst">${sl.items.map((t, i) => `<div><b>${i + 1}</b><i class="n2">${String(i + 1).padStart(2, "0")}</i><span contenteditable data-f="items.${i}">${esc(t)}</span></div>`).join("")}</div>`;
+  if (sl.tipo === "comparacion") h += `<div class="cmp">${[["a", sl.a], ["b", sl.b]].map(([k, c]) => `<div><h4 contenteditable data-f="${k}.titulo">${esc(c.titulo)}</h4><div contenteditable data-f="${k}.items" data-lista="1">${(c.items || []).map(esc).join("<br><br>")}</div></div>`).join("")}<div class="vs">vs</div></div>`;
+  if (sl.tipo === "chat") h += `<div class="chat">${(sl.mensajes || []).map((m, j) => `<p class="${m.yo ? "yo" : ""}" contenteditable data-f="mensajes.${j}.t">${esc(m.t)}</p>`).join("")}</div>`;
+  if (sl.tipo === "oferta") h += `<div class="precio"><div><div style="font-size:22px;letter-spacing:.2em;opacity:.7" contenteditable data-f="precio_nota">${esc(sl.precio_nota || "PRECIO")}</div></div>${sl.precio_antes ? `<s class="antes" contenteditable data-f="precio_antes">${esc(sl.precio_antes)}</s>` : ""}<b contenteditable data-f="precio">${esc(sl.precio || "")}</b></div>`;
+  if (sl.tipo === "cierre" && sl.palabra) h += `<div class="palabra"><span contenteditable data-f="palabra">${esc(sl.palabra)}</span></div>`;
+  if (sl.etiquetas) h += `<div class="etqs" style="margin-top:30px">${sl.etiquetas.map((t, j) => `<span contenteditable data-f="etiquetas.${j}">${esc(t)}</span>`).join("")}</div>`;
+  if (sl.apoyo) h += `<div class="apo" contenteditable data-f="apoyo">${esc(sl.apoyo).replace(/\n/g, "<br>")}</div>`;
+  if (sl.nota) h += `<div class="mano" contenteditable data-f="nota" style="font-size:54px;margin-top:30px;color:var(--acento)">${esc(sl.nota)}</div>`;
+  return h;
+}
+
+function pintar() {
+  const g = document.getElementById("grid"); g.innerHTML = "";
+  DATA.slides.forEach((sl, i) => {
+    const conFoto = sl.foto !== false && sl.tipo !== "comparacion" && sl.tipo !== "chat" && !(["cuaderno", "collage"].includes(DATA.estilo) && sl.tipo === "lista");
+    const pos = sl.pos || (["revista", "oscura", "aesthetic", "agenda"].includes(DATA.estilo) && conFoto ? "abajo" : "arriba");
+    const est = DATA.estilo;
+    const s = document.createElement("div");
+    s.className = `slide st-${est} r-${sl.tipo} pos-${pos} var-${sl.variante || 0}` + (conFoto ? "" : " sinfoto");
+    s.dataset.i = i;
+    let h = "";
+    if (est === "oferta") h += `<div class="banda"></div>`;
+    if (conFoto) h += `<div class="ph ${fotos[i] ? "" : "vacia"}" style="${fotos[i] ? `background-image:url(${fotos[i]})` : ""}">${fotos[i] ? "" : "📷 tu foto"}</div>`;
+    h += `<div class="vel"></div>`;
+    if (est === "collage") h += `<div class="deco" style="left:70px;top:1130px">✦</div><div class="deco" style="right:80px;top:120px;font-size:50px">✦</div>`;
+    h += `<div class="mast"><span>${esc(M.usuario)}</span><span>Nº ${String(i + 1).padStart(2, "0")}</span></div>`;
+    h += `<div class="tx">${cuerpo(sl)}</div>`;
+    if (i > 0) h += `<div class="firma">${esc(M.usuario)}</div>`;
+    h += ELEM.html(sl, i);
+    s.innerHTML = h;
+    const it = document.createElement("div"); it.className = "item";
+    const mk = document.createElement("div"); mk.className = "marco"; mk.appendChild(s);
+    it.appendChild(mk);
+    const t = document.createElement("div"); t.className = "tools";
+    t.innerHTML = `<span class="num">Slide ${i + 1}</span>` +
+      (conFoto ? `<label>📷 Foto<input type="file" accept="image/*"></label>` : "") +
+      `<button data-a="pos">↕ Mover texto</button>` + ((FORMAS[sl.tipo] || []).length > 1 ? `<button data-a="var">🔀 ${FORMAS[sl.tipo][sl.variante || 0]}</button>` : "") + ELEM.boton(sl, i) + `<button data-a="png">⬇ Descargar</button>`;
+    it.appendChild(t); g.appendChild(it);
+    const inp = t.querySelector("input");
+    if (inp) inp.onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { fotos[i] = r.result; guardar(); pintar(); }; r.readAsDataURL(f); };
+    t.querySelector('[data-a="pos"]').onclick = () => { sl.pos = POS[(POS.indexOf(pos) + 1) % 3]; pintar(); };
+    const bv = t.querySelector('[data-a="var"]');
+    if (bv) bv.onclick = () => { sl.variante = ((sl.variante || 0) + 1) % FORMAS[sl.tipo].length; if (typeof guardarAjustes === "function") guardarAjustes(); pintar(); };
+    ELEM.bind(t, sl, i);
+    t.querySelector('[data-a="png"]').onclick = () => bajar(s, i).then(b => guardarArchivo(b, `slide-${String(i + 1).padStart(2, "0")}.png`));
+  });
+  escalar();
+}
+function escalar() { document.querySelectorAll(".marco").forEach(m => { m.firstChild.style.transform = `scale(${m.clientWidth / 1080})`; }); }
+window.addEventListener("resize", escalar);
+
+async function bajar(s, i) {
+  const clon = s.cloneNode(true); clon.style.transform = "none";
+  const caja = document.createElement("div"); caja.style.cssText = "position:fixed;left:-20000px;top:0";
+  caja.appendChild(clon); document.body.appendChild(caja); ELEM.prep(clon);
+  if (document.fonts && document.fonts.ready) await document.fonts.ready;
+  const c = await html2canvas(clon, {width: 1080, height: 1350, scale: 1, useCORS: true, backgroundColor: null});
+  caja.remove();
+  return await new Promise(r => c.toBlob(r, "image/png"));
+}
+function guardarArchivo(blob, nombre) {
+  try { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); } catch (e) {}
+  if (blob.type === "image/png") mostrar(blob, nombre);
+}
+/* plan B: si el panel no deja descargar, la imagen se muestra en grande para guardarla con clic derecho */
+function mostrar(blob, nombre) {
+  const r = new FileReader();
+  r.onload = () => {
+    const v = document.createElement("div"); v.className = "ver";
+    v.innerHTML = `<img src="${r.result}" alt="${nombre}"><p>Si no se descargó sola: clic derecho → <b>Guardar imagen como</b> (en el celular, mantén apretada la imagen).</p><button class="btn sec">Cerrar</button>`;
+    v.querySelector("button").onclick = () => v.remove(); document.body.appendChild(v);
+  };
+  r.readAsDataURL(blob);
+}
+async function todas() {
+  const ss = [...document.querySelectorAll(".slide")], blobs = [];
+  for (const [i, s] of ss.entries()) blobs.push(await bajar(s, i));
+  try {
+    if (window.JSZip) {
+      const z = new JSZip();
+      blobs.forEach((b, i) => z.file(`slide-${String(i + 1).padStart(2, "0")}.png`, b));
+      if (DATA.caption) z.file("caption.txt", DATA.caption);
+      const zip = await z.generateAsync({type: "blob"});
+      const a = document.createElement("a"); a.href = URL.createObjectURL(zip); a.download = "mi-carrusel.zip"; document.body.appendChild(a); a.click(); a.remove();
+    }
+  } catch (e) {}
+  /* plan B: todas en una galería para guardarlas una por una */
+  const urls = await Promise.all(blobs.map(b => new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(b); })));
+  const v = document.createElement("div"); v.className = "ver"; v.style.overflow = "auto"; v.style.justifyContent = "flex-start";
+  v.innerHTML = `<p>Si no se descargó el archivo: clic derecho en cada imagen → <b>Guardar imagen como</b>.</p><button class="btn sec">Cerrar</button>` +
+    urls.map((u, i) => `<img src="${u}" alt="slide ${i + 1}" style="max-height:none;width:min(420px,90vw)">`).join("");
+  v.querySelector("button").onclick = () => v.remove(); document.body.appendChild(v);
+}
+function guardar() { try { localStorage.setItem("carrusel-fotos", JSON.stringify(fotos)); } catch (e) {} }
+try { Object.assign(fotos, JSON.parse(localStorage.getItem("carrusel-fotos") || "{}")); } catch (e) {}
+/*FOTOS*/
+/* ===== panel de ajustes: estilo, colores, letras, textos ===== */
+const ESTILOS = {editorial: "Editorial con foto", revista: "Portada de revista", cuaderno: "Guía tipo cuaderno", oscura: "Foto oscura", collage: "Collage", oferta: "Oferta o curso", agenda: "Mi día (agenda)", aesthetic: "Aesthetic"};
+const LETRAS = {titulo: ["Anton", "Bebas Neue", "Oswald", "Archivo Black", "Poppins", "Montserrat", "Playfair Display", "Inter Tight"],
+  serif: ["Instrument Serif", "Playfair Display", "Cormorant Garamond", "Caveat", "Dancing Script"],
+  cuerpo: ["Inter Tight", "DM Sans", "Montserrat", "Poppins"],
+  mano: ["Caveat", "Dancing Script", "Instrument Serif"]};
+const NOMBRES = {fondo: "Fondo", tinta: "Texto", acento: "Acento", resalte: "Resalte"};
+const ORIG = JSON.parse(JSON.stringify(DATA));
+try { const g = JSON.parse(localStorage.getItem("carrusel-ajustes") || "null"); if (g && g.n === DATA.slides.length) Object.assign(DATA, g.d); } catch (e) {}
+function aplicarMarca() {
+  for (const [k, v] of Object.entries(DATA.marca.colores)) root.setProperty("--" + k, v);
+  for (const [k, v] of Object.entries(DATA.marca.letras)) root.setProperty("--f-" + k, `'${v}',${FB[k]}`);
+}
+function guardarAjustes() { try { localStorage.setItem("carrusel-ajustes", JSON.stringify({n: DATA.slides.length, d: {estilo: DATA.estilo, marca: DATA.marca, slides: DATA.slides}})); } catch (e) {} }
+function panel() {
+  const P = document.getElementById("panel"), col = DATA.marca.colores, le = DATA.marca.letras;
+  P.innerHTML = `<div class="g"><b>Estilo</b><select id="pe">${Object.entries(ESTILOS).map(([k, v]) => `<option value="${k}" ${k === DATA.estilo ? "selected" : ""}>${v}</option>`).join("")}</select></div>
+  <div class="g"><b>Colores</b>${Object.keys(NOMBRES).map(k => `<label><input type="color" data-c="${k}" value="${col[k] || "#000000"}">${NOMBRES[k]}</label>`).join("")}
+  <button class="mini" id="inv">⇄ Invertir</button><button class="mini" id="mez">🎲 Probar combinación</button><button class="mini" id="formas">🔀 Otras formas</button><button class="mini" id="propio">💡 Mi propio diseño</button></div>
+  <div class="g"><b>Letras</b>${[["titulo", "Titular"], ["serif", "Palabra clave"], ["cuerpo", "Texto"], ["mano", "A mano"]].map(([k, n]) => `<label>${n}<select data-l="${k}">${[...new Set([le[k], ...LETRAS[k]])].map(f => `<option ${f === le[k] ? "selected" : ""}>${f}</option>`).join("")}</select></label>`).join("")}</div>
+  <div class="g"><button class="mini" id="edt">✏️ Editar textos</button><button class="mini" id="cop">📋 Copiar mis ajustes</button><button class="mini" id="res">↺ Volver al original</button></div>`;
+  P.querySelector("#pe").onchange = e => { DATA.estilo = e.target.value; DATA.slides.forEach(x => delete x.pos); guardarAjustes(); pintar(); };
+  P.querySelectorAll("[data-c]").forEach(i => i.oninput = e => { col[e.target.dataset.c] = e.target.value; aplicarMarca(); guardarAjustes(); });
+  P.querySelectorAll("[data-l]").forEach(i => i.onchange = e => { le[e.target.dataset.l] = e.target.value; aplicarMarca(); guardarAjustes(); });
+  P.querySelector("#inv").onclick = () => { [col.fondo, col.tinta] = [col.tinta, col.fondo]; aplicarMarca(); guardarAjustes(); panel(); };
+  P.querySelector("#mez").onclick = () => {
+    const o = ORIG.marca.colores, combos = [[o.fondo, o.tinta, o.acento, o.resalte], [o.tinta, o.fondo, o.acento, o.resalte], [o.acento, "#FFFFFF", o.tinta, o.resalte],
+      [o.fondo, o.acento, o.tinta, o.resalte], [o.tinta, o.fondo, o.resalte, o.acento], [o.suave || o.fondo, o.tinta, o.acento, o.resalte]];
+    window.__giro = ((window.__giro || 0) + 1) % combos.length; [col.fondo, col.tinta, col.acento, col.resalte] = combos[window.__giro]; aplicarMarca(); guardarAjustes(); panel();
+  };
+  P.querySelector("#propio").onclick = () => { const v = document.createElement("div"); v.className = "ver"; v.innerHTML = `<p style="max-width:520px;font-size:17px;line-height:1.5">¿Tienes tu idea de diseño?<br><br>Sube al chat capturas de carruseles que te gusten (de Instagram o Pinterest), o tu propia plantilla, y escribe: <b>usa mi diseño</b>.<br><br>Claude toma la forma de tus referencias y la hace con tus colores, tus letras y tus fotos. Queda guardado para tus próximos carruseles.</p><button class="btn sec">Entendido</button>`; v.querySelector("button").onclick = () => v.remove(); document.body.appendChild(v); };
+  P.querySelector("#formas").onclick = () => { DATA.slides.forEach(x => { const n = (FORMAS[x.tipo] || []).length; if (n > 1) x.variante = ((x.variante || 0) + 1) % n; }); guardarAjustes(); pintar(); };
+  P.querySelector("#edt").onclick = () => document.body.classList.toggle("editando");
+  P.querySelector("#cop").onclick = async () => {
+    const t = `Guarda estos ajustes en mi-estilo-carrusel.md:\nEstilo: ${DATA.estilo}\nColores: fondo ${col.fondo}, texto ${col.tinta}, acento ${col.acento}, resalte ${col.resalte}\nLetras: titulares ${le.titulo} · palabra clave ${le.serif} · texto ${le.cuerpo} · a mano ${le.mano}`;
+    try { await navigator.clipboard.writeText(t); P.querySelector("#cop").textContent = "✓ Copiado: pégalo en el chat"; } catch (e) { const a = document.createElement("textarea"); a.value = t; a.style.cssText = "width:100%;height:120px;margin-top:8px"; P.appendChild(a); a.select(); }
+  };
+  P.querySelector("#res").onclick = () => { try { localStorage.removeItem("carrusel-ajustes"); } catch (e) {} Object.assign(DATA, JSON.parse(JSON.stringify(ORIG))); aplicarMarca(); panel(); pintar(); };
+}
+/* lo que escribe en las slides se guarda, así no se pierde al cambiar estilo o colores */
+function leerCampo(el) {
+  const h = el.innerHTML.replace(/<span class="k">(.*?)<\/span>/g, "*$1*").replace(/<br\s*\/?>/g, "\n").replace(/<\/div><div>/g, "\n").replace(/<[^>]+>/g, "");
+  const d = document.createElement("textarea"); d.innerHTML = h; return d.value;
+}
+document.getElementById("grid").addEventListener("input", e => {
+  const el = e.target.closest("[data-f]"), s = e.target.closest(".slide"); if (!el || !s) return;
+  const sl = DATA.slides[+s.dataset.i], path = el.dataset.f.split("."); let o = sl;
+  for (let k = 0; k < path.length - 1; k++) o = o[path[k]];
+  let v = leerCampo(el); if (el.dataset.lista) v = v.split(/\n\s*\n/).map(x => x.trim()).filter(Boolean);
+  o[path[path.length - 1]] = v; guardarAjustes();
+});
+ELEM.init({sel: ".slide", W: 1080, H: 1350, lista: () => DATA.slides, guardar: () => guardarAjustes(), pintar: () => pintar()});
+aplicarMarca(); panel();
+
+pintar();
+/* #s3 en la dirección muestra solo la slide 3 a tamaño real (así Claude saca las imágenes desde Claude Code) */
+const solo = location.hash.match(/^#s(\d+)/);
+if (solo) { const sl = document.querySelectorAll(".slide")[+solo[1] - 1]; if (sl) { sl.style.transform = "none"; document.body.className = ""; document.body.style.cssText = "margin:0;padding:0;background:none"; document.body.innerHTML = ""; document.body.appendChild(sl); } }
+</script></body></html>

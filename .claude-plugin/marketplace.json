@@ -1,0 +1,13 @@
+{
+  "name": "skills-reset",
+  "owner": {
+    "name": "Jessica Castrillón"
+  },
+  "plugins": [
+    {
+      "name": "skills-reset",
+      "source": "./plugins/skills-reset",
+      "description": "Todas las Skills RESET en un solo paquete. Se instala una vez y se actualiza sola."
+    }
+  ]
+}

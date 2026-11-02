@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu director</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--fondo:#F2EEE8;--tarjeta:#fff;--tinta:#1b1b1b;--suave:#6b6560;--linea:#e4ded6;--acento:#B00B00;
+  --si:#2F7D4F;--si-bg:#E3F1E7;--medio:#B7791F;--medio-bg:#FBEFD9;--no:#B4332B;--no-bg:#F8E1DE;--gris:#7a7470;--gris-bg:#ECE8E2}
+body{background:var(--fondo);color:var(--tinta);font-family:'DM Sans',Arial,sans-serif;font-size:15px;line-height:1.45;padding:28px 18px 80px}
+.env{max-width:1080px;margin:0 auto}
+h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:44px;line-height:1.05}
+h1 em{color:var(--acento)}
+.sub{color:var(--suave);margin-top:6px}
+.cab{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end;margin-bottom:22px}
+.btn{border:1px solid var(--linea);background:var(--tarjeta);border-radius:999px;padding:9px 16px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--tinta)}
+.btn.osc{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.caja{background:var(--tarjeta);border-radius:18px;padding:20px 22px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--suave)}
+/* el momento */
+.momento{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-bottom:18px}
+.linea{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.etapa{flex:1;min-width:110px;border-radius:12px;padding:10px 12px;background:var(--gris-bg);color:var(--gris);font-size:13px;font-weight:700;position:relative}
+.etapa small{display:block;font-weight:500;font-size:12px;margin-top:2px}
+.etapa.hecha{background:#E9E4DD;color:#9b948e}
+.etapa.aqui{background:var(--acento);color:#fff}
+.etapa.aqui small{color:rgba(255,255,255,.85)}
+.dato{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--linea);font-size:14px}
+.dato:last-child{border:0}
+.dato b{text-align:right}
+.cuenta{font-family:'Instrument Serif',serif;font-size:54px;line-height:1;color:var(--acento)}
+/* la primera */
+.primera{border:2px solid var(--tinta);margin-bottom:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.primera .q{font-family:'Instrument Serif',serif;font-size:28px;line-height:1.15;flex:1;min-width:240px}
+/* filtros */
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.filtros button{border:1px solid var(--linea);background:var(--tarjeta);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
+.filtros button.on{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+/* tarjetas de idea */
+.ideas{display:grid;gap:16px}
+.idea{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:start}
+.anillo{position:relative;width:120px;height:120px}
+.anillo svg{transform:rotate(-90deg)}
+.anillo .n{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.anillo .n b{font-size:40px;line-height:1;font-weight:800}
+.anillo .n span{font-size:12px;color:var(--suave)}
+.anillo .n i{font-style:normal;font-size:10px;line-height:1.1;max-width:74px;text-align:center;color:var(--acento);font-weight:700;margin-top:2px}
+.tit{font-family:'Instrument Serif',serif;font-size:26px;line-height:1.15}
+.ver{display:inline-block;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:8px 0 6px}
+.v-grabala{background:var(--si-bg);color:var(--si)}.v-ajustala{background:var(--medio-bg);color:var(--medio)}
+.v-no{background:var(--no-bg);color:var(--no)}.v-guardada{background:var(--gris-bg);color:var(--gris)}
+.porque{margin-top:4px}
+.cambio{margin-top:12px;background:#FFF8E6;border-left:4px solid #E5B53A;border-radius:10px;padding:10px 14px;font-size:14px}
+.cambio b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a6a12;margin-bottom:2px}
+.acc{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+details{margin-top:12px;border-top:1px solid var(--linea);padding-top:10px}
+summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--suave)}
+.preg{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center;margin-top:10px}
+.preg .p{font-size:14px}
+.preg .p small{display:block;color:var(--suave);font-size:12px}
+.ops{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.ops button{border:1px solid var(--linea);background:#fafafa;border-radius:8px;padding:5px 9px;font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.ops button.on{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.ops button.orig{box-shadow:inset 0 -3px 0 var(--acento)}
+.aviso{font-size:12px;color:var(--suave);margin-top:10px}
+.mod{color:var(--acento);font-weight:700}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.dos ul{margin:10px 0 0 18px}
+.dos li{margin-bottom:6px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--tinta);color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (max-width:720px){.momento,.dos,.preg{grid-template-columns:1fr}.ops{justify-content:flex-start}.idea{grid-template-columns:1fr}.anillo{margin:0 auto}h1{font-size:36px}}
+</style></head>
+<body>
+<div class="env">
+  <div class="cab"><div><h1>Tu <em>director</em></h1><p class="sub" id="sub"></p></div>
+    <button class="btn osc" id="copiar">📋 Copiar el resumen</button></div>
+  <div class="momento">
+    <div class="caja"><span class="lbl">Tu momento</span><div class="linea" id="linea"></div><p class="aviso" id="objetivo"></p></div>
+    <div class="caja" id="oferta"></div>
+  </div>
+  <div class="caja primera" id="primera"></div>
+  <div class="filtros" id="filtros"></div>
+  <div class="ideas" id="ideas"></div>
+  <div class="dos">
+    <div class="caja"><span class="lbl">Lo que vi en tu historial</span><ul id="historial"></ul></div>
+    <div class="caja"><span class="lbl">Lo que funciona en tu momento</span><ul id="funciona"></ul></div>
+  </div>
+  <p class="aviso" style="margin-top:18px">El número no promete vistas: dice qué tan respaldada está la idea por tus números, tu momento y lo que funciona. Abre "¿Por qué este número?" y toca las respuestas para ver qué pasa si cambias algo.</p>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===== DATOS: esto lo llena Claude ===== */
+const DATA = /*DATOS*/{
+  "fecha": "hoy",
+  "momento": {"etapa": "creciendo", "objetivo": "autoridad", "oferta": "", "abre": "", "palabra": ""},
+  "historial": {"piezas_medidas": 0},
+  "ideas": [
+    {"titulo": "Tu idea aquí", "puntos": {"frase": 1, "clienta": 2, "sostener": 1, "momento": 1, "historial": 0, "funciona": 0.5}, "orgullo": true,
+     "porque": "El porqué en una frase.", "cambio": "El único cambio que la mejora.", "sube_a": 8,
+     "siguiente": {"skill": "hooks", "pedido": "dame hooks para: tu idea"}}
+  ],
+  "primera": 0,
+  "visto_historial": ["Todavía no tienes resultados guardados."],
+  "funciona": ["Lo que funciona en tu momento, en una línea."]
+}/*FIN*/;
+
+const ETAPAS = [["empezando", "Empezando", "que sepan quién eres"], ["creciendo", "Creciendo", "que te pregunten"], ["calentando", "Calentando", "lista de espera"], ["abriendo", "Abriendo", "carrito abierto"], ["despues", "Después", "gracias y lo que viene"]];
+const PREG = [
+  ["frase", "¿Se dice en una frase?", "", [[1, "Sí"], [0.5, "A medias"], [0, "No"]]],
+  ["clienta", "¿Le duele a tu clienta?", "Conecta con un momento o una frase suya", [[2, "Sí"], [1, "A medias"], [0, "No"]]],
+  ["sostener", "¿Tienes con qué sostenerla?", "Una historia tuya, un caso, una captura, un número real", [[2, "Sí"], [1, "A medias"], [0, "No"]]],
+  ["momento", "¿Sirve al objetivo de tu momento?", "", [[2, "Sí"], [1, "A medias"], [0, "No"]]],
+  ["historial", "¿Qué dice tu historial?", "Piezas parecidas tuyas", [[2, "Me funcionó 2 veces"], [1, "Una vez"], [0, "Nunca lo hice"], [-1, "Lo hice hace poco"], [-2, "Falló 2 veces"]]],
+  ["funciona", "¿Calza con lo que funciona en tu momento?", "", [[1, "Sí"], [0.5, "A medias"], [0, "No"]]]
+];
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const ORIG = JSON.parse(JSON.stringify(DATA.ideas));
+let filtro = "todas";
+
+function nota(id) { const p = id.puntos || {}; const s = Object.values(p).reduce((a, b) => a + (+b || 0), 0); return Math.max(1, Math.min(10, Math.floor(s))); }
+function veredicto(id) {
+  if (id.guardada) return ["guardada", "Guárdala " + id.guardada];
+  if (id.orgullo === false) return ["no", "No la grabes"];
+  const n = nota(id);
+  return n >= 7 ? ["grabala", "Grábala"] : n >= 5 ? ["ajustala", "Ajústala y grábala"] : ["no", "No la grabes (por ahora)"];
+}
+function anillo(n, sube, guardada) {
+  const r = 52, c = 2 * Math.PI * r, col = guardada ? "#9b948e" : n >= 7 ? "#2F7D4F" : n >= 5 ? "#B7791F" : "#B4332B";
+  return `<div class="anillo"><svg width="120" height="120"><circle cx="60" cy="60" r="${r}" fill="none" stroke="#ECE8E2" stroke-width="10"/>
+  <circle cx="60" cy="60" r="${r}" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c * n / 10} ${c}"/></svg>
+  <div class="n"><b>${guardada ? "—" : n}</b><span>${guardada ? "otro momento" : "de 10"}</span>${sube && !guardada && sube > n ? `<i>puede subir a ${sube}</i>` : ""}</div></div>`;
+}
+function pintarMomento() {
+  const m = DATA.momento, k = ETAPAS.findIndex(e => e[0] === m.etapa);
+  document.getElementById("linea").innerHTML = ETAPAS.map((e, i) => `<div class="etapa ${i < k ? "hecha" : i === k ? "aqui" : ""}">${i === k ? "● " : ""}${e[1]}<small>${e[2]}</small></div>`).join("");
+  document.getElementById("objetivo").innerHTML = m.objetivo ? `Lo que tu contenido tiene que hacer este mes: <b>${esc(m.objetivo)}</b>` : "";
+  let o = `<span class="lbl">Lo que vas a abrir</span>`;
+  if (m.abre) {
+    const dias = Math.ceil((new Date(m.abre + "T00:00:00") - new Date(new Date().toDateString())) / 864e5);
+    o += `<div style="display:flex;gap:14px;align-items:flex-end;margin:10px 0 6px"><span class="cuenta">${dias > 0 ? dias : 0}</span><span>${dias > 0 ? "días para abrir" : "ya abriste"}</span></div>`;
+  }
+  o += [["Qué", m.oferta], ["Abre", m.abre ? new Date(m.abre + "T00:00:00").toLocaleDateString("es", {day: "numeric", month: "long"}) : ""], ["Palabra", m.palabra]].filter(x => x[1]).map(x => `<div class="dato"><span>${x[0]}</span><b>${esc(x[1])}</b></div>`).join("");
+  document.getElementById("oferta").innerHTML = o;
+  document.getElementById("sub").textContent = `${DATA.fecha} · ${DATA.ideas.length} ideas · ` + (DATA.historial.piezas_medidas >= 3 ? `con ${DATA.historial.piezas_medidas} piezas tuyas medidas` : "decidido por criterio: todavía no tienes piezas medidas");
+}
+function pintarPrimera() {
+  const id = DATA.ideas[DATA.primera]; if (!id) return;
+  document.getElementById("primera").innerHTML = `<span class="lbl" style="width:100%">La que grabaría primero</span><div class="q">${esc(id.titulo)}</div><div style="text-align:right"><b style="font-size:34px">${nota(id)}</b><span style="color:var(--suave)"> /10</span></div>`;
+}
+function pintarFiltros() {
+  const cuenta = k => DATA.ideas.filter(i => veredicto(i)[0] === k).length;
+  const fs = [["todas", "Todas", DATA.ideas.length], ["grabala", "Grábala", cuenta("grabala")], ["ajustala", "Ajústala", cuenta("ajustala")], ["no", "No la grabes", cuenta("no")], ["guardada", "Guardadas", cuenta("guardada")]].filter(f => f[0] === "todas" || f[2]);
+  document.getElementById("filtros").innerHTML = fs.map(f => `<button data-f="${f[0]}" class="${filtro === f[0] ? "on" : ""}">${f[1]} · ${f[2]}</button>`).join("");
+  document.querySelectorAll("#filtros button").forEach(b => b.onclick = () => { filtro = b.dataset.f; pintar(); });
+}
+function pintarIdeas() {
+  const cont = document.getElementById("ideas"); cont.innerHTML = "";
+  DATA.ideas.map((id, i) => [id, i]).sort((a, b) => (a[0].guardada ? 1 : 0) - (b[0].guardada ? 1 : 0) || nota(b[0]) - nota(a[0])).forEach(([id, i]) => {
+    const [v, vt] = veredicto(id); if (filtro !== "todas" && filtro !== v) return;
+    const n = nota(id), cambiada = JSON.stringify(id.puntos) !== JSON.stringify(ORIG[i].puntos) || id.orgullo !== ORIG[i].orgullo;
+    const el = document.createElement("div"); el.className = "caja idea";
+    el.innerHTML = anillo(n, id.sube_a, !!id.guardada) + `<div>
+      <div class="tit">${esc(id.titulo)}</div>
+      <span class="ver v-${v}">${vt}</span>${cambiada ? ` <span class="mod">· cambiaste respuestas</span>` : ""}
+      <p class="porque">${esc(id.porque)}</p>
+      ${id.cambio ? `<div class="cambio"><b>${id.guardada ? "Para cuando toque" : id.sube_a > nota(id) ? "El cambio que la sube" : "Ten en cuenta"}</b>${esc(id.cambio)}${id.sube_a > nota(id) && !id.guardada ? ` <b style="display:inline;letter-spacing:0;text-transform:none;font-size:14px;color:#8a6a12">→ ${id.sube_a}/10</b>` : ""}</div>` : ""}
+      <div class="acc">${id.siguiente ? `<button class="btn osc" data-copy="${esc(id.siguiente.pedido)}">Siguiente: ${esc(id.siguiente.skill)} →</button>` : ""}
+        ${cambiada ? `<button class="btn" data-reset="${i}">↺ Volver a mis respuestas</button>` : ""}</div>
+      <details ${cambiada ? "open" : ""}><summary>¿Por qué este número?</summary>
+        ${PREG.map(([k, t, ayuda, ops]) => `<div class="preg"><div class="p">${t}${ayuda ? `<small>${ayuda}</small>` : ""}</div><div class="ops">${ops.map(([val, txt]) => `<button data-i="${i}" data-k="${k}" data-v="${val}" class="${(+id.puntos[k] || 0) === val ? "on" : ""} ${(+ORIG[i].puntos[k] || 0) === val ? "orig" : ""}">${txt}</button>`).join("")}</div></div>`).join("")}
+        <div class="preg"><div class="p">¿Te sentirías orgullosa si se hiciera viral?<small>Si es no, no se graba aunque pueda tener vistas</small></div><div class="ops"><button data-i="${i}" data-o="1" class="${id.orgullo !== false ? "on" : ""}">Sí</button><button data-i="${i}" data-o="0" class="${id.orgullo === false ? "on" : ""}">No</button></div></div>
+        <p class="aviso">La raya roja marca lo que respondió el director. Toca otra respuesta para ver cómo cambia el número.</p>
+      </details></div>`;
+    cont.appendChild(el);
+  });
+  cont.querySelectorAll("[data-k]").forEach(b => b.onclick = () => { DATA.ideas[+b.dataset.i].puntos[b.dataset.k] = +b.dataset.v; pintar(true); });
+  cont.querySelectorAll("[data-o]").forEach(b => b.onclick = () => { DATA.ideas[+b.dataset.i].orgullo = b.dataset.o === "1"; pintar(true); });
+  cont.querySelectorAll("[data-reset]").forEach(b => b.onclick = () => { const i = +b.dataset.reset; DATA.ideas[i] = JSON.parse(JSON.stringify(ORIG[i])); pintar(); });
+  cont.querySelectorAll("[data-copy]").forEach(b => b.onclick = () => copiar(b.dataset.copy, "Copiado: pégalo en el chat"));
+}
+function pintarListas() {
+  document.getElementById("historial").innerHTML = (DATA.visto_historial || []).map(t => `<li>${esc(t)}</li>`).join("");
+  document.getElementById("funciona").innerHTML = (DATA.funciona || []).map(t => `<li>${esc(t)}</li>`).join("");
+}
+function pintar(abrir) {
+  const abiertos = [...document.querySelectorAll("details[open]")].length;
+  pintarMomento(); pintarPrimera(); pintarFiltros(); pintarIdeas(); pintarListas();
+}
+async function copiar(t, msg) {
+  try { await navigator.clipboard.writeText(t); aviso(msg); }
+  catch (e) { const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); aviso(msg); } catch (x) { aviso("Selecciona el texto y cópialo"); } a.remove(); }
+}
+function aviso(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1800); }
+document.getElementById("copiar").onclick = () => copiar(
+  `Mi director · ${DATA.fecha}\nMomento: ${DATA.momento.etapa}${DATA.momento.abre ? ` (abre ${DATA.momento.abre})` : ""}\n\n` +
+  DATA.ideas.map(id => `${id.guardada ? "—" : nota(id) + "/10"} · ${veredicto(id)[1]} · ${id.titulo}${id.cambio ? `\n   Cambio: ${id.cambio}` : ""}`).join("\n"), "Resumen copiado");
+pintar();
+</script></body></html>

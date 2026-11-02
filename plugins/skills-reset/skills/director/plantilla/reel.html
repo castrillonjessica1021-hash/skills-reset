@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi reel</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--fondo:#F4EEE7;--tarjeta:#fff;--tinta:#2E2525;--suave:#7a6e68;--linea:#E6DDD3;--acento:#9E2F3A;--resalte:#F3DC8C;--ok:#2F7D4F}
+body{background:var(--fondo);color:var(--tinta);font-family:'DM Sans',Arial,sans-serif;font-size:15px;line-height:1.45;padding:24px 16px 90px}
+.env{max-width:1000px;margin:0 auto}
+.cab{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:1.02}
+h1 em{color:var(--acento)}
+.sub{color:var(--suave);margin-top:4px}
+.nota-mano{font-family:Caveat;font-size:24px;color:var(--acento)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;position:sticky;top:0;background:var(--fondo);padding:8px 0;z-index:5}
+.tabs button{border:1.5px solid var(--tinta);background:var(--tarjeta);color:var(--tinta);border-radius:10px;padding:9px 16px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.tabs button.on{background:var(--acento);border-color:var(--acento);color:#fff}
+.tabs button .n{opacity:.6;margin-right:6px}
+.caja{background:var(--tarjeta);border-radius:18px;padding:20px 22px;box-shadow:0 6px 18px rgba(0,0,0,.05);margin-bottom:14px}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--acento);margin-bottom:8px;display:block}
+h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:32px;margin-bottom:6px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dato{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--linea)}
+.dato:last-child{border:0}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{border:1px solid var(--linea);background:var(--tarjeta);border-radius:999px;padding:9px 16px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--tinta)}
+.btn.osc{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+/* guion */
+.partes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.partes span{font-size:11px;font-weight:800;letter-spacing:.1em;padding:5px 10px;border-radius:999px;background:#F3EAE3}
+.beat{border-top:1px solid var(--linea);padding:14px 0}
+.beat h4{font-size:11px;letter-spacing:.14em;color:var(--acento);margin-bottom:6px}
+.beat h4 small{color:var(--suave);letter-spacing:0;font-weight:500;margin-left:6px;text-transform:none}
+.linea{padding:6px 0}
+.linea p{font-size:19px;line-height:1.35;outline:none;border-radius:6px}
+.linea p:focus{background:#FFF8E6}
+.linea .ver{font-size:13px;color:var(--suave);margin-top:2px}
+.linea .ver b{color:var(--tinta)}
+.add{font-size:12px;color:var(--acento);cursor:pointer;text-decoration:underline;margin-top:4px;display:inline-block;background:none;border:0;font-family:inherit}
+.linea textarea{width:100%;margin-top:6px;border:1px solid var(--resalte);background:#FFFBEA;border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;min-height:44px}
+/* plan */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--linea);cursor:pointer}
+.chk:last-child{border:0}
+.chk input{width:22px;height:22px;accent-color:var(--acento);margin-top:2px;flex:none}
+.chk .t{font-size:15px}
+.chk .t small{display:block;color:var(--suave);font-size:13px}
+.chk.hecho .t{opacity:.5;text-decoration:line-through}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 8px;border-radius:6px;margin-left:6px;vertical-align:2px}
+.tag.cam{background:#E8EEF7;color:#2f4a7a}.tag.pant{background:#F6E3E5;color:var(--acento)}.tag.broll{background:#E6F2EA;color:var(--ok)}
+.progreso{height:8px;background:#EFE7DF;border-radius:999px;overflow:hidden;margin:8px 0 4px}
+.progreso i{display:block;height:100%;background:var(--acento);transition:width .3s}
+/* edición */
+.paradas{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.parada{border:1.5px solid var(--tinta);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px;cursor:pointer;background:#fff;display:flex;gap:8px;align-items:center}
+.parada.hecho{background:var(--ok);border-color:var(--ok);color:#fff}
+.tl{overflow-x:auto;border:1px solid var(--linea);border-radius:14px;padding:12px;background:#FCFAF7}
+.tl-in{position:relative;min-width:760px}
+.regla{display:flex;justify-content:space-between;font-size:11px;color:var(--suave);margin:0 0 6px 90px}
+.pista{display:flex;align-items:center;gap:0;height:40px;margin-bottom:6px}
+.pista b{width:90px;flex:none;font-size:11px;letter-spacing:.08em;color:var(--suave)}
+.pista .carril{position:relative;flex:1;height:34px;background:#F2ECE5;border-radius:8px}
+.bloque{position:absolute;top:3px;bottom:3px;border-radius:7px;font-size:11px;font-weight:700;padding:0 8px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#fff}
+.b-video{background:#3A2B2B}.b-texto{background:var(--acento)}.b-pantalla{background:#C2667A}.b-broll{background:#2F7D4F}.b-zoom{background:#B7791F}.b-sonido{background:#6B5BA8}
+table.sfx{width:100%;border-collapse:collapse;font-size:14px}
+table.sfx th{text-align:left;font-size:11px;letter-spacing:.12em;color:var(--suave);padding:6px 8px;border-bottom:2px solid var(--linea)}
+table.sfx td{padding:9px 8px;border-bottom:1px solid var(--linea);vertical-align:top}
+/* publicar */
+.cap{white-space:pre-wrap;background:#FCFAF7;border:1px solid var(--linea);border-radius:12px;padding:14px;font-size:15px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--tinta);color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (max-width:720px){.dos{grid-template-columns:1fr}h1{font-size:34px}}
+</style></head>
+<body><div class="env">
+<div class="cab"><div><span class="lbl" id="eti"></span><h1 id="titulo"></h1><p class="sub" id="sub"></p></div><div class="nota-mano" id="mano"></div></div>
+<div class="tabs" id="tabs"></div>
+<div id="vista"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===== DATOS: esto lo llena Claude ===== */
+const DATA = /*DATOS*/{
+  "titulo": "Tu reel", "fecha": "hoy", "momento": "creciendo", "objetivo": "", "confianza": 7, "veredicto": "Grábala", "palabra": "",
+  "idea": "La idea en una frase.", "porque": "", "gancho_leido": {"arriba": "", "grande": ""},
+  "guion": [{"parte": "ABRIR", "nota": "", "lineas": [{"t": "Primera frase.", "ver": ""}]}],
+  "lugares": [{"nombre": "Lugar 1", "setup": ["Cámara a la altura de los ojos"], "tomas": [{"tipo": "cam", "t": "Toma"}]}],
+  "pantallas": [],
+  "duracion": 45,
+  "timeline": [{"pista": "VIDEO", "clase": "video", "a": 0, "b": 10, "t": "Tú"}],
+  "sonidos": [],
+  "caption": "", "portada": "", "antes_de_publicar": []
+}/*FIN*/;
+
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const KEY = "reel-" + (DATA.titulo || "").slice(0, 40);
+let est = {}; try { est = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+est.notas = est.notas || {}; est.hechos = est.hechos || {}; est.textos = est.textos || {};
+const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(est)); } catch (e) {} };
+const TABS = [["idea", "Idea"], ["guion", "Guion"], ["plan", "Plan de grabación"], ["edicion", "Edición"], ["publicar", "Listo para publicar"]];
+let tab = location.hash.replace("#", "") || "idea";
+
+function cabecera() {
+  document.getElementById("eti").textContent = "MI REEL · " + DATA.fecha;
+  document.getElementById("titulo").innerHTML = esc(DATA.titulo).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  document.getElementById("sub").textContent = `${DATA.duracion ? "unos " + DATA.duracion + " segundos · " : ""}${DATA.veredicto} · ${DATA.confianza}/10`;
+  document.getElementById("mano").textContent = "tú decides, Claude construye";
+  document.getElementById("tabs").innerHTML = TABS.map(([k, n], i) => `<button data-t="${k}" class="${k === tab ? "on" : ""}"><span class="n">${i + 1}</span>${n}</button>`).join("");
+  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => { tab = b.dataset.t; history.replaceState(null, "", "#" + tab); pintar(); window.scrollTo(0, 0); });
+}
+function vIdea() {
+  const g = DATA.gancho_leido || {};
+  return `<div class="dos"><div class="caja"><span class="lbl">La idea</span><h2>${esc(DATA.idea)}</h2><p style="color:var(--suave)">${esc(DATA.porque)}</p></div>
+  <div class="caja"><span class="lbl">El director dijo</span>
+    <div class="dato"><span>Confianza</span><b>${DATA.confianza}/10 · ${esc(DATA.veredicto)}</b></div>
+    <div class="dato"><span>Tu momento</span><b>${esc(DATA.momento)}</b></div>
+    <div class="dato"><span>Lo que tiene que lograr</span><b>${esc(DATA.objetivo)}</b></div>
+    <div class="dato"><span>Palabra</span><b>${esc(DATA.palabra)}</b></div></div></div>
+  ${g.grande ? `<div class="caja"><span class="lbl">El gancho escrito (arriba en pantalla)</span><p style="font-size:14px;color:var(--suave)">${esc(g.arriba)}</p><h2>${esc(g.grande)}</h2><p style="font-size:13px;color:var(--suave)">No repite lo que dices: hace otro trabajo.</p></div>` : ""}
+  <div class="btns"><button class="btn osc" onclick="ir('guion')">Ver el guion →</button></div>`;
+}
+function vGuion() {
+  let h = `<div class="caja"><span class="lbl">Tu guion</span><div class="partes">${DATA.guion.map(p => `<span>${esc(p.parte)}</span>`).join("")}</div>
+  <p style="font-size:13px;color:var(--suave)">Toca cualquier línea para cambiarla, o "añadir nota" para decirle a Claude qué cambiar.</p>`;
+  DATA.guion.forEach((p, i) => {
+    h += `<div class="beat"><h4>${esc(p.parte)}<small>${esc(p.nota)}</small></h4>`;
+    p.lineas.forEach((l, j) => {
+      const k = i + "-" + j, txt = est.textos[k] ?? l.t, nota = est.notas[k];
+      h += `<div class="linea"><p contenteditable data-k="${k}">${esc(txt)}</p>${l.ver ? `<div class="ver">en pantalla: <b>${esc(l.ver)}</b></div>` : ""}
+        ${nota != null ? `<textarea data-n="${k}" placeholder="¿Qué le cambio?">${esc(nota)}</textarea>` : `<button class="add" data-add="${k}">añadir nota</button>`}</div>`;
+    });
+    h += `</div>`;
+  });
+  h += `<div class="btns"><button class="btn" onclick="copiarCambios()">📋 Copiar cambios para Claude</button><button class="btn osc" onclick="ir('plan')">✓ Se ve bien, al plan →</button></div></div>`;
+  return h;
+}
+function chk(k, t, sub, tag) {
+  const on = est.hechos[k];
+  return `<label class="chk ${on ? "hecho" : ""}"><input type="checkbox" data-h="${k}" ${on ? "checked" : ""}><span class="t">${t}${tag || ""}${sub ? `<small>${sub}</small>` : ""}</span></label>`;
+}
+const TAG = {cam: '<span class="tag cam">A CÁMARA</span>', pant: '<span class="tag pant">PANTALLA</span>', broll: '<span class="tag broll">B-ROLL</span>'};
+function vPlan() {
+  const todos = []; DATA.lugares.forEach((l, i) => { l.setup.forEach((_, j) => todos.push(`s${i}-${j}`)); l.tomas.forEach((_, j) => todos.push(`t${i}-${j}`)); });
+  (DATA.pantallas || []).forEach((_, j) => todos.push(`p${j}`));
+  const hechos = todos.filter(k => est.hechos[k]).length, pct = todos.length ? Math.round(hechos * 100 / todos.length) : 0;
+  let h = `<div class="caja"><span class="lbl">Plan de grabación</span><h2>${hechos} de ${todos.length} listas</h2><div class="progreso"><i style="width:${pct}%"></i></div><p style="font-size:13px;color:var(--suave)">Marca cada cosa cuando la tengas. Se queda guardado en esta página.</p></div>`;
+  DATA.lugares.forEach((l, i) => {
+    h += `<div class="caja"><span class="lbl">Lugar ${i + 1} · ${esc(l.nombre)}</span><p style="font-weight:700;margin:6px 0 2px">Antes de grabar</p>
+    ${l.setup.map((s, j) => chk(`s${i}-${j}`, esc(s))).join("")}<p style="font-weight:700;margin:14px 0 2px">Las tomas</p>
+    ${l.tomas.map((t, j) => chk(`t${i}-${j}`, esc(t.t), esc(t.ver || ""), TAG[t.tipo])).join("")}</div>`;
+  });
+  if ((DATA.pantallas || []).length) h += `<div class="caja"><span class="lbl">Grabaciones de pantalla (no se filman, se graban del computador)</span>${DATA.pantallas.map((p, j) => chk(`p${j}`, esc(p.t), esc(p.donde || ""), TAG.pant)).join("")}</div>`;
+  h += `<div class="btns"><button class="btn" onclick="copiarGrabado()">📋 Copiar lo que ya grabé</button><button class="btn osc" onclick="ir('edicion')">A la edición →</button></div>`;
+  return h;
+}
+function vEdicion() {
+  const dur = DATA.duracion || 60, pistas = [...new Set(DATA.timeline.map(b => b.pista))];
+  const P = [["c", "Corte"], ["o", "Overlays y pantallas"], ["z", "Zooms, textos y subtítulos"], ["s", "Sonido, música al final"]];
+  let h = `<div class="caja"><span class="lbl">La edición, por paradas</span><div class="paradas">${P.map(([k, n], i) => `<span class="parada ${est.hechos["e" + k] ? "hecho" : ""}" data-p="e${k}">${est.hechos["e" + k] ? "✓" : i + 1} · ${n}</span>`).join("")}</div>
+  <p style="font-size:13px;color:var(--suave)">Así queda en tu editor. Los tiempos son aproximados: se ajustan a tus tomas reales.</p>
+  <div class="tl"><div class="tl-in"><div class="regla">${[0, .25, .5, .75, 1].map(f => `<span>${Math.round(dur * f)}s</span>`).join("")}</div>
+  ${pistas.map(p => `<div class="pista"><b>${esc(p)}</b><div class="carril">${DATA.timeline.filter(b => b.pista === p).map(b => `<div class="bloque b-${b.clase}" style="left:${b.a / dur * 100}%;width:${(b.b - b.a) / dur * 100}%" title="${esc(b.t)}">${esc(b.t)}</div>`).join("")}</div></div>`).join("")}
+  </div></div></div>`;
+  if ((DATA.sonidos || []).length) h += `<div class="caja"><span class="lbl">Efectos de sonido, en orden</span><table class="sfx"><tr><th>CUÁNDO</th><th>SONIDO</th><th>CAE EN</th><th>POR QUÉ</th></tr>${DATA.sonidos.map(s => `<tr><td>${esc(s.t)}</td><td><b>${esc(s.sonido)}</b></td><td>${esc(s.cae)}</td><td style="color:var(--suave)">${esc(s.porque)}</td></tr>`).join("")}</table></div>`;
+  h += `<div class="btns"><button class="btn" onclick="copiarEdicion()">📋 Copiar la edición para tu editor</button><button class="btn osc" onclick="ir('publicar')">Listo para publicar →</button></div>`;
+  return h;
+}
+function vPublicar() {
+  return `<div class="dos"><div class="caja"><span class="lbl">Caption</span><div class="cap" id="cap">${esc(DATA.caption)}</div><div class="btns"><button class="btn osc" onclick="copiar(document.getElementById('cap').innerText,'Caption copiado')">📋 Copiar caption</button></div></div>
+  <div class="caja"><span class="lbl">Antes de publicar</span>${(DATA.antes_de_publicar || []).map((t, j) => chk(`a${j}`, esc(t))).join("")}
+  ${DATA.portada ? `<p style="margin-top:12px;font-size:14px"><b>Portada:</b> ${esc(DATA.portada)}</p>` : ""}</div></div>`;
+}
+function ir(t) { tab = t; history.replaceState(null, "", "#" + t); pintar(); window.scrollTo(0, 0); }
+function pintar() {
+  cabecera();
+  const V = {idea: vIdea, guion: vGuion, plan: vPlan, edicion: vEdicion, publicar: vPublicar};
+  document.getElementById("vista").innerHTML = (V[tab] || vIdea)();
+  document.querySelectorAll("[data-h]").forEach(c => c.onchange = () => { est.hechos[c.dataset.h] = c.checked; guardar(); pintar(); });
+  document.querySelectorAll("[data-p]").forEach(c => c.onclick = () => { est.hechos[c.dataset.p] = !est.hechos[c.dataset.p]; guardar(); pintar(); });
+  document.querySelectorAll("[data-add]").forEach(b => b.onclick = () => { est.notas[b.dataset.add] = ""; guardar(); pintar(); setTimeout(() => { const t = document.querySelector(`[data-n="${b.dataset.add}"]`); if (t) t.focus(); }, 30); });
+  document.querySelectorAll("[data-n]").forEach(t => t.oninput = () => { est.notas[t.dataset.n] = t.value; guardar(); });
+  document.querySelectorAll("[data-k]").forEach(p => p.oninput = () => { est.textos[p.dataset.k] = p.innerText; guardar(); });
+}
+function lineaDe(k) { const [i, j] = k.split("-").map(Number); return {p: DATA.guion[i], l: DATA.guion[i].lineas[j]}; }
+function copiarCambios() {
+  const c = [];
+  Object.entries(est.textos).forEach(([k, t]) => { const {p, l} = lineaDe(k); if (t.trim() !== l.t) c.push(`- ${p.parte}: "${l.t}" → "${t.trim()}"`); });
+  Object.entries(est.notas).forEach(([k, n]) => { if (n.trim()) { const {p, l} = lineaDe(k); c.push(`- ${p.parte}, en "${l.t}": ${n.trim()}`); } });
+  copiar(c.length ? `Cambios a mi guion "${DATA.titulo}":\n` + c.join("\n") : `Mi guion "${DATA.titulo}" se ve bien.`, c.length ? "Cambios copiados: pégalos en el chat" : "Sin cambios: el guion está aprobado");
+}
+function copiarGrabado() {
+  const r = []; DATA.lugares.forEach((l, i) => l.tomas.forEach((t, j) => r.push(`${est.hechos[`t${i}-${j}`] ? "✓" : "✗"} ${l.nombre}: ${t.t}`)));
+  (DATA.pantallas || []).forEach((p, j) => r.push(`${est.hechos[`p${j}`] ? "✓" : "✗"} Pantalla: ${p.t}`));
+  copiar(`Lo que ya grabé para "${DATA.titulo}":\n` + r.join("\n"), "Copiado: pégalo en el chat");
+}
+function copiarEdicion() {
+  const r = DATA.timeline.map(b => `${b.a}s–${b.b}s · ${b.pista}: ${b.t}`).concat((DATA.sonidos || []).map(s => `${s.t} · sonido: ${s.sonido} (${s.cae})`));
+  copiar(`Edición de "${DATA.titulo}":\n` + r.join("\n"), "Edición copiada: pégala en AskCut o en tu editor");
+}
+async function copiar(t, msg) {
+  try { await navigator.clipboard.writeText(t); aviso(msg); }
+  catch (e) { const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); aviso(msg); } catch (x) { aviso("Selecciona el texto y cópialo"); } a.remove(); }
+}
+function aviso(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 2000); }
+pintar();
+</script></body></html>

@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Tu portafolio UGC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Anton&family=Pinyon+Script&family=Mrs+Saint+Delafield&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body.visor{background:#ECE8E2;font-family:'DM Sans',Arial,sans-serif;color:#1b1b1b;padding:24px 16px 80px}
+.cab{max-width:1240px;margin:0 auto 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.cab h1{font-size:22px}.cab p{font-size:14px;opacity:.7;max-width:680px}
+.btn{border:0;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;background:#1b1b1b;color:#fff;text-decoration:none;display:inline-block}
+.btn.sec{background:#fff;color:#1b1b1b;border:1px solid #ccc}
+.panel,.check{max-width:1240px;margin:0 auto 18px;background:#fff;border-radius:16px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.panel .g{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.panel .g>b,.check>b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.panel select{font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid #ccc;background:#fafafa}
+.panel input[type=color]{width:34px;height:30px;border:1px solid #ccc;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
+.panel label{display:flex;flex-direction:column;align-items:center;font-size:11px;opacity:.85}
+.est{display:flex;gap:8px;flex-wrap:wrap}
+.est button{border:2px solid #ddd;background:#fafafa;border-radius:12px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;gap:6px;align-items:center}
+.est button.on{border-color:#1b1b1b;background:#fff}
+.est i{display:inline-block;width:14px;height:14px;border-radius:50%}
+.check{gap:8px 18px;font-size:14px}
+.check span.ok{color:#2F7D4F;font-weight:700}.check span.falta{color:#B4332B;font-weight:700}
+.grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:22px}
+.item{background:#fff;border-radius:16px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.marco{width:100%;aspect-ratio:1920/1080;overflow:hidden;border-radius:8px;position:relative}
+.marco .pag{transform-origin:0 0;position:absolute;left:0;top:0}
+.guia{font-size:13px;line-height:1.45;background:#FFF8E6;border-radius:10px;padding:10px 12px;margin-top:8px}
+.guia b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a6a12;margin-bottom:2px}
+.ver{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:9;padding:20px;color:#fff;text-align:center}
+.ver img{max-width:92vw;border-radius:8px;background:#fff}
+body.editando .pag [contenteditable]{outline:3px dashed rgba(0,120,255,.55);outline-offset:6px}
+body.solo{padding:0;background:#fff}
+body.solo .cab,body.solo .check,body.solo .panel,body.solo .guia{display:none}
+body.solo .grid{display:block;max-width:none}body.solo .item{padding:0;border-radius:0;box-shadow:none;display:none}
+body.solo .item.ver1{display:block}body.solo .marco{width:auto;border-radius:0}
+
+/* ===== la página: horizontal, 1920 x 1080, como una presentación ===== */
+.pag{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--fondo);color:var(--tinta);font-family:var(--f-texto)}
+.pag [contenteditable]{outline:none}
+.ab{position:absolute}
+.foto{position:absolute;background:var(--suave) center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:rgba(0,0,0,.4);font-size:26px;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif}
+.vacia{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.06) 0 22px,transparent 22px 44px)}
+.tit{font-family:var(--f-titulo)}.gde{font-family:var(--f-grande)}.fir{font-family:var(--f-firma);font-weight:400}
+em{font-style:italic}
+.txt{font-size:28px;line-height:1.5}
+.n1,.n2{display:block}
+/* celulares con los videos */
+.vids{display:grid;gap:26px;align-items:start}
+.tel{background:#111;border-radius:34px;padding:9px;box-shadow:0 18px 36px rgba(0,0,0,.18)}
+.scr{aspect-ratio:9/16;border-radius:26px;background:#2a2a2a center/cover no-repeat;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:20px;font-family:'DM Sans',sans-serif}
+.scr.vacia{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0 18px,transparent 18px 36px)}
+.scr:not(.vacia)::after{content:"";position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(255,255,255,.88)}
+.scr:not(.vacia)::before{content:"";position:absolute;left:50%;top:50%;margin:-13px 0 0 -7px;border-left:24px solid #1b1b1b;border-top:13px solid transparent;border-bottom:13px solid transparent;z-index:1}
+.tl{text-align:center;margin-top:14px;font-size:20px;line-height:1.3}
+.tl small{display:block;font-size:15px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;font-weight:700}
+.tl span{font-weight:700}
+.qr .cod{background:#fff;padding:12px;border-radius:14px;width:184px;height:184px}
+.qr .cod img,.qr .cod canvas{width:160px!important;height:160px!important}
+.qr .q{font-size:20px;line-height:1.35;margin-top:14px}
+.qr .q b{display:block;font-size:16px;word-break:break-all;margin-top:6px;color:var(--acento)}
+.cont{display:flex;gap:44px;flex-wrap:wrap;font-size:26px}
+.cont b{display:block;font-size:15px;letter-spacing:.22em;text-transform:uppercase;opacity:.65;margin-bottom:6px}
+.paq{display:grid;gap:24px}
+.paq>div{border-radius:22px;padding:30px 28px;background:var(--tarjeta);color:var(--tinta)}
+.paq h4{font-size:30px;margin-bottom:12px}
+.paq ul{list-style:none;font-size:21px;line-height:1.6}
+.paq .p{font-size:40px;font-weight:800;margin-top:12px}
+
+/* ================= VERTICAL (1240 x 1754): misma información, mismos colores y letras ================= */
+.pag.vert{width:1240px;height:1754px;padding:110px 100px}
+.vert .eti{font-size:22px;letter-spacing:.3em;text-transform:uppercase;font-weight:800;color:var(--acento)}
+.vert .vt{font-family:var(--f-titulo);font-size:116px;line-height:1;margin-top:16px}
+.vert .vt em{color:var(--acento)}
+.vert .nom{line-height:.92}
+.vert .nom .n1{font-family:var(--f-titulo);color:var(--acento);font-size:150px}
+.vert .nom .n2{font-family:var(--f-grande);font-weight:900;font-size:120px;text-transform:uppercase;letter-spacing:-.02em}
+.v-rosa .nom .n1,.v-rosa .nom .n2{display:inline;font-family:var(--f-firma);font-size:170px;text-transform:none;font-weight:400;color:var(--tinta)}
+.v-ios .nom .n1,.v-ios .nom .n2,.v-ios .vt{font-family:var(--f-grande);font-weight:700;letter-spacing:-.05em;text-transform:lowercase;color:var(--tinta);font-size:150px}
+.v-ios .vt{font-size:110px}.v-ios .vt em{font-style:normal;color:var(--tinta)}
+.v-editorial .nom .n1,.v-editorial .nom .n2,.v-editorial .vt{font-family:var(--f-grande);text-transform:uppercase;color:var(--tinta);font-weight:400;font-size:150px}
+.v-editorial .vt{font-size:130px}.v-editorial .vt em{font-family:var(--f-firma);text-transform:none;color:var(--acento);font-style:normal}
+.v-rosa .vt{text-transform:uppercase;letter-spacing:.04em}.v-rosa .vt em{font-family:var(--f-firma);text-transform:none;font-style:normal;color:var(--tinta);letter-spacing:0}
+.vert .val{font-size:32px;line-height:1.4;margin-top:20px;font-family:var(--f-titulo);font-style:italic}
+.v-ios .val,.v-editorial .val{font-family:var(--f-texto);font-style:normal}
+.vert .chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.vert .chips span{border:3px solid currentColor;border-radius:999px;padding:10px 26px;font-size:26px;font-weight:700}
+.vert .banda{position:absolute;left:0;right:0;bottom:0;height:200px;background:var(--acento);color:#fff;display:flex;justify-content:space-evenly;align-items:center}
+.vert .banda b{display:block;font-family:var(--f-grande);font-size:80px;line-height:1;text-align:center}.vert .banda span{font-size:20px}
+.vert .pie{position:absolute;left:100px;right:100px;bottom:60px;display:flex;justify-content:space-between;font-size:20px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+.vert .bn{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.vert .bn>div{background:var(--tarjeta);border-radius:24px;padding:30px 26px;font-size:24px;line-height:1.4;box-shadow:0 12px 26px rgba(0,0,0,.06)}
+.vert .bn b{display:block;font-family:var(--f-titulo);font-size:36px;color:var(--acento);margin-bottom:8px}
+.vert .ls>div{display:flex;gap:26px;align-items:flex-start;padding:24px 0;border-bottom:2px solid rgba(0,0,0,.12);font-size:32px}
+.vert .ls b{font-family:var(--f-titulo);font-size:52px;color:var(--acento);min-width:84px;line-height:1}
+.vert .ls small{display:block;font-size:23px;opacity:.7;margin-top:6px}
+.vert .paq{grid-template-columns:1fr!important;gap:16px}.vert .paq>div{box-shadow:0 12px 26px rgba(0,0,0,.07);display:grid;grid-template-columns:260px 1fr auto;align-items:center;gap:24px;padding:24px 30px}
+.vert .paq h4{margin:0}.vert .paq .p{margin:0;color:var(--acento)}
+.vert .cita{background:var(--tarjeta);border-radius:24px;padding:36px;margin-top:26px;font-family:var(--f-titulo);font-style:italic;font-size:34px;line-height:1.35}
+.vert .cita small{display:block;font-family:var(--f-texto);font-style:normal;font-size:22px;margin-top:14px;opacity:.7}
+.vert .mc{display:flex;flex-wrap:wrap;gap:20px;margin-top:36px}
+.vert .mc>div{width:170px;height:170px;border-radius:50%;background:var(--tarjeta) center/cover;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:24px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.08);cursor:pointer}
+.v-rosa.vert::before{content:"";position:absolute;inset:36px;border:4px solid var(--tinta);border-radius:46px;pointer-events:none;z-index:3}
+.v-ios.p-portada{background:var(--acento);color:#fff}.v-ios.p-portada .nom .n1,.v-ios.p-portada .nom .n2{color:#fff}
+.v-ios.p-portada .banda{background:rgba(255,255,255,.08)}
+.v-editorial.vert .eti{color:var(--tinta)}.v-editorial .chips span{border-width:2px}
+
+/* ================= VINO ================= */
+.e-vino .nav{left:120px;top:64px;font-size:19px;letter-spacing:.24em;font-weight:600;display:flex;gap:56px}
+.e-vino .nombre{text-align:center;line-height:.86}
+.e-vino .nombre .n1{font-family:var(--f-titulo);color:var(--acento);font-size:170px;font-weight:500}
+.e-vino .nombre .n2{font-family:var(--f-grande);font-weight:900;font-size:150px;text-transform:uppercase;letter-spacing:-.03em}
+.e-vino .sub{font-size:22px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--acento)}
+.e-vino .boton{display:inline-block;background:var(--acento);color:#fff;border-radius:10px;padding:16px 46px;font-size:26px;font-weight:600}
+.e-vino .banda{background:var(--acento);color:#fff;display:flex;justify-content:space-evenly;align-items:center}
+.e-vino .cif{text-align:center}.e-vino .cif b{display:block;font-family:var(--f-grande);font-weight:500;font-size:120px;letter-spacing:-.03em;line-height:1}
+.e-vino .cif span{font-size:22px;opacity:.9}
+.e-vino .pill{border:2px solid currentColor;border-radius:999px;padding:12px 30px;font-size:26px;font-weight:600}
+.e-vino .tg{font-family:var(--f-grande);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.9}
+.e-vino .ts{font-family:var(--f-titulo);font-style:italic;color:var(--acento);line-height:.9}
+.e-vino .ben>div{display:flex;gap:26px;padding:22px 0;border-bottom:2px solid rgba(0,0,0,.1)}
+.e-vino .ben b{font-family:var(--f-titulo);font-size:56px;color:var(--acento);line-height:1;min-width:70px}
+.e-vino .ben h5{font-size:28px}.e-vino .ben p{font-size:22px;opacity:.75;margin-top:4px}
+.e-vino .pillv{display:inline-block;background:var(--acento);color:#fff;border-radius:999px;padding:12px 32px;font-size:26px;font-weight:700}
+.e-vino .circ{width:190px;height:190px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--f-titulo);font-size:30px;padding:16px;background:var(--acento) center/cover;color:#fff;cursor:pointer}
+.e-vino .circ:nth-child(3n+2){background-color:var(--suave);color:var(--acento)}.e-vino .circ:nth-child(3n){background-color:var(--tinta)}
+.e-vino .cita{font-family:var(--f-titulo);font-style:italic;font-size:36px;line-height:1.35;margin-bottom:34px}
+.e-vino .cita small{display:block;font-family:var(--f-texto);font-style:normal;font-size:20px;margin-top:12px;opacity:.8;letter-spacing:.12em;text-transform:uppercase}
+.e-vino .paq>div{border:2px solid var(--acento);background:var(--fondo)}
+.e-vino .paq h4{color:var(--acento);font-family:var(--f-titulo)}
+
+/* ================= ROSA Y CAFÉ ================= */
+.e-rosa{font-family:var(--f-texto)}
+.e-rosa .caja{position:absolute;inset:40px;border:4px solid var(--tinta);border-radius:46px;overflow:hidden}
+.e-rosa.p-portada,.e-rosa.p-porque,.e-rosa.p-contratar{background:var(--fondo)}
+.e-rosa .rayas{background:repeating-linear-gradient(90deg,rgba(0,0,0,.13) 0 28px,transparent 28px 56px),var(--acento)}
+.e-rosa .rosa{background:var(--fondo)}.e-rosa .crema{background:var(--suave)}
+.e-rosa .caps{font-family:var(--f-grande);text-transform:uppercase;letter-spacing:.04em;font-weight:500;line-height:1}
+.e-rosa .scr2{font-family:var(--f-firma);line-height:1;font-weight:400}
+.e-rosa .menu{left:0;right:0;top:0;height:76px;display:flex;justify-content:space-evenly;align-items:center;font-family:var(--f-grande);font-size:21px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.55);color:var(--tinta)}
+.e-rosa .pillr{background:var(--acento);color:var(--suave);border-radius:999px;padding:16px 34px;font-family:var(--f-grande);font-size:26px;letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.e-rosa .lr div{font-family:var(--f-grande);font-size:28px;text-transform:uppercase;letter-spacing:.08em;padding:12px 0}
+.e-rosa .lr small{display:block;font-family:var(--f-texto);text-transform:none;letter-spacing:0;font-size:18px;opacity:.75;margin-top:4px}
+.e-rosa .tel{border-radius:30px}
+.e-rosa .tl small{font-family:var(--f-grande);font-weight:600;letter-spacing:.14em}
+.e-rosa .circ{width:200px;height:200px;border-radius:50%;background:#fff center/cover;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--f-grande);font-size:30px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:18px;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.08)}
+.e-rosa .paq>div{background:var(--suave);border:3px solid var(--tinta);border-radius:22px}
+.e-rosa .paq h4{font-family:var(--f-grande);text-transform:uppercase;letter-spacing:.06em;text-align:center;border-bottom:2px solid var(--tinta);padding-bottom:12px}
+.e-rosa .paq li{border-bottom:2px dotted rgba(0,0,0,.3)}
+.e-rosa .paq .p{font-family:var(--f-grande);text-align:center}
+
+/* ================= NOTAS (iPhone) ================= */
+.e-ios{font-family:var(--f-texto);letter-spacing:-.01em}
+.e-ios .oscuro{background:var(--acento);color:#fff}
+.e-ios .gr{font-family:var(--f-grande);font-weight:700;letter-spacing:-.055em;text-transform:lowercase;line-height:.86}
+.e-ios .win{background:var(--tarjeta);border-radius:30px;box-shadow:0 24px 50px rgba(0,0,0,.14)}
+.e-ios .chip{background:#fff;color:#1b1b1b;border-radius:999px;padding:12px 24px;font-size:20px;font-weight:700;display:inline-flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.e-ios .chip.n{background:var(--acento);color:#fff}
+.e-ios .marcasF{display:flex;justify-content:space-evenly;align-items:center;font-family:var(--f-firma);font-size:38px;letter-spacing:.06em;text-transform:uppercase}
+.e-ios .notas{font-size:22px;color:#D49B00;font-weight:600;display:flex;justify-content:space-between}
+.e-ios .tarj{background:var(--acento);color:#fff;border-radius:20px;padding:26px 28px}
+.e-ios .tarj h5{font-size:30px;font-weight:700;margin:14px 0 8px}
+.e-ios .tarj p{font-size:20px;line-height:1.4;opacity:.72}
+.e-ios .dots{display:flex;gap:8px}.e-ios .dots i{width:14px;height:14px;border-radius:50%;background:#FF5F57}.e-ios .dots i:nth-child(2){background:#FEBC2E}.e-ios .dots i:nth-child(3){background:#28C840}
+.e-ios .tab{background:var(--suave);border-radius:12px;padding:8px 30px;font-size:30px;font-weight:600}
+.e-ios .tel{border-radius:30px;padding:7px}
+.e-ios .polar{background:#fff;padding:12px 12px 40px;box-shadow:0 10px 24px rgba(0,0,0,.25);color:#1b1b1b;text-align:center;font-size:20px;font-weight:600;cursor:pointer}
+.e-ios .polar div{width:150px;height:150px;background:#ddd center/cover;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+.e-ios .bur{background:#E9E9EB;color:#1b1b1b;border-radius:30px 30px 30px 8px;padding:22px 28px;font-size:24px;line-height:1.4;margin-bottom:18px;max-width:760px}
+.e-ios .bur small{display:block;font-size:17px;opacity:.6;margin-top:6px}
+.e-ios .met{background:#1b1b1b;color:#fff;border-radius:16px;display:flex;gap:40px;padding:18px 30px;width:max-content}
+.e-ios .met b{display:block;font-size:44px;font-weight:800}.e-ios .met span{font-size:15px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.e-ios .fila{display:flex;gap:22px;padding:20px 0;border-bottom:1px solid rgba(0,0,0,.1);font-size:24px;align-items:baseline}
+.e-ios .fila b{font-size:16px;letter-spacing:.14em;text-transform:uppercase;min-width:60px;opacity:.55}
+.e-ios .paq>div{border-radius:22px;box-shadow:0 14px 30px rgba(0,0,0,.1);text-align:center}
+.e-ios .paq .rb{display:inline-block;background:var(--acento);color:#fff;border-radius:999px;padding:10px 26px;font-size:18px;font-weight:700;margin-top:14px}
+
+/* ================= EDITORIAL ================= */
+.e-editorial{background:radial-gradient(ellipse at 20% 30%,rgba(0,0,0,.035),transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(0,0,0,.04),transparent 55%),var(--fondo)}
+.e-editorial .cabe{left:110px;right:110px;top:46px;display:flex;justify-content:space-between;font-family:var(--f-texto);font-weight:800;font-size:19px;letter-spacing:.16em;text-transform:uppercase}
+.e-editorial .an{font-family:var(--f-grande);text-transform:uppercase;line-height:.88;letter-spacing:-.005em}
+.e-editorial .sc{font-family:var(--f-firma);color:var(--acento);line-height:1;font-weight:400}
+.e-editorial .ast{color:var(--acento);font-family:Arial,sans-serif;font-weight:900;line-height:1}
+.e-editorial .flecha{right:110px;bottom:60px;width:150px;height:2px;background:var(--tinta)}
+.e-editorial .flecha::after{content:"";position:absolute;right:0;top:-7px;width:14px;height:14px;border-top:2px solid var(--tinta);border-right:2px solid var(--tinta);transform:rotate(45deg)}
+.e-editorial .mas>div{display:flex;gap:16px;align-items:baseline;font-size:24px;padding:10px 0}
+.e-editorial .mas>div::before{content:"✦";color:var(--acento);font-size:22px}
+.e-editorial .mas small{display:block;font-size:18px;opacity:.7}
+.e-editorial .pe{border:2px solid var(--tinta);border-radius:999px;padding:12px 30px;font-size:22px;font-weight:600}
+.e-editorial .tel{background:none;padding:0;border-radius:0;box-shadow:none}
+.e-editorial .scr{border-radius:0}
+.e-editorial .tl small{color:var(--acento)}
+.e-editorial .bloque{background:var(--acento)}
+.e-editorial .paq>div{background:transparent;border:2px solid var(--tinta);border-radius:0}
+.e-editorial .paq h4{font-family:var(--f-grande);text-transform:uppercase;font-weight:400;font-size:40px}
+.e-editorial .paq .p{color:var(--acento)}
+.e-editorial .cita{font-size:28px;line-height:1.4;font-style:italic;margin-bottom:24px}
+.e-editorial .cita small{display:block;font-style:normal;font-size:17px;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;opacity:.7}
+</style></head>
+<body class="visor">
+<div class="cab"><div><h1>Tu portafolio UGC</h1><p>Toca los cuadros para poner tus fotos y tus videos (de cada video se toma un cuadro como portada). Toca cualquier texto para cambiarlo. Cuando no quede nada en rojo, descárgalo en PDF para mandárselo a las marcas.</p></div>
+<div style="display:flex;gap:8px"><button class="btn sec" onclick="todas()">⬇ Imágenes</button><button class="btn" onclick="pdf()">⬇ Descargar PDF</button></div></div>
+<div class="check" id="check"></div>
+<div class="panel" id="panel"></div>
+<div class="grid" id="grid"></div>
+<script>
+/* ===== DATOS: esto lo llena Claude ===== */
+const DATA = /*DATOS*/{
+  "nombre": "Tu Nombre", "usuario": "@tuusuario", "correo": "tucorreo@correo.com", "ciudad": "", "idiomas": "",
+  "titulo": "Creadora UGC", "nicho": ["belleza", "maternidad", "hogar"],
+  "valor": "Videos naturales, como los de una clienta real, para marcas que quieren vender sin que se note el anuncio.",
+  "cta": "Trabajemos juntas", "disponible": "Disponible para colaboraciones",
+  "cifras": [],
+  "beneficios": [{"t": "Confianza", "d": "Hablo como tu clienta, y así se siente."}, {"t": "Ganchos", "d": "Los primeros 2 segundos pensados para que no deslicen."}, {"t": "Listos para anuncios", "d": "Verticales, con subtítulos y con mi voz."}],
+  "sobre_mi": "Dos o tres frases tuyas: quién eres, a quién le hablas y cómo es tu contenido.",
+  "formato": "horizontal", "estilo": "vino", "colores": null, "letras": null,
+  "videos": [{"t": "Unboxing", "nicho": "belleza"}, {"t": "Tutorial", "nicho": "hogar"}, {"t": "Testimonio", "nicho": "maternidad"}, {"t": "Antes y después", "nicho": "belleza"}, {"t": "3 ganchos", "nicho": "varios"}, {"t": "Voz en off", "nicho": "hogar"}],
+  "enlace_videos": "",
+  "tipos": [{"t": "Unboxing", "d": "Abro el producto y cuento la primera impresión."}, {"t": "Tutorial", "d": "Muestro cómo se usa, paso a paso."}, {"t": "Testimonio", "d": "Cuento mi experiencia real con el producto."}, {"t": "Reseña a cámara", "d": "Lo bueno, contado como se lo diría a una amiga."}, {"t": "Voz en off", "d": "Tomas del producto con mi voz encima."}, {"t": "Fotos de producto", "d": "Fotos naturales, en mi casa y con luz real."}],
+  "incluye": ["Guion y ganchos", "Edición con subtítulos", "Formato vertical", "Una ronda de cambios"],
+  "marcas": [], "testimonios": [], "caso": null,
+  "paquetes": [], "proceso": ["Me mandas el producto y el brief", "Te propongo el guion", "Grabo y edito", "Entrego en 5 a 7 días"],
+  "uso": "Derechos de uso por 3 meses incluidos. Uso en anuncios: se cotiza aparte."
+}/*FIN*/;
+
+/* los 4 estilos: cada uno con su forma, sus colores y sus letras (luego se cambian en el panel) */
+const ESTILOS = {
+  vino: {n: "Vino", colores: {fondo: "#FBF6F0", tinta: "#1E1A1A", acento: "#6E1423", suave: "#E7C6CC", tarjeta: "#FFFFFF"}, letras: {titulo: "Playfair Display", grande: "Montserrat", texto: "Montserrat", firma: "Mrs Saint Delafield"}},
+  rosa: {n: "Rosa y café", colores: {fondo: "#F6D4DE", tinta: "#4A2D22", acento: "#5A3A2C", suave: "#F4EBDD", tarjeta: "#FFFFFF"}, letras: {titulo: "Cormorant Garamond", grande: "Cormorant Garamond", texto: "Montserrat", firma: "Pinyon Script"}},
+  ios: {n: "Notas (iPhone)", colores: {fondo: "#E9E6E1", tinta: "#1C1917", acento: "#2A231F", suave: "#D6CFC6", tarjeta: "#FFFFFF"}, letras: {titulo: "Inter", grande: "Inter", texto: "Inter", firma: "Instrument Serif"}},
+  editorial: {n: "Editorial", colores: {fondo: "#F1F0EC", tinta: "#1F2A44", acento: "#A3171E", suave: "#D8D5CE", tarjeta: "#FFFFFF"}, letras: {titulo: "Anton", grande: "Anton", texto: "Montserrat", firma: "Mrs Saint Delafield"}}
+};
+if (!ESTILOS[DATA.estilo]) DATA.estilo = "vino";
+if (!DATA.colores) DATA.colores = {...ESTILOS[DATA.estilo].colores};
+if (!DATA.letras) DATA.letras = {...ESTILOS[DATA.estilo].letras};
+const FB = {titulo: "Georgia,serif", grande: "Arial,sans-serif", texto: "Arial,sans-serif", firma: "cursive"};
+const root = document.documentElement.style;
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const media = {}; try { Object.assign(media, JSON.parse(localStorage.getItem("ugc-media") || "{}")); } catch (e) {}
+if (window.MEDIA_DEMO) Object.assign(media, window.MEDIA_DEMO);
+const guardar = () => { try { localStorage.setItem("ugc-media", JSON.stringify(media)); } catch (e) {} };
+function aplicar() { for (const [k, v] of Object.entries(DATA.colores)) root.setProperty("--" + k, v); for (const [k, v] of Object.entries(DATA.letras)) root.setProperty("--f-" + k, `'${v}',${FB[k] || "sans-serif"}`); }
+const ed = (f, v, cls = "", st = "", tag = "div") => `<${tag} class="${cls}" style="${st}" contenteditable data-f="${f}">${esc(v)}</${tag}>`;
+function hueco(k, style, texto, cls = "foto") { const u = media[k]; return `<div class="${cls} ${u ? "" : "vacia"}" data-m="${k}" style="${style || ""};${u ? `background-image:url(${u})` : ""}">${u ? "" : texto || "📷"}</div>`; }
+const partes = () => { const [a, ...b] = DATA.nombre.trim().split(/\s+/); return [a || "", b.join(" ")]; };
+const nombre = (cls, st = "") => { const [a, b] = partes(); return `<div class="${cls}" style="${st}" contenteditable data-f="nombre"><span class="n1">${esc(a)}</span> <span class="n2">${esc(b)}</span></div>`; };
+const lista = (k, fn) => (DATA[k] || []).map(fn).join("");
+
+/* piezas que se repiten en los 4 estilos */
+function vids(cols, extra = "") {
+  const V = DATA.videos, n = cols || Math.min(V.length, 8);
+  return `<div class="vids" style="grid-template-columns:repeat(${n},1fr);${extra}">${V.map((v, i) => { const u = media["v" + i]; return `<div><div class="tel"><div class="scr ${u ? "" : "vacia"}" data-m="v${i}" data-video="1" style="${u ? `background-image:url(${u})` : ""}">${u ? "" : "🎬 video " + (i + 1)}</div></div>
+    <div class="tl"><small contenteditable data-f="videos.${i}.nicho">${esc(v.nicho)}</small><span contenteditable data-f="videos.${i}.t">${esc(v.t)}</span></div></div>`; }).join("")}</div>`;
+}
+const qr = (st, txt = "Escanea y mira<br>mis videos completos") => `<div class="ab qr" style="${st}"><div class="cod" id="qr"></div><div class="q">${txt}<b contenteditable data-f="enlace_videos">${esc(DATA.enlace_videos || "pega aquí el enlace")}</b></div></div>`;
+const contacto = (st = "") => `<div class="cont" style="${st}"><div><b>Correo</b><span contenteditable data-f="correo">${esc(DATA.correo)}</span></div><div><b>Redes</b><span contenteditable data-f="usuario">${esc(DATA.usuario)}</span></div>${DATA.ciudad ? `<div><b>Desde</b><span contenteditable data-f="ciudad">${esc(DATA.ciudad)}</span></div>` : ""}</div>`;
+const paquetes = st => DATA.paquetes.length ? `<div class="paq" style="grid-template-columns:repeat(${DATA.paquetes.length},1fr);${st}">${DATA.paquetes.map((p, i) => `<div><h4 contenteditable data-f="paquetes.${i}.n">${esc(p.n)}</h4><ul>${String(p.d).split("\n").map(l => `<li>${esc(l)}</li>`).join("")}</ul><div class="p" contenteditable data-f="paquetes.${i}.p">${esc(p.p)}</div>${DATA.estilo === "ios" ? `<span class="rb">Reservar</span>` : ""}</div>`).join("")}</div>` : "";
+const circulos = cls => lista("marcas", (m, i) => { const u = media["m" + i]; return `<div class="${cls}" data-m="m${i}" style="${u ? `background-image:url(${u});color:transparent` : ""}"><span contenteditable data-f="marcas.${i}">${esc(m)}</span></div>`; });
+const hayPrueba = () => DATA.marcas.length || DATA.testimonios.length || DATA.caso;
+
+/* ================= las páginas de cada estilo ================= */
+const R = {};
+R.vino = {
+  portada: () => `<div class="ab nav"><span>Sobre mí</span><span>Videos</span><span>Contacto</span></div>
+    ${hueco("portada", "right:0;top:0;width:760px;height:" + (DATA.cifras.length ? 760 : 820) + "px", "📷 tu mejor foto")}
+    <div class="ab" style="left:110px;top:170px;width:1000px;text-align:center">${nombre("nombre")}
+      ${ed("titulo", DATA.titulo, "sub", "margin-top:34px")}${ed("valor", DATA.valor, "txt", "max-width:760px;margin:22px auto 34px;font-size:26px")}${ed("cta", DATA.cta, "boton", "", "span")}</div>
+    <div class="ab banda" style="left:0;right:0;bottom:0;height:${DATA.cifras.length ? 320 : 260}px">${DATA.cifras.length
+      ? lista("cifras", (c, i) => `<div class="cif"><b contenteditable data-f="cifras.${i}.n">${esc(c.n)}</b><span contenteditable data-f="cifras.${i}.t">${esc(c.t)}</span></div>`)
+      : `<div style="display:flex;gap:22px;align-items:center"><span style="font-size:20px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;margin-right:10px">Mis nichos</span>${lista("nicho", (n, i) => `<span class="pill" contenteditable data-f="nicho.${i}">${esc(n)}</span>`)}</div><div style="font-size:28px;font-weight:600">${esc(DATA.usuario)}</div>`}</div>`,
+  porque: () => `<div class="ab" style="left:0;top:0;bottom:0;width:1000px;background:var(--acento);color:#fff;padding:120px 110px">
+      <div class="tg" style="font-size:140px">Hola,<br>soy</div><div class="ts" style="font-size:150px;color:var(--suave);margin-top:6px">${esc(partes()[0])}</div>
+      ${ed("sobre_mi", DATA.sobre_mi, "txt", "margin-top:40px;max-width:760px")}
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:40px">${[DATA.ciudad && "📍 " + DATA.ciudad, DATA.idiomas && "🗣 " + DATA.idiomas, DATA.usuario].filter(Boolean).map(t => `<span class="pill" style="font-size:22px">${esc(t)}</span>`).join("")}</div></div>
+    ${hueco("sobre1", "right:110px;top:100px;width:700px;height:420px;border-radius:26px", "📷 una foto tuya grabando")}
+    <div class="ab" style="right:110px;top:560px;width:700px"><div class="sub" style="font-size:20px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--acento)">Lo que consigue tu marca</div>
+      <div class="ben">${lista("beneficios", (b, i) => `<div><b>0${i + 1}</b><div><h5 contenteditable data-f="beneficios.${i}.t">${esc(b.t)}</h5><p contenteditable data-f="beneficios.${i}.d">${esc(b.d)}</p></div></div>`)}</div></div>`,
+  videos: () => `<div class="ab" style="left:110px;top:80px;display:flex;align-items:baseline;gap:26px"><span class="ts" style="font-size:130px">Mis</span><span class="tg" style="font-size:130px">videos</span></div>
+    <div class="ab" style="right:110px;top:120px;text-align:right;font-size:22px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--acento)">${DATA.nicho.map(esc).join(" · ")}</div>
+    <div class="ab" style="left:0;right:0;top:460px;height:420px;background:var(--acento)"></div>
+    <div class="ab" style="left:110px;right:430px;top:370px;color:#fff">${vids()}</div>
+    ${qr("right:110px;top:500px;width:260px;color:#fff")}`,
+  servicios: () => `<div class="ab" style="left:0;right:0;top:60px;text-align:center;z-index:2"><span class="ts" style="font-size:120px;margin-right:24px">Lo que</span><span class="tg" style="font-size:120px">hago</span></div>
+    ${hueco("esp", "left:690px;width:540px;bottom:0;height:780px;border-radius:270px 270px 0 0", "📷 una foto tuya")}
+    <div class="ab" style="left:110px;top:270px;width:540px;display:flex;flex-direction:column;gap:20px">${lista("tipos", (t, i) => `<div><span class="pillv" contenteditable data-f="tipos.${i}.t">${esc(t.t)}</span><div contenteditable data-f="tipos.${i}.d" style="font-size:19px;opacity:.75;margin:8px 0 0 30px">${esc(t.d)}</div></div>`)}</div>
+    <div class="ab" style="right:110px;top:280px;width:540px;text-align:right"><div style="font-size:20px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--acento);margin-bottom:22px">Mis nichos</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">${lista("nicho", (n, i) => `<span class="pillv" style="background:transparent;color:var(--acento);border:2px solid var(--acento)" contenteditable data-f="nicho.${i}">${esc(n)}</span>`)}</div>
+      <div style="font-size:20px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:var(--acento);margin:56px 0 18px">Siempre incluye</div>
+      <div style="font-size:24px;line-height:1.7">${lista("incluye", (t, i) => `<div contenteditable data-f="incluye.${i}">${esc(t)} ✓</div>`)}</div></div>`,
+  prueba: () => `<div class="ab" style="left:110px;top:100px"><div class="ts" style="font-size:110px">Marcas que</div><div class="tg" style="font-size:110px">confiaron</div></div>
+    <div class="ab" style="left:110px;top:420px;width:760px;display:flex;flex-wrap:wrap;gap:26px">${circulos("circ")}</div>
+    <div class="ab" style="right:0;top:0;bottom:0;width:880px;background:var(--acento);color:#fff;padding:110px 100px">
+      ${lista("testimonios", (t, i) => `<div class="cita"><span contenteditable data-f="testimonios.${i}.t">“${esc(t.t)}”</span><small contenteditable data-f="testimonios.${i}.de">${esc(t.de)}</small></div>`)}
+      ${DATA.caso ? `<div style="border-top:2px solid rgba(255,255,255,.3);padding-top:30px"><div style="font-size:20px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;opacity:.8">Caso · ${esc(DATA.caso.marca)}</div><div class="txt" style="font-size:24px;margin:12px 0 20px" contenteditable data-f="caso.texto">${esc(DATA.caso.texto)}</div><div style="display:flex;gap:50px">${(DATA.caso.n || []).map(c => `<div><b style="display:block;font-size:64px;font-family:var(--f-grande)">${esc(c.n)}</b><span style="font-size:18px">${esc(c.t)}</span></div>`).join("")}</div></div>` : ""}</div>`,
+  contratar: () => `<div class="ab" style="left:110px;top:90px;width:1060px"><div class="ts" style="font-size:120px">Trabajemos</div><div class="tg" style="font-size:120px">juntas</div>
+      <div style="display:grid;grid-template-columns:repeat(${DATA.proceso.length},1fr);gap:20px;margin-top:40px">${lista("proceso", (p, i) => `<div style="border-top:3px solid var(--acento);padding-top:14px;font-size:21px;line-height:1.35"><b style="font-family:var(--f-titulo);font-size:36px;color:var(--acento);display:block">${i + 1}</b><span contenteditable data-f="proceso.${i}">${esc(p)}</span></div>`)}</div>
+      ${paquetes("margin-top:34px")}${ed("uso", DATA.uso, "", "font-size:20px;opacity:.75;margin-top:26px")}</div>
+    ${contacto("position:absolute;left:110px;bottom:80px")}
+    ${hueco("cierre", "right:0;top:0;bottom:0;width:620px", "📷 otra foto tuya")}
+    <div class="ab fir" style="right:40px;bottom:50px;width:560px;text-align:center;color:#fff;font-size:120px;text-shadow:0 4px 20px rgba(0,0,0,.35)">${esc(DATA.nombre)}</div>`
+};
+R.rosa = {
+  portada: () => `<div class="caja">${hueco("portada", "inset:0", "📷 tu mejor foto, horizontal")}
+      <div class="ab" style="inset:0;background:linear-gradient(90deg,rgba(40,20,15,.45),rgba(40,20,15,0) 65%)"></div>
+      <div class="ab menu"><span>Sobre mí</span><span>Nichos</span><span>Videos</span><span>Marcas</span><span>Tarifas</span><span>Contacto</span></div>
+      <div class="ab" style="left:120px;top:330px;color:#fff">${ed("nombre", DATA.nombre, "scr2", "font-size:200px;text-shadow:0 6px 30px rgba(0,0,0,.25)")}
+        ${ed("titulo", DATA.titulo, "caps", "font-size:36px;letter-spacing:.3em;margin:10px 0 0 20px")}</div>
+      <div class="ab caps" style="left:70px;bottom:50px;color:#fff;font-size:24px;letter-spacing:.12em">${esc(DATA.correo)}</div>
+      <div class="ab caps" style="right:70px;bottom:50px;color:#fff;font-size:24px;letter-spacing:.12em;text-align:right"><span style="font-size:16px;display:block;margin-bottom:6px">Redes</span>${esc(DATA.usuario)}</div></div>`,
+  porque: () => `<div class="caja rayas">${hueco("sobre1", "left:60px;top:60px;bottom:60px;width:640px;border-radius:30px", "📷 una foto tuya")}
+      <div class="ab crema" style="left:760px;right:60px;top:60px;bottom:60px;border-radius:30px;padding:70px 80px">
+        <div style="display:flex;align-items:baseline;gap:14px"><span class="caps" style="font-size:110px">Sobre</span><span class="scr2" style="font-size:150px">mí</span></div>
+        ${ed("sobre_mi", DATA.sobre_mi, "txt", "font-size:25px;margin-top:20px")}
+        ${ed("valor", DATA.valor, "", "font-family:var(--f-titulo);font-style:italic;font-size:32px;line-height:1.35;margin-top:26px")}
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px">${lista("beneficios", (b, i) => `<div><div class="caps" style="font-size:26px;font-weight:600" contenteditable data-f="beneficios.${i}.t">${esc(b.t)}</div><div style="font-size:18px;opacity:.75;margin-top:8px;line-height:1.4" contenteditable data-f="beneficios.${i}.d">${esc(b.d)}</div></div>`)}</div></div></div>`,
+  servicios: () => `<div class="caja rosa"><div class="ab" style="left:0;right:0;top:70px;text-align:center"><span class="caps" style="font-size:86px">Mis nichos &amp;</span> <span class="scr2" style="font-size:120px">servicios</span></div>
+      <div class="ab" style="left:90px;top:330px;width:420px;display:flex;flex-direction:column;gap:22px">${lista("nicho", (n, i) => `<div class="pillr" contenteditable data-f="nicho.${i}">${esc(n)}</div>`)}</div>
+      ${hueco("esp", "left:600px;top:280px;width:560px;height:700px;border-radius:280px 280px 30px 30px", "📷 una foto tuya")}
+      <div class="ab lr" style="left:1240px;top:290px;width:540px">${lista("tipos", (t, i) => `<div>— <span contenteditable data-f="tipos.${i}.t">${esc(t.t)}</span><small contenteditable data-f="tipos.${i}.d">${esc(t.d)}</small></div>`)}</div></div>`,
+  videos: () => `<div class="caja crema"><div class="ab scr2" style="left:0;right:0;top:50px;text-align:center;font-size:150px">Mis videos</div>
+      <div class="ab" style="left:90px;right:90px;top:250px">${vids()}</div>
+      ${qr("left:90px;bottom:60px;display:flex;gap:26px;align-items:center", "Escanea y mira mis videos completos")}</div>`,
+  prueba: () => `<div class="caja rosa"><div class="ab" style="left:110px;top:80px;display:flex;align-items:baseline;gap:20px"><span class="scr2" style="font-size:130px">marcas</span><span class="caps" style="font-size:70px">con las que trabajé</span></div>
+      <div class="ab" style="left:110px;right:110px;top:300px;display:flex;flex-wrap:wrap;gap:30px;justify-content:center">${circulos("circ")}</div>
+      <div class="ab" style="left:110px;right:110px;bottom:70px;display:grid;grid-template-columns:repeat(${Math.max(1, DATA.testimonios.length)},1fr);gap:26px">${lista("testimonios", (t, i) => `<div style="background:var(--suave);border-radius:24px;padding:28px 32px;font-family:var(--f-titulo);font-style:italic;font-size:30px;line-height:1.35"><span contenteditable data-f="testimonios.${i}.t">“${esc(t.t)}”</span><div class="caps" style="font-style:normal;font-size:18px;margin-top:12px" contenteditable data-f="testimonios.${i}.de">${esc(t.de)}</div></div>`)}</div></div>`,
+  contratar: () => `<div class="caja rayas" style="color:var(--suave)"><div class="ab" style="left:90px;top:80px"><span class="caps" style="font-size:96px">Trabajemos &amp;</span><div class="scr2" style="font-size:150px;margin:-10px 0 0 60px">juntas!</div></div>
+      <div class="ab" style="left:90px;top:${DATA.paquetes.length ? 390 : 420}px;width:1100px">${DATA.paquetes.length ? paquetes("") : `<div style="display:flex;flex-direction:column;gap:14px">${lista("proceso", (p, i) => `<div class="caps" style="font-size:32px;letter-spacing:.06em">${i + 1}. <span contenteditable data-f="proceso.${i}">${esc(p)}</span></div>`)}</div>`}
+        ${ed("uso", DATA.uso, "", "font-size:19px;opacity:.85;margin-top:22px")}</div>
+      ${contacto("position:absolute;left:90px;bottom:60px;font-family:var(--f-grande);font-size:30px")}
+      ${hueco("cierre", "right:70px;top:70px;bottom:70px;width:560px;border-radius:30px", "📷 otra foto tuya")}</div>`
+};
+R.ios = {
+  portada: () => `<div class="ab oscuro" style="inset:0"></div>
+    <div class="ab gr" style="left:110px;top:150px;color:#fff;font-size:200px">${nombre("", "")}</div>
+    ${ed("valor", DATA.valor, "", "position:absolute;left:116px;top:610px;width:720px;color:rgba(255,255,255,.8);font-size:27px;line-height:1.45")}
+    <div class="ab" style="left:116px;top:780px;display:flex;gap:14px;flex-wrap:wrap;width:900px">${[DATA.titulo, ...DATA.nicho, DATA.ciudad && "📍 " + DATA.ciudad].filter(Boolean).map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+    <div class="ab win" style="right:120px;top:100px;width:680px;height:760px;padding:14px">${hueco("portada", "inset:14px;border-radius:20px", "📷 tu mejor foto")}</div>
+    <div class="ab chip" style="right:150px;top:70px">● ${esc(DATA.disponible)}</div>
+    <div class="ab marcasF" style="left:110px;right:110px;bottom:0;height:150px;border-top:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75)">${(DATA.marcas.length ? DATA.marcas : DATA.tipos.slice(0, 5).map(t => t.t)).map(esc).map(t => `<span>${t}</span>`).join("")}</div>`,
+  porque: () => `${hueco("sobre1", "left:110px;top:110px;width:560px;height:860px;border-radius:30px", "📷 una foto tuya")}
+    ${(DATA.cifras.length ? DATA.cifras.map(c => c.n + " " + c.t) : DATA.beneficios.map(b => b.t)).slice(0, 3).map((t, i) => `<span class="ab chip n" style="${["left:70px;top:240px", "left:520px;top:470px", "left:90px;top:780px"][i]}">${esc(t)}</span>`).join("")}
+    <div class="ab win" style="left:760px;right:110px;top:110px;bottom:110px;padding:40px 60px">
+      <div class="notas"><span>‹ Notas</span><span>⇪ ⋯</span></div>
+      <div class="gr" style="font-size:110px;margin-top:40px">sobre mí.</div>
+      ${ed("sobre_mi", DATA.sobre_mi, "txt", "font-size:26px;margin-top:30px")}
+      <div style="margin-top:30px">${lista("beneficios", (b, i) => `<div style="font-size:23px;line-height:1.5;margin-bottom:10px">— <b contenteditable data-f="beneficios.${i}.t">${esc(b.t)}</b>: <span contenteditable data-f="beneficios.${i}.d">${esc(b.d)}</span></div>`)}</div>
+      ${DATA.ciudad || DATA.idiomas ? `<div style="font-size:20px;opacity:.6;margin-top:20px">${[DATA.ciudad, DATA.idiomas].filter(Boolean).map(esc).join(" · ")}</div>` : ""}</div>`,
+  servicios: () => `<div class="ab chip gr" style="left:130px;top:80px;font-size:72px;padding:14px 50px;transform:rotate(-4deg);letter-spacing:-.04em">servicios</div>
+    <div class="ab" style="left:110px;right:110px;top:260px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px">${lista("tipos", (t, i) => `<div class="tarj"><div class="dots"><i></i><i></i><i></i></div><h5 contenteditable data-f="tipos.${i}.t">${esc(t.t)}</h5><p contenteditable data-f="tipos.${i}.d">${esc(t.d)}</p></div>`)}</div>
+    <div class="ab" style="left:110px;bottom:80px;display:flex;gap:14px;flex-wrap:wrap;align-items:center"><span style="font-size:20px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-right:8px">Siempre incluye</span>${lista("incluye", (t, i) => `<span class="chip" contenteditable data-f="incluye.${i}">${esc(t)}</span>`)}</div>`,
+  videos: () => `<div class="ab win" style="left:90px;right:90px;top:70px;bottom:70px"></div>
+    <div class="ab" style="left:0;right:0;top:190px;text-align:center"><span class="tab">mis videos</span></div>
+    <div class="ab" style="left:150px;right:460px;top:310px">${vids()}</div>
+    ${qr("right:150px;top:390px;width:250px;text-align:center")}`,
+  prueba: () => `<div class="ab oscuro" style="left:110px;top:110px;bottom:110px;width:820px;border-radius:30px;padding:60px"><div class="gr" style="font-size:96px;color:#fff">trabajos<br>recientes.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:30px;margin-top:50px">${lista("marcas", (m, i) => { const u = media["m" + i]; return `<div class="polar" data-m="m${i}" style="transform:rotate(${[-3, 2, -1, 3][i % 4]}deg)"><div style="${u ? `background-image:url(${u})` : ""}">${u ? "" : esc(m).slice(0, 1)}</div><span contenteditable data-f="marcas.${i}">${esc(m)}</span></div>`; })}</div></div>
+    <div class="ab" style="left:1000px;right:110px;top:110px">${DATA.caso ? `<div class="gr" style="font-size:80px">caso de éxito</div><div class="txt" style="font-size:24px;margin:20px 0" contenteditable data-f="caso.texto">${esc(DATA.caso.texto)}</div><div class="met">${(DATA.caso.n || []).map(c => `<div><b>${esc(c.n)}</b><span>${esc(c.t)}</span></div>`).join("")}</div><div style="height:50px"></div>` : ""}
+      ${lista("testimonios", (t, i) => `<div class="bur"><span contenteditable data-f="testimonios.${i}.t">${esc(t.t)}</span><small contenteditable data-f="testimonios.${i}.de">${esc(t.de)}</small></div>`)}</div>`,
+  contratar: () => `<div class="ab win" style="left:110px;top:110px;bottom:110px;width:${DATA.paquetes.length ? 700 : 820}px;padding:50px 56px"><div class="gr" style="font-size:84px">el proceso</div>
+      <div style="margin-top:20px">${lista("proceso", (p, i) => `<div class="fila"><b>0${i + 1}</b><span contenteditable data-f="proceso.${i}">${esc(p)}</span></div>`)}</div>
+      ${ed("uso", DATA.uso, "", "font-size:19px;opacity:.65;margin-top:24px;line-height:1.45")}</div>
+    ${DATA.paquetes.length ? `<div class="ab" style="left:870px;right:110px;top:110px"><div class="gr" style="font-size:84px;margin-bottom:30px">paquetes</div>${paquetes("")}</div>
+      <div class="ab" style="left:870px;bottom:110px;font-size:24px">✉ <b>${esc(DATA.correo)}</b> &nbsp; · &nbsp; ${esc(DATA.usuario)}</div>`
+    : `<div class="ab win" style="left:990px;right:110px;top:110px;bottom:110px;padding:60px;text-align:center">${hueco("cierre", "position:relative;width:260px;height:260px;border-radius:50%;margin:20px auto 0", "📷")}
+        <div class="gr" style="font-size:64px;margin-top:30px">${esc(DATA.nombre)}</div><div style="font-size:22px;opacity:.6;margin-top:10px">${esc(DATA.titulo)}</div>
+        <div style="text-align:left;margin-top:40px"><div class="fila"><b>correo</b><span contenteditable data-f="correo">${esc(DATA.correo)}</span></div><div class="fila"><b>redes</b><span contenteditable data-f="usuario">${esc(DATA.usuario)}</span></div></div>
+        ${ed("cta", DATA.cta, "chip n", "margin-top:34px;font-size:24px;padding:16px 40px", "span")}</div>`}`
+};
+R.editorial = {
+  _cabe: () => `<div class="ab cabe"><span contenteditable data-f="titulo">${esc(DATA.titulo)}</span><span>${esc(DATA.nombre)}</span><span>${esc(DATA.usuario)}</span></div><div class="ab flecha"></div>`,
+  portada: () => `${R.editorial._cabe()}<div class="ab an" style="left:0;right:0;top:150px;text-align:center;font-size:230px">Portafolio UGC</div>
+    ${hueco("portada", "left:680px;width:560px;top:420px;bottom:0", "📷 tu mejor foto")}
+    <div class="ab sc" style="left:600px;top:800px;font-size:220px;transform:rotate(-6deg)">Creadora</div>
+    ${ed("valor", DATA.valor, "", "position:absolute;left:110px;top:440px;width:400px;font-size:19px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.55")}
+    <div class="ab ast" style="right:250px;top:400px;font-size:150px">✱</div>
+    <div class="ab" style="left:110px;bottom:60px;font-size:19px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">${esc(DATA.correo)}</div>`,
+  porque: () => `${R.editorial._cabe()}<div class="ab an" style="left:110px;top:170px;font-size:190px">Sobre<br>mí <span class="ast" style="font-size:120px">✱</span></div>
+    <div class="ab sc" style="left:420px;top:330px;font-size:130px;transform:rotate(-6deg)">Presentación</div>
+    ${ed("sobre_mi", DATA.sobre_mi, "txt", "position:absolute;left:110px;top:590px;width:760px;font-size:25px")}
+    <div class="ab" style="left:110px;right:110px;bottom:120px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;border-top:2px solid var(--tinta);padding-top:26px">${lista("beneficios", (b, i) => `<div><div class="an" style="font-size:44px"><span class="ast" style="font-size:30px">+</span> <span contenteditable data-f="beneficios.${i}.t">${esc(b.t)}</span></div><div style="font-size:19px;margin-top:8px;opacity:.75" contenteditable data-f="beneficios.${i}.d">${esc(b.d)}</div></div>`)}</div>
+    ${hueco("sobre1", "right:110px;top:150px;width:780px;height:500px", "📷 una foto tuya")}<div class="ab bloque" style="right:70px;top:610px;width:120px;height:120px"></div>`,
+  servicios: () => `${R.editorial._cabe()}<div class="ab an" style="left:110px;top:150px;font-size:200px">Servicios</div>
+    <div class="ab sc" style="left:640px;top:250px;font-size:120px;transform:rotate(-6deg)">lo que hago</div>
+    <div class="ab mas" style="left:110px;top:440px;width:1000px;display:grid;grid-template-columns:1fr 1fr;gap:6px 50px">${lista("tipos", (t, i) => `<div><span><b contenteditable data-f="tipos.${i}.t">${esc(t.t)}</b><small contenteditable data-f="tipos.${i}.d">${esc(t.d)}</small></span></div>`)}</div>
+    <div class="ab" style="left:110px;bottom:120px;display:flex;gap:16px;flex-wrap:wrap">${lista("nicho", (n, i) => `<span class="pe" contenteditable data-f="nicho.${i}">${esc(n)}</span>`)}</div>
+    <div class="ab bloque" style="right:110px;top:150px;width:90px;bottom:150px"></div>${hueco("esp", "right:230px;top:150px;width:520px;bottom:150px", "📷 una foto tuya")}`,
+  videos: () => `${R.editorial._cabe()}<div class="ab an" style="left:0;right:0;top:130px;text-align:center;font-size:170px">Portafolio</div>
+    <div class="ab sc" style="left:1180px;top:200px;font-size:120px;transform:rotate(-6deg)">videos</div><div class="ab ast" style="left:330px;top:160px;font-size:90px">✦</div>
+    <div class="ab" style="left:110px;right:420px;top:360px">${vids()}</div>
+    ${qr("right:110px;top:420px;width:250px")}`,
+  prueba: () => `${R.editorial._cabe()}<div class="ab an" style="left:110px;bottom:110px;font-size:220px">Experiencia</div>
+    <div class="ab sc" style="left:900px;bottom:120px;font-size:140px;transform:rotate(-6deg)">marcas</div>
+    <div class="ab mas" style="left:110px;top:150px;width:700px">${lista("marcas", (m, i) => `<div><span class="an" style="font-size:44px" contenteditable data-f="marcas.${i}">${esc(m)}</span></div>`)}</div>
+    <div class="ab" style="left:900px;right:110px;top:160px">${lista("testimonios", (t, i) => `<div class="cita"><span contenteditable data-f="testimonios.${i}.t">“${esc(t.t)}”</span><small contenteditable data-f="testimonios.${i}.de">${esc(t.de)}</small></div>`)}
+      ${DATA.caso ? `<div style="display:flex;gap:50px;margin-top:10px">${(DATA.caso.n || []).map(c => `<div><b class="an" style="display:block;font-size:80px;color:var(--acento)">${esc(c.n)}</b><span style="font-size:17px;letter-spacing:.12em;text-transform:uppercase">${esc(c.t)}</span></div>`).join("")}</div>` : ""}</div>`,
+  contratar: () => `${R.editorial._cabe()}<div class="ab sc" style="left:520px;top:${DATA.paquetes.length ? 100 : 250}px;font-size:150px;transform:rotate(-6deg)">Trabajemos</div>
+    <div class="ab an" style="left:0;right:0;top:${DATA.paquetes.length ? 210 : 360}px;text-align:center;font-size:${DATA.paquetes.length ? 200 : 260}px">Juntas</div>
+    <div class="ab ast" style="left:260px;top:${DATA.paquetes.length ? 260 : 450}px;font-size:110px">✦</div><div class="ab bloque" style="right:230px;top:${DATA.paquetes.length ? 260 : 450}px;width:130px;height:130px"></div>
+    ${DATA.paquetes.length ? `<div class="ab" style="left:110px;right:110px;top:470px">${paquetes("")}</div>` : `<div class="ab" style="left:0;right:0;top:680px;text-align:center;font-size:26px">${DATA.proceso.map(esc).join("  ✦  ")}</div>`}
+    ${ed("uso", DATA.uso, "", "position:absolute;left:0;right:0;bottom:180px;text-align:center;font-size:20px;opacity:.75")}
+    <div class="ab" style="left:0;right:0;bottom:90px;display:flex;gap:20px;justify-content:center"><span class="pe">✉ ${esc(DATA.correo)}</span><span class="pe">${esc(DATA.usuario)}</span></div>`
+};
+
+/* vertical: una sola forma, con los colores y las letras del estilo elegido */
+const V = {
+  portada: () => `${hueco("portada", "left:0;right:0;top:0;height:900px", "📷 tu mejor foto")}
+    <div class="ab" style="left:100px;right:100px;top:960px"><div class="eti" contenteditable data-f="titulo">${esc(DATA.titulo)}</div>${nombre("nom", "margin-top:14px")}
+      ${ed("valor", DATA.valor, "val")}<div class="chips">${lista("nicho", (n, i) => `<span contenteditable data-f="nicho.${i}">${esc(n)}</span>`)}</div></div>
+    ${DATA.cifras.length ? `<div class="banda">${lista("cifras", (c, i) => `<div><b contenteditable data-f="cifras.${i}.n">${esc(c.n)}</b><span contenteditable data-f="cifras.${i}.t">${esc(c.t)}</span></div>`)}</div>` : `<div class="pie"><span>${esc(DATA.usuario)}</span><span>${esc(DATA.correo)}</span></div>`}`,
+  porque: () => `<div class="eti">Por qué yo</div><div class="vt">Hola, soy <em>${esc(partes()[0])}</em></div>
+    ${ed("sobre_mi", DATA.sobre_mi, "txt", "margin-top:26px;font-size:30px")}
+    ${DATA.ciudad || DATA.idiomas ? `<div class="chips">${DATA.ciudad ? `<span>📍 ${esc(DATA.ciudad)}</span>` : ""}${DATA.idiomas ? `<span>🗣 ${esc(DATA.idiomas)}</span>` : ""}</div>` : ""}
+    <div class="eti" style="margin-top:56px">Lo que consigue tu marca</div>
+    <div class="bn">${lista("beneficios", (b, i) => `<div><b contenteditable data-f="beneficios.${i}.t">${esc(b.t)}</b><span contenteditable data-f="beneficios.${i}.d">${esc(b.d)}</span></div>`)}</div>
+    ${hueco("sobre1", "left:100px;right:100px;bottom:140px;height:480px;border-radius:30px", "📷 una foto tuya grabando")}
+    <div class="pie"><span>${esc(DATA.usuario)}</span><span>02</span></div>`,
+  videos: () => `<div class="eti">Mis videos</div><div class="vt">Videos que <em>venden</em></div>
+    <div style="margin:50px auto 0;width:820px">${vids(3, "gap:30px 40px")}</div>
+    ${qr("left:100px;bottom:120px;display:flex;gap:26px;align-items:center")}
+    <div class="pie"><span>${esc(DATA.usuario)}</span><span>03</span></div>`,
+  servicios: () => `<div class="eti">Lo que hago</div><div class="vt">Tipos de <em>contenido</em></div>
+    <div class="ls" style="margin-top:30px">${lista("tipos", (t, i) => `<div><b>${String(i + 1).padStart(2, "0")}</b><span><span contenteditable data-f="tipos.${i}.t">${esc(t.t)}</span><small contenteditable data-f="tipos.${i}.d">${esc(t.d)}</small></span></div>`)}</div>
+    <div class="eti" style="margin-top:50px">Siempre incluye</div><div class="chips">${lista("incluye", (t, i) => `<span contenteditable data-f="incluye.${i}">${esc(t)}</span>`)}</div>
+    <div class="pie"><span>${esc(DATA.usuario)}</span><span>04</span></div>`,
+  prueba: () => `<div class="eti">Resultados</div><div class="vt">Marcas que <em>confiaron</em></div>
+    ${DATA.marcas.length ? `<div class="mc">${circulos("")}</div>` : ""}
+    ${lista("testimonios", (t, i) => `<div class="cita"><span contenteditable data-f="testimonios.${i}.t">“${esc(t.t)}”</span><small contenteditable data-f="testimonios.${i}.de">${esc(t.de)}</small></div>`)}
+    ${DATA.caso ? `<div class="cita" style="font-style:normal"><div class="eti">Caso · ${esc(DATA.caso.marca)}</div><div style="font-family:var(--f-texto);font-size:26px;margin:12px 0 18px" contenteditable data-f="caso.texto">${esc(DATA.caso.texto)}</div><div style="display:flex;gap:50px">${(DATA.caso.n || []).map(c => `<div><b style="display:block;font-size:64px;color:var(--acento)">${esc(c.n)}</b><span style="font-family:var(--f-texto);font-size:20px">${esc(c.t)}</span></div>`).join("")}</div></div>` : ""}
+    <div class="pie"><span>${esc(DATA.usuario)}</span><span>05</span></div>`,
+  contratar: () => `<div class="eti">Trabajemos juntas</div><div class="vt">Cómo <em>trabajo</em></div>
+    <div class="ls" style="margin-top:20px">${lista("proceso", (p, i) => `<div><b>${i + 1}</b><span contenteditable data-f="proceso.${i}">${esc(p)}</span></div>`)}</div>
+    ${paquetes("margin-top:36px")}${ed("uso", DATA.uso, "txt", "font-size:24px;opacity:.8;margin-top:26px")}
+    ${contacto("position:absolute;left:100px;bottom:130px;font-size:32px")}
+    <div class="pie"><span>${esc(DATA.nombre)}</span><span>UGC</span></div>`
+};
+
+/* las 6 partes del portafolio, en el orden en que una marca lo mira. Cada una responde una pregunta de la marca. */
+const ORDEN = ["portada", "porque", "videos", "servicios", "prueba", "contratar"];
+const GUIA = {
+  portada: ["1 · Portada · ¿quién eres?", "Tu mejor foto, tu nombre, \"Creadora UGC\" y una frase de lo que logras para las marcas. Las cifras (seguidores, % de mujeres en tu audiencia) solo si son reales; si no las tienes, ahí van tus nichos. Una marca decide aquí si sigue mirando."],
+  porque: ["2 · Por qué yo · ¿encajas con mi marca?", "3 o 4 líneas de quién eres y a quién le hablas, y lo que consigue la marca contigo. No tu vida entera: lo que te hace la indicada."],
+  videos: ["3 · Mis videos · ¿es bueno lo que haces?", "Mínimo 6 videos, distintos entre sí: ganchos, reseña a cámara, demostración, unboxing, voz en off, testimonio. Cada uno con su nicho. El QR lleva a verlos completos (un PDF no reproduce videos). Si todavía no tienes marcas, usa videos de práctica con productos de tu casa y márcalos como práctica."],
+  servicios: ["4 · Lo que hago · ¿qué me puedes entregar?", "Los tipos de contenido que sabes hacer, tus nichos y lo que siempre incluyes: guion, ganchos, subtítulos, edición."],
+  prueba: ["5 · Resultados · ¿alguien más confió en ti?", "Solo si los tienes: marcas con las que trabajaste (toca el círculo para poner su logo), lo que te dijeron (con permiso) y números reales. Si no tienes todavía, esta parte no aparece, y está bien."],
+  contratar: ["6 · Cómo trabajar conmigo · ¿cómo te contrato?", "Los pasos, en cuánto entregas, los derechos de uso, tus paquetes y precios (si ya los tienes) y tu contacto bien visible."]
+};
+function revisar() {
+  const D = DATA, vids = D.videos.filter((_, i) => media["v" + i]).length;
+  const r = [[vids >= 6, `${vids} de 6 videos`], [D.nicho.length >= 1 && D.nicho.length <= 3, "2 o 3 nichos"],
+    [!!media.portada, "foto de portada"], [D.valor && !/^Videos naturales, como los de una clienta real/.test(D.valor) || false, "tu frase de valor"],
+    [D.correo && !/tucorreo/.test(D.correo), "tu correo"], [!!D.enlace_videos, "enlace a tus videos"]];
+  document.getElementById("check").innerHTML = `<b>Tu portafolio tiene</b>` + r.map(([ok, t]) => `<span class="${ok ? "ok" : "falta"}">${ok ? "✓" : "✗"} ${t}</span>`).join("");
+}
+function pintar() {
+  const g = document.getElementById("grid"); g.innerHTML = ""; const vert = DATA.formato === "vertical", E = vert ? V : R[DATA.estilo];
+  g.style.gridTemplateColumns = vert ? "repeat(auto-fill,minmax(340px,1fr))" : "";
+  ORDEN.filter(t => t !== "prueba" || hayPrueba()).forEach((tipo, i) => {
+    const p = document.createElement("div"); p.className = vert ? `pag vert p-${tipo} v-${DATA.estilo}` : `pag p-${tipo} e-${DATA.estilo}`; p.innerHTML = E[tipo](); p.dataset.i = i;
+    const it = document.createElement("div"); it.className = "item";
+    const mk = document.createElement("div"); mk.className = "marco"; mk.style.aspectRatio = `${W()}/${H()}`; mk.appendChild(p); it.appendChild(mk);
+    const t = document.createElement("div"); t.className = "guia"; t.innerHTML = `<b>${GUIA[tipo][0]}</b>${GUIA[tipo][1]}`; it.appendChild(t); g.appendChild(it);
+  });
+  const q = document.getElementById("qr");
+  if (q && window.QRCode) { q.innerHTML = ""; new QRCode(q, {text: DATA.enlace_videos || "https://instagram.com/", width: 160, height: 160}); }
+  revisar(); solo(); escalar();
+}
+function solo() { const m = location.hash.match(/^#p(\d+)$/); if (!m) return; document.body.classList.add("solo"); const it = document.querySelectorAll(".item")[+m[1] - 1]; if (it) it.classList.add("ver1"); }
+const W = () => DATA.formato === "vertical" ? 1240 : 1920, H = () => DATA.formato === "vertical" ? 1754 : 1080;
+function escalar() { document.querySelectorAll(".marco").forEach(m => { m.firstChild.style.transform = document.body.classList.contains("solo") ? "none" : `scale(${m.clientWidth / W()})`; }); }
+window.addEventListener("resize", escalar);
+/* tocar un hueco abre el selector; los videos guardan un cuadro como miniatura */
+document.getElementById("grid").addEventListener("click", e => {
+  if (e.target.closest("[contenteditable]") || document.body.classList.contains("editando")) return;
+  const h = e.target.closest("[data-m]"); if (!h) return;
+  const inp = document.createElement("input"); inp.type = "file"; inp.accept = h.dataset.video ? "video/*,image/*" : "image/*";
+  inp.onchange = () => { const f = inp.files[0]; if (!f) return; (f.type.startsWith("video") ? cuadro(f) : leer(f)).then(u => { media[h.dataset.m] = u; guardar(); pintar(); }); };
+  inp.click();
+});
+function leer(f) { return new Promise(r => { const fr = new FileReader(); fr.onload = () => { const im = new Image(); im.onload = () => { const z = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = im.width * z; c.height = im.height * z; c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); r(c.toDataURL("image/jpeg", .88)); }; im.src = fr.result; }; fr.readAsDataURL(f); }); }
+function cuadro(f) { return new Promise(r => { const v = document.createElement("video"); v.muted = true; v.src = URL.createObjectURL(f); v.onloadeddata = () => { v.currentTime = Math.min(1.5, v.duration / 3); }; v.onseeked = () => { const c = document.createElement("canvas"), z = Math.min(1, 900 / v.videoHeight); c.width = v.videoWidth * z; c.height = v.videoHeight * z; c.getContext("2d").drawImage(v, 0, 0, c.width, c.height); r(c.toDataURL("image/jpeg", .86)); }; }); }
+document.getElementById("grid").addEventListener("input", e => {
+  const el = e.target.closest("[data-f]"); if (!el) return; const path = el.dataset.f.split("."); let o = DATA;
+  for (let k = 0; k < path.length - 1; k++) o = o[path[k]];
+  o[path[path.length - 1]] = el.textContent.replace(/^[“"]|[”"]$/g, "").replace(/\s+/g, " ").trim();
+  revisar();
+});
+async function captura(p) {
+  const c = p.cloneNode(true); c.style.transform = "none"; const box = document.createElement("div"); box.style.cssText = "position:fixed;left:-20000px;top:0"; box.appendChild(c); document.body.appendChild(box);
+  if (document.fonts) await document.fonts.ready; const cv = await html2canvas(c, {width: W(), height: H(), scale: 1, useCORS: true}); box.remove(); return cv;
+}
+async function pdf() {
+  const ps = [...document.querySelectorAll(".pag")]; const {jsPDF} = window.jspdf; const o = W() > H() ? "landscape" : "portrait", doc = new jsPDF({orientation: o, unit: "px", format: [W(), H()], hotfixes: ["px_scaling"]});
+  for (const [i, p] of ps.entries()) { const cv = await captura(p); if (i) doc.addPage([W(), H()], o); doc.addImage(cv.toDataURL("image/jpeg", .9), "JPEG", 0, 0, W(), H()); }
+  const blob = doc.output("blob");
+  try { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "mi-portafolio-ugc.pdf"; document.body.appendChild(a); a.click(); a.remove(); } catch (e) {}
+  const v = document.createElement("div"); v.className = "ver"; v.innerHTML = `<p>Si no se descargó solo, toca abajo para abrirlo y guárdalo desde ahí.</p><a class="btn sec" target="_blank" href="${URL.createObjectURL(blob)}">Abrir el PDF</a><button class="btn sec">Cerrar</button>`; v.querySelector("button").onclick = () => v.remove(); document.body.appendChild(v);
+}
+async function todas() {
+  const ps = [...document.querySelectorAll(".pag")], urls = [];
+  for (const p of ps) urls.push((await captura(p)).toDataURL("image/png"));
+  const v = document.createElement("div"); v.className = "ver"; v.style.overflow = "auto"; v.style.justifyContent = "flex-start";
+  v.innerHTML = `<p>Clic derecho en cada página → Guardar imagen como.</p><button class="btn sec">Cerrar</button>` + urls.map(u => `<img src="${u}" style="width:min(900px,92vw)">`).join("");
+  v.querySelector("button").onclick = () => v.remove(); document.body.appendChild(v);
+}
+const LT = {titulo: ["Playfair Display", "Cormorant Garamond", "Instrument Serif", "Anton", "Inter"], grande: ["Montserrat", "Anton", "Inter", "Cormorant Garamond", "Poppins"], texto: ["Montserrat", "Inter", "DM Sans", "Poppins"], firma: ["Mrs Saint Delafield", "Pinyon Script", "Instrument Serif"]};
+function panel() {
+  const P = document.getElementById("panel"), c = DATA.colores;
+  P.innerHTML = `<div class="g"><b>Formato</b><div class="est">${[["horizontal", "▭ Horizontal"], ["vertical", "▯ Vertical"]].map(([k, n]) => `<button data-fm="${k}" class="${(DATA.formato || "horizontal") === k ? "on" : ""}">${n}</button>`).join("")}</div></div>
+  <div class="g"><b>Estilo</b><div class="est">${Object.entries(ESTILOS).map(([k, v]) => `<button data-e="${k}" class="${k === DATA.estilo ? "on" : ""}"><i style="background:${v.colores.acento}"></i><i style="background:${v.colores.fondo};border:1px solid #ccc"></i>${v.n}</button>`).join("")}</div></div>
+  <div class="g"><b>Colores</b>${[["fondo", "Fondo"], ["tinta", "Texto"], ["acento", "Acento"], ["suave", "Suave"]].map(([k, n]) => `<label><input type="color" data-c="${k}" value="${c[k]}">${n}</label>`).join("")}</div>
+  <div class="g"><b>Letras</b>${[["titulo", "Títulos"], ["grande", "Grandes"], ["texto", "Texto"], ["firma", "A mano"]].map(([k, n]) => `<label>${n}<select data-l="${k}">${[...new Set([DATA.letras[k], ...LT[k]])].map(f => `<option ${f === DATA.letras[k] ? "selected" : ""}>${f}</option>`).join("")}</select></label>`).join("")}</div>
+  <div class="g"><button class="btn sec" id="edt">✏️ Editar textos</button></div>`;
+  P.querySelectorAll("[data-e]").forEach(b => b.onclick = () => { DATA.estilo = b.dataset.e; DATA.colores = {...ESTILOS[DATA.estilo].colores}; DATA.letras = {...ESTILOS[DATA.estilo].letras}; aplicar(); panel(); pintar(); });
+  P.querySelectorAll("[data-fm]").forEach(b => b.onclick = () => { DATA.formato = b.dataset.fm; panel(); pintar(); });
+  P.querySelectorAll("[data-c]").forEach(i => i.oninput = e => { c[e.target.dataset.c] = e.target.value; aplicar(); });
+  P.querySelectorAll("[data-l]").forEach(i => i.onchange = e => { DATA.letras[e.target.dataset.l] = e.target.value; aplicar(); });
+  P.querySelector("#edt").onclick = () => document.body.classList.toggle("editando");
+}
+aplicar(); panel(); pintar();
+</script></body></html>
