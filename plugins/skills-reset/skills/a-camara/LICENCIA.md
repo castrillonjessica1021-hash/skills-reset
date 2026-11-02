@@ -18,7 +18,7 @@ Todo lo que crees con las skills es tuyo: tus guiones, tus carruseles, tus histo
 
 - Vender, regalar, prestar o compartir las skills, completas o por partes.
 - Subirlas a un sitio público, a un grupo o a una carpeta compartida.
-- Pasárselas a otra persona, aunque sea de confianza.
+- Pasárselas a otra persona, aunque sea de confianza. Esto incluye la dirección de instalación: es solo para ti.
 - Usarlas para armar un producto, un curso, una plantilla o un servicio que compita con este.
 - Entregarlas a tus clientas, o presentarlas como si las hubieras creado tú.
 - Quitar este archivo o el nombre de su autora.
@@ -33,7 +33,7 @@ Las skills te ayudan a crear contenido con criterio y a ahorrar tiempo. No garan
 
 ## 6. Tus datos
 
-Tu voz, tus piezas y lo que escribas se guardan en tu propio computador. Jessica Castrillón no recibe ni ve esa información, a menos que tú se la envíes.
+Tu voz, tus piezas y lo que escribas se guardan en tu propia cuenta de Claude y en tu computador. Jessica Castrillón no recibe ni ve esa información, a menos que tú se la envíes.
 
 Las skills funcionan dentro de Claude, que es un servicio de otra empresa. El uso de Claude se rige por las condiciones de esa empresa.
 
