@@ -32,6 +32,8 @@ En `mis-piezas.md`, la columna Formato lleva el nombre de la ficha después del 
 
 ## Lo que se confunde
 
+Guía completa: lee `formato-lo-que-se-confunde.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** menos de 40 segundos. A cámara, quieta, con las etiquetas de lo que compara
 fijas arriba. Enseñanza.
 
@@ -97,6 +99,8 @@ tabla completa]".
 
 ## Mi ritmo real
 
+Guía completa: lee `formato-mi-ritmo-real.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** unos 10 segundos. A cámara, de lado, con título fijo arriba y tres etiquetas
 que se van llenando. Enseñanza.
 
@@ -149,6 +153,8 @@ la rutina para imprimir".
 
 ## Aquí no
 
+Guía completa: lee `formato-aqui-no.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** unos 7 segundos. Texto en pantalla sobre un clip suyo haciendo algo de su
 tema. Sin voz, con música. Posicionamiento (no es enseñanza: no pasa por las tres condiciones).
 
@@ -198,6 +204,8 @@ música a buen volumen porque nadie habla.
 
 ## Lo que me pide el cuerpo
 
+Guía completa: lee `formato-lo-que-me-pide-el-cuerpo.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** unos 8 segundos. Dos textos en pantalla sobre un clip suyo. Sin voz, con
 música. El valor va en el caption. Conexión con algo de enseñanza en el caption.
 
@@ -243,6 +251,8 @@ completo]".
 
 ## Para esto, esto
 
+Guía completa: lee `formato-para-esto-esto.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** unos 7 segundos. Paneles: ella a un lado, arriba el nombre de la necesidad, al
 costado de tres a cinco opciones con imagen y nombre. Enseñanza.
 
@@ -287,6 +297,8 @@ reemplazan en cada corte para que no se muevan. Un sonido por necesidad, música
 ---
 
 ## Así se vive de verdad
+
+Guía completa: lee `formato-asi-se-vive-de-verdad.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
 
 **Duración y tipo:** alrededor de 1 minuto (pasarse un poco no importa). A cámara, a un lado, con
 título fijo y una lista numerada del 1 al 6 que se va llenando. Conexión.
@@ -353,6 +365,8 @@ Cierre: "¿En cuál estás? [pedido con su PALABRA]."
 
 ## Con pruebas
 
+**Guía completa:** lee `formato-con-pruebas.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
+
 **Duración y tipo:** unos 35 segundos (hasta 50 está bien). A cámara, con un gesto al inicio,
 subtítulos y la captura del estudio en grande. Enseñanza.
 
@@ -407,6 +421,8 @@ palabra clave del cierre, grande y en otro color.
 ---
 
 ## Mis caídas
+
+**Guía completa:** lee `formato-mis-caidas.md` (está en tu misma carpeta de biblioteca) antes de empezar este formato.
 
 **Duración y tipo:** carrusel de 7 a 10 slides. Sus fotos reales con texto encima. Conexión.
 
