@@ -1,6 +1,6 @@
 ---
 name: hooks
-description: Escribe diez entradas (hooks) distintas para UNA idea de reel, con el material real de la alumna, y escoge dos para probar. Úsalo cuando dice "dame hooks", "dame ganchos para...", "cómo empiezo este reel", "no sé cómo abrir", "el inicio no me convence", o tiene la idea pero todavía no el guion. No escribe el guion completo: para eso está `guiones`. Si la idea todavía no cabe en una frase, pasa primero por `estructura-de-contenido`.
+description: Escribe diez entradas (hooks) distintas para UNA idea de reel, con el material real de la alumna, y escoge dos para probar. Úsalo cuando dice "dame hooks", "dame ganchos para...", "cómo empiezo este reel", "no sé cómo abrir", "el inicio no me convence", "qué texto pongo arriba en pantalla", o tiene la idea pero todavía no el guion. No escribe el guion completo: para eso está `guiones`. Si la idea todavía no cabe en una frase, pasa primero por `estructura-de-contenido`.
 ---
 
 # Hooks
@@ -31,6 +31,26 @@ pregunta todo junto, en un mensaje:
 
 Sin el punto 3 no se escribe. Una entrada sin material real sale genérica, y lo genérico es
 justo lo que esta skill existe para evitar.
+
+### 1.1 Si la pieza enseña: primero el ángulo
+
+Si la pieza es de enseñanza (enseña, compara, resuelve, recomienda), antes de escribir entradas
+revisa el ángulo con `biblioteca/evaluar-angulo.md`: familiaridad, interés y revelación, una línea
+cada una. Si falla una, díselo y propón el cambio de ángulo antes de escribir diez entradas para
+una idea que no se va a sostener. Una entrada fuerte no salva un ángulo flojo.
+
+Si la pieza es de confesión, conexión, fe, personalidad o un capítulo de una trama, este filtro no
+se usa: ahí basta con que sea verdad, sea suya y su clienta se sienta vista.
+
+### 1.2 Si eligió un formato de la biblioteca
+
+Si la pieza va en uno de los formatos de `biblioteca/formatos.md`, lee su ficha. Si la alumna no
+trae el ángulo, haz primero las preguntas de la ficha (en una tanda) y propón tres ángulos de su
+material, cada uno diciendo de dónde salió; ella elige. Después las entradas respetan la forma del
+formato: en los que el gancho es el texto de arriba (Mi ritmo real, Aquí no, Lo que me pide el
+cuerpo), las diez opciones son de ese texto; en Lo que se confunde, la entrada es el primer dato;
+en Con pruebas, la pregunta del hábito con su gesto. Las familias del banco se usan dentro de esa
+forma, sin romperla, y las reglas de verdad de la ficha valen igual.
 
 ## 2. Lee el banco
 
@@ -64,13 +84,30 @@ Para cada entrada entrega:
 - En su trato y con sus palabras. Nada de su lista de prohibidas.
 - Todo dato, cifra o frase de clienta salió de ella.
 
+## 4.5 Dicho y en pantalla: dos ganchos, no uno
+
+La primera frase que dice y el texto que aparece arriba en pantalla son dos oportunidades
+distintas. El texto en pantalla nunca repite lo que dice: hace otro trabajo. Puede nombrar para
+quién es ("para la que vende servicios y odia cobrar"), poner la tensión en tres palabras o
+adelantar lo que se va a ver.
+
+Para las dos entradas que se van a probar, entrega también su texto en pantalla:
+- Corto, que se lea en un segundo y medio.
+- De otra familia que la frase dicha, o sin familia: solo para quién es.
+- Si va a editar con AskCut, sigue `biblioteca/ficha-edicion.md`.
+
 ## 5. El filtro, antes de mostrarlas
 
-Pasa cada una por estas dos preguntas. La que falle una, se reemplaza antes de entregar:
+Pasa cada una por estas cuatro preguntas. La que falle una, se reemplaza antes de entregar:
 
 1. ¿Se la diría así a una amiga en un audio, sin sentirse ridícula?
 2. ¿La pudo haber escrito cualquier otra cuenta de su nicho? Si sí, le falta algo que solo ella
    tiene.
+3. ¿Suena a algo que se le acaba de ocurrir, o a un titular? Las mejores entradas suenan a un
+   pensamiento real a mitad de conversación ("ok, espera", "cambié de opinión", "tengo una
+   teoría"), no a un anuncio.
+4. ¿Le habla a una sola persona? Si cabe un "chicas" o un "todas ustedes", se reescribe en
+   singular.
 
 Revisa también la lista de "lo que no entra" del banco y `biblioteca/reglas-autenticidad.md`.
 
@@ -86,9 +123,11 @@ mediana (`biblioteca/medicion.md`). No contra las cuentas grandes.
 ## 7. Qué entregar
 
 1. Las diez entradas, numeradas, cada una con su familia y lo que promete.
-2. Las dos para probar, marcadas, y qué cambia entre ellas.
+2. Las dos para probar, marcadas, cada una con su texto en pantalla, y qué cambia entre ellas.
 3. Tres líneas, no más: para qué objetivo se escribieron, qué material suyo las sostiene, y qué
    familias se dejaron fuera por falta de material.
+4. Si la pieza enseña, la línea del ángulo (familiaridad, interés, revelación). Si usó un formato
+   de la biblioteca, su nombre.
 
 ## 8. Qué sigue
 

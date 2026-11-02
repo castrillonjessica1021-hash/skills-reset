@@ -14,6 +14,10 @@ Un lanzamiento no se vende de golpe al final: se construye contenido por etapas,
 tiene un trabajo distinto. El error más común es que cada pieza intente vender directamente —
 eso agota a la audiencia antes de que exista oferta.
 
+La demanda se crea antes, con meses de contenido que da. El lanzamiento no la crea: la convierte.
+Si las semanas antes de abrir nadie preguntó por esto, el problema no se arregla con más piezas de
+venta (ver 1.1).
+
 ## 0. Antes de nada: lee la voz de la alumna
 
 Busca `mi-voz.md` entre los archivos del proyecto de Claude o en lo que la alumna haya adjuntado (si no está, usa `mi-voz-TEMPLATE.md`, que viene dentro de esta skill, para ayudarla a llenarlo y pídele que lo guarde en su proyecto). El tú/vos, el tono, las palabras prohibidas y lo que puede prometer de verdad
@@ -58,6 +62,32 @@ si quiere aprenderlo. Si la gente no lo pide, no se abre solo porque llegó la f
   Suelen ser las piezas de más alcance de todo el lanzamiento.
 - **La frecuencia no es el factor.** Hubo quien lanzó publicando dos reels por semana y quien
   publicó trece.
+
+### 1.3 La lista es tuya: palabra clave que pide el correo
+
+Los seguidores son de la plataforma. El correo es tuyo. En calentamiento, la palabra clave no
+manda solo un enlace: pide el correo.
+
+1. Comenta la PALABRA.
+2. El mensaje directo responde, entrega lo prometido o el aviso, y pide el correo en una línea.
+3. El correo entra a su herramienta de correo, a la lista de este lanzamiento.
+
+Se resuelve con ella, una sola vez: qué herramienta de mensajes usa (o si contesta a mano), qué
+herramienta de correo, y el nombre de la lista. Nunca se inventa un enlace ni una herramienta. El
+día antes de abrir, se avisa a la lista por correo.
+
+### 1.4 La página de registro: un solo camino
+
+La página a la que lleva el enlace no es su sitio web. Es un pasillo con una sola salida: se
+registra o se va.
+
+- Un solo botón, repetido. Nada de menú, ni enlaces a su blog, ni a sus otras ofertas.
+- Arriba: para quién es y qué va a recibir, con las palabras de su clienta.
+- La fecha y lo que pasa después de registrarse.
+- Su prueba, si la tiene. Si no, no se inventa.
+
+Si pide la página, se entrega el texto por bloques en ese orden. El diseño lo arma ella o su
+herramienta.
 
 ## 2. Lo que debe estar presente en el lanzamiento completo (aunque no en cada pieza)
 
@@ -152,6 +182,13 @@ se construye:
 | De identidad | Asocia la acción con pertenecer a un grupo o movimiento. | Challenges o eventos previos. |
 | De curiosidad | Pide información sin asumir que la persona ya quiere comprar. | Educación / objeciones. |
 | De registro o DM | Mueve a la siguiente etapa real del embudo. | Apertura / cierre. |
+
+Durante el lanzamiento se rompe a propósito el equilibrio de dar y vender: casi todo el contenido
+le habla a la que ya está interesada. Es normal que bajen las vistas y suban los mensajes. Cuando
+cierra, se vuelve a cuatro que dan y una que vende (`planificar-contenido`).
+
+La bio también cambia mientras dura: la fecha de cierre, la palabra y a dónde ir. Eso lo arma
+`optimizar-perfil` (sección "Mientras lanzas").
 
 ## 9. Qué evitar siempre
 

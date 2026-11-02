@@ -1,6 +1,6 @@
 ---
 name: mi-voz
-description: Entrevista a la alumna y arma su archivo `mi-voz.md` a partir de sus palabras reales (captions, audios, mensajes de clientas), no de adjetivos. Úsalo la primera vez que usa las skills, cuando dice "arma mi voz", "entrevístame", "llena mi voz", "quiero que suenes como yo", "actualiza mi voz", o "nunca digas [palabra] en mis textos". También cuando otra skill no encuentra `mi-voz.md` o lo encuentra con espacios en blanco sin llenar. Entrega el archivo completo, no un guion ni un caption.
+description: Entrevista a la alumna y arma su archivo `mi-voz.md` a partir de sus palabras reales (captions, audios, mensajes de clientas), no de adjetivos. Úsalo la primera vez que usa las skills, cuando dice "arma mi voz", "entrevístame", "llena mi voz", "quiero que suenes como yo", "actualiza mi voz", "actualiza mis pilares", "cuáles son mis pilares", o "nunca digas [palabra] en mis textos". También cuando otra skill no encuentra `mi-voz.md` o lo encuentra con espacios en blanco sin llenar. Entrega el archivo completo, no un guion ni un caption.
 ---
 
 # Mi voz
@@ -45,15 +45,30 @@ Por bloques. **Un bloque por mensaje, máximo tres preguntas**, y esperas la res
 que ya sepas.
 
 1. **Quién es.** Nombre o marca, qué hace, su usuario.
+1b. **Su porqué.** ¿Qué cambiaría en tu vida si esto funcionara? ¿Por quién lo haces, más allá de
+    ti? ¿Lo contarías en un video? Si no quiere contarlo, se guarda igual y se marca "no".
 2. **Para quién.** Una clienta real que recuerde: qué le estaba pasando cuando llegó y qué
    quería. Si contesta con una categoría ("emprendedoras", "mamás"), pídele una persona.
+2b. **Su persona y para quién no.** Si no tiene una clienta real todavía: ¿cómo eras tú cuando
+    empezaste a necesitar esto? Esa versión tuya cuenta como persona. Y después: ¿a quién no
+    quieres atraer?
+2c. **Lo que su clienta piensa y no dice.** ¿Qué frase tiene en la cabeza y nunca escribiría en
+    un comentario? ¿Qué ya probó? ¿Qué le da vergüenza admitir?
 3. **Los momentos de esa clienta.** Cuándo o dónde le duele el problema, y qué frase tiene en la
    cabeza en ese momento. De tres a cinco.
 4. **Sus temas y su oferta.** De qué puede hablar sin prepararse. Qué vende hoy, o "todavía
    nada". Qué palabra clave usa en esta etapa, si usa una.
+4b. **Sus pilares.** De lo que puede hablar sin prepararse, ¿cuáles podría sostener un año sin
+    aburrirse? Para encontrarlos sirven cuatro preguntas: ¿qué estás viviendo ya que se pueda
+    contar?, ¿qué te gusta ver a ti en redes?, ¿de qué te preguntan tus amigas?, ¿qué te
+    aguantarías un año entero? Si salen más de cinco, se queda con las que pasen la última. Y
+    una más: ¿qué tienen en común? Eso es el hilo conductor. Si no lo sabe, va "por definir".
+    No se inventa uno bonito.
 5. **Dónde es experta y dónde está aprendiendo.** Las dos cosas. Cambia desde dónde habla.
 6. **Lo que nunca diría.** Palabras que le chocan cuando las ve en otras cuentas. Promesas que
    no hace.
+6b. **Lo que cree.** Dile tres cosas que todo el mundo dice de tu tema. Ahora, al lado de cada
+    una, lo que tú crees de verdad.
 7. **Su prueba.** Qué puede mostrar que sea real y suyo: un caso, un antes y después, su propio
    proceso, sus años en el oficio.
 8. **Sus números.** La mediana de sus reels y cuántas piezas por semana puede sostener tres
@@ -74,6 +89,12 @@ suya que lo demuestra.** Sin cita, no es un patrón, es una suposición, y no en
 - **Cómo nombra su oficio y a sus clientas.** Las palabras exactas ("mis chicas", "las novias").
 - **Emojis.** Los que usa, o ninguno.
 - **Lo que no aparece nunca.** Tecnicismos, anglicismos, signos de exclamación.
+
+Revisa sus pilares con ella, en una línea cada uno:
+- Si vende algo, ¿su oferta es un solo pilar? Si todos los pilares son su oferta, su cuenta
+  suena a vitrina.
+- ¿Hay al menos un pilar que deje que la conozcan, no solo que aprendan de ella?
+- ¿Alguno le trae gente o discusiones que no quiere? Ese pilar se puede soltar, aunque funcione.
 
 ## 5. Escribe el archivo
 

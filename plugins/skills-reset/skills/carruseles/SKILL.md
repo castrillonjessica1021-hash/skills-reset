@@ -16,6 +16,10 @@ murió ahí, sin importar qué tan bueno sea el contenido de las slides 3 en ade
 
 ## 0. Antes de nada: lee la voz de la alumna
 
+Un carrusel sirve sobre todo para lo que se guarda y se vuelve a mirar: un paso a paso, una
+lista, una comparación. Cuesta pensar y ordenar más que grabar. Lleva su foto en la portada
+cuando se pueda: un carrusel de puro texto se siente de cualquiera.
+
 Busca `mi-voz.md` entre los archivos del proyecto de Claude o en lo que la alumna haya adjuntado (si no está, usa `mi-voz-TEMPLATE.md`, que viene dentro de esta skill, para ayudarla a llenarlo y pídele que lo guarde en su proyecto). El tú/vos, el tono y las palabras prohibidas gobiernan el texto de cada slide
 igual que en cualquier otro formato.
 
@@ -36,6 +40,20 @@ dos ganchos se escriben de nuevo para lectura (sección 1), aunque el reel abrie
 
 Si el reel tuvo un resultado real (vistas, comentarios, mensajes), ese número puede ser la prueba
 del carrusel, solo si ella lo da. Nunca se estima ni se redondea hacia arriba.
+
+### 0.2 Si es una sola imagen
+
+A veces la idea no necesita slides: cabe en una foto suya, casual, con una línea grande encima, y
+una canción que marque la emoción. Es de las piezas más fáciles de la semana.
+
+La línea puede ser:
+- algo con lo que la que mira se identifica ("cuando...");
+- un permiso que se da a sí misma;
+- una opinión fuerte (de "Lo que creo" en su `mi-voz.md`);
+- un giro o un contraste en dos golpes.
+
+La prueba: ¿se la mandaría a una amiga? Si no, se cambia la línea. Se entrega la línea, la foto que
+conviene (de las suyas) y el caption. El cierre suele ser compartir o ninguno.
 
 ## 1. La regla que manda sobre todo lo demás: slides 1 Y 2 son DOS ganchos independientes
 

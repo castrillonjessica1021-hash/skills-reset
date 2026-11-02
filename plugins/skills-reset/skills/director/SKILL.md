@@ -1,6 +1,6 @@
 ---
 name: director
-description: El director de contenido de la alumna, y la puerta de entrada a todas sus skills. Decide si una idea vale la pena grabarla ANTES de que gaste tiempo escribiendo y grabando, con un nivel de confianza del 1 al 10 y el porqué, cruzando tres cosas, lo que ya le funcionó a ELLA (`mis-piezas.md`), el objetivo de su contenido en el momento en que está (empezando, creciendo, calentando un lanzamiento, con el carrito abierto o después), y lo que funciona en cuentas que crecieron y lanzaron con éxito. Después le dice qué skill sigue. Úsalo cuando dice "director", "¿esto lo grabo?", "¿vale la pena esta idea?", "tengo estas ideas, ¿cuál grabo?", "¿cuál grabo primero?", "no sé si esto va a funcionar", "¿qué hago hoy?", "¿por dónde empiezo?", "no sé qué skill usar", o pega una lista de ideas o un guion y pregunta si sirve. Entrega un veredicto claro (grábala, ajústala o no la grabes) con su nivel de confianza y el siguiente paso, no un guion.
+description: El director de contenido de la alumna, y la puerta de entrada a todas sus skills. Decide si una idea vale la pena grabarla ANTES de que gaste tiempo escribiendo y grabando, con un nivel de confianza del 1 al 10 y el porqué, cruzando tres cosas, lo que ya le funcionó a ELLA (`mis-piezas.md`), el objetivo de su contenido en el momento en que está (empezando, creciendo, calentando un lanzamiento, con el carrito abierto o después), y lo que funciona en cuentas que crecieron y lanzaron con éxito. Después le dice qué skill sigue. Úsalo cuando dice "director", "¿esto lo grabo?", "¿vale la pena esta idea?", "tengo estas ideas, ¿cuál grabo?", "¿cuál grabo primero?", "no sé si esto va a funcionar", "¿qué hago hoy?", "¿por dónde empiezo?", "no sé qué skill usar", "qué formato le sirve", "qué formatos me funcionaron", o pega una lista de ideas o un guion y pregunta si sirve. Entrega un veredicto claro (grábala, ajústala o no la grabes) con su nivel de confianza y el siguiente paso, no un guion.
 ---
 
 # Director
@@ -30,6 +30,8 @@ Aquí sí se dice que no. Un "sí" a todo no le sirve.
 5. `biblioteca/lo-que-funciona.md`: lo que funciona en cada momento, en cuentas que crecieron y
    lanzaron con éxito.
 6. `biblioteca/medicion.md`: todo lo que concluyes sobre sus números sigue esa hoja.
+7. `biblioteca/formatos.md` y `biblioteca/evaluar-angulo.md`: los formatos con estructura probada
+   y cómo se revisa el ángulo de una pieza que enseña (secciones 3b y 3c).
 
 ## 1. Su momento y su objetivo (una vez, y se guarda)
 
@@ -70,7 +72,7 @@ Pasa cada idea por estas siete, en orden. Cada una suma puntos (son la base del 
 | # | Pregunta | Sí | A medias | No |
 |---|---|---|---|---|
 | 1 | **¿Se dice en una frase?** Si necesita tres, son tres videos o todavía no es una idea. | 1 | 0,5 | 0 |
-| 2 | **¿Le duele a su clienta?** Conecta con un momento o una frase de su clienta en `mi-voz.md`. | 2 | 1 | 0 |
+| 2 | **¿Le duele a su clienta?** Conecta con un momento, una frase o algo que "piensa y no dice" en `mi-voz.md`. Y no le habla a quien ella puso en "para quién NO es". | 2 | 1 | 0 |
 | 3 | **¿Tiene con qué sostenerla?** Una historia suya, un caso, una captura, un número real (busca en `mis-historias.md` y en la prueba de `mi-voz.md`). | 2 | 1 | 0 |
 | 4 | **¿Sirve al objetivo de su momento?** Lo que dice `mi-momento.md`. En calentando o abriendo, tiene que acercar a su oferta o a su palabra clave. | 2 | 1 | 0 |
 | 5 | **¿Qué dice su historial?** Piezas parecidas en `mis-piezas.md`: mismo tema, formato o familia de entrada. | ver abajo | | |
@@ -84,6 +86,41 @@ Pregunta 5, el historial:
 - Algo parecido quedó por debajo de 0,75 dos veces o más: **−2**, salvo que esta vez cambie
   exactamente lo que falló (entonces 0).
 - Publicó este tema o esta entrada en las últimas dos semanas: **−1**. No se repite todavía.
+
+## 3b. Si la idea enseña: el ángulo
+
+Solo para ideas de enseñanza (enseña, compara, resuelve, recomienda, muestra cómo lo hace). Pasa
+la idea por las tres condiciones de `biblioteca/evaluar-angulo.md`: familiaridad (¿la entiende
+su persona sin jerga?), interés (¿hay una razón concreta, dicha como beneficio?) y revelación (¿se
+lleva algo que no sabía?).
+
+- Las tres dan sí: el veredicto sigue con su número.
+- Una da no: aunque sume 7 o más, queda en **ajústala**, y el único cambio es el ángulo (cuál
+  condición falla y cómo pasaría).
+- Dos o tres dan no: **no la grabes (por ahora)**, y se proponen otros ángulos de la misma idea.
+
+**Nunca se aplica** a confesiones, piezas de conexión, de fe, de personalidad ni a capítulos de
+una trama: esas no tienen que enseñar nada nuevo para ser la pieza correcta. Ahí la pregunta 2
+y la 3 hacen el trabajo.
+
+## 3c. ¿Le sirve un formato?
+
+Mira si la idea calza con uno de los formatos de `biblioteca/formatos.md`. Para recomendarlo,
+tienen que darse las tres:
+
+1. Tiene el material que pide la ficha ("Lo que necesita tener"), real y suyo.
+2. No cae en el "Cuándo NO usarlo" de la ficha.
+3. Calza con su momento (columna "Momento" del resumen) o con su objetivo de este mes.
+
+Si se dan, recomiéndalo en una línea, con por qué ese ("tienes la rutina y estás creciendo: Mi
+ritmo real"). Si no calza ninguno, dilo y sigue sin formato: una idea no se fuerza dentro de una
+estructura. Si le falta el material, di cuál le falta y que el formato espera.
+
+**Sus resultados por formato mandan.** Cuéntalos desde `mis-piezas.md` como dice
+`biblioteca/memoria.md` ("Qué formatos me funcionaron"). Con 3 o más piezas medidas de un
+formato, su historial pesa más que la guía general, para recomendarlo o para pausarlo. Con 1 o 2,
+es una pista. Si pide "qué formatos me funcionaron", entrega esa tabla, con una línea de qué haría
+con cada uno.
 
 ## 4. El nivel de confianza y el veredicto
 
@@ -153,6 +190,7 @@ El JSON de `DATA`:
     {"titulo": "La idea en una frase",
      "puntos": {"frase": 1, "clienta": 2, "sostener": 2, "momento": 2, "historial": 1, "funciona": 0.5},
      "orgullo": true,
+     "angulo": {"familiaridad": true, "interes": true, "revelacion": true},
      "porque": "El porqué en una frase.",
      "cambio": "El único cambio, o lo que hay que tener en cuenta.",
      "sube_a": 9,
@@ -165,7 +203,9 @@ El JSON de `DATA`:
 }
 ```
 
-`etapa`: `empezando` · `creciendo` · `calentando` · `abriendo` · `despues`. Los `puntos` son los de la
+`angulo` va solo en ideas de enseñanza (sección 3b): con un `false`, la página la deja en "ajústala";
+con dos, en "no la grabes". En las demás ideas, se omite. Si la sección 3c recomendó un formato,
+va en `porque`. `etapa`: `empezando` · `creciendo` · `calentando` · `abriendo` · `despues`. Los `puntos` son los de la
 sección 3 (la página suma y redondea hacia abajo, igual que tú). `primera` es la posición de la idea
 que va primero en la lista `ideas`.
 
@@ -181,6 +221,27 @@ Debajo:
 - **Lo que funciona en su momento** que aplica aquí, en una línea, sin nombrar a nadie.
 - **El siguiente paso** (sección 7).
 
+## 6b. El plan del reel, en siete líneas
+
+Para la idea que va primero, si queda en "grábala" y es un reel hablado, entrega su plan antes de
+pasar a `hooks`:
+
+1. **Pilar:** de cuál de sus temas sale.
+2. **Para quién:** alguien que no la conoce, la que ya la sigue, o la que está por comprar.
+3. **Qué tiene que hacer al terminar:** compartirlo, guardarlo, comentar, seguirla o comprar.
+   Se empieza por el final.
+4. **Qué tiene que sentir para hacerlo:** vista, comprendida, con curiosidad, con esperanza,
+   señalada, acompañada. Una sola. La gente sigue por curiosidad de lo que viene; comparte cuando
+   se siente vista.
+5. **La forma:** lista, desahogo, historia, "así lo hago", confesión, punto de vista, o un formato
+   de `biblioteca/formatos.md` (sección 3c).
+6. **La idea, en una frase.**
+7. **Los dos ganchos:** la primera frase dicha y el texto en pantalla. Los escribe `hooks`; aquí
+   solo se dice de qué familia irían.
+
+Si el punto 3 es "comprar" y su momento es "empezando", no es "no": es "guárdala para cuando
+abras" (sección 4).
+
 ## 7. Qué sigue: el mapa de sus skills
 
 Cierra siempre con **un solo** siguiente paso, la skill que corresponde, no un menú:
@@ -193,7 +254,10 @@ Cierra siempre con **un solo** siguiente paso, la skill que corresponde, no un m
 | es algo que ya le funcionó, con un cambio | `reciclar` |
 | es un carrusel | `carruseles`, después `disena-carruseles` |
 | son historias | `secuencias-de-historias`, después `disena-historias` |
+| está lista para grabar y le da miedo o le cuesta la cámara | `a-camara` |
 | ya está grabada | la edición (AskCut), después `captions` |
+| es algo que está viviendo ahora y no sabe cómo termina | es una trama: `planificar-contenido` para darle lugar en la semana, `secuencias-de-historias` para seguirla entre reels |
+| calza con un formato de la biblioteca | `hooks` o `guiones` con ese formato: le hacen sus preguntas y le proponen tres ángulos |
 | pide algo que ella todavía no vende, o está por abrir sin oferta clara | `mi-oferta`, después `lanzamientos` |
 | sale de lo que pregunta o comenta su gente | `mis-clientas` |
 | son las ideas de la semana o del mes | `planificar-contenido`, que arma la parrilla solo con las que aprobaste aquí |
@@ -203,7 +267,9 @@ Cierra siempre con **un solo** siguiente paso, la skill que corresponde, no un m
 
 Cuando una idea queda en "grábala" y es un reel, ofrécele armarlo completo. Lee `plantilla/reel.html` y llena
 SOLO el bloque `/*DATOS*/…/*FIN*/`. La página tiene 5 pestañas:
-1. **Idea:** la idea, su número del director, su momento, su palabra y el gancho escrito.
+1. **Idea:** la idea, su número del director, su momento, su palabra, el plan de siete líneas
+   (sección 6b, en `"plan": {"pilar": "", "para_quien": "", "accion": "", "emocion": "", "forma":
+   "", "idea": "", "ganchos": ""}`) y el gancho escrito.
 2. **Guion:** por partes (abrir, mostrar o desarrollar, giro, cierre), con lo que va en pantalla en cada línea.
    La alumna toca una línea para cambiarla o le pone una nota; "Copiar cambios para Claude" las junta.
    El guion lo escribe la skill `guiones` con su voz: aquí solo se ordena.
@@ -253,3 +319,5 @@ Mi palabra clave: <PALABRA, y qué manda>
 - Inventar una prueba o una historia para que la idea pase.
 - Dar el número sin su porqué, o presentarlo como promesa de vistas.
 - Nombrar a las cuentas estudiadas o copiar sus frases.
+- Pasar por el filtro del ángulo una pieza de confesión, conexión o fe.
+- Recomendar un formato para el que no tiene el material, o meter la idea a la fuerza en uno.

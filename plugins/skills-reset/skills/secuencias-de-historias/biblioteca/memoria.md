@@ -11,7 +11,8 @@ le funciona a ELLA.
 Si existe `mis-piezas.md`, léelo. Sirve para:
 
 - No repetir un tema o una entrada de las últimas dos semanas.
-- Saber qué familia de entrada, qué formato y qué tema le han pasado su mediana.
+- Saber qué familia de entrada, qué formato y qué pilar le han pasado su mediana.
+- Saber qué formatos le funcionan a ELLA (ver "Qué formatos me funcionaron" abajo).
 - Ver si hay una serie en curso que esta pieza deba continuar.
 
 Si no existe, sigue normal. No se le exige para trabajar.
@@ -22,11 +23,21 @@ Después de la pieza y de las tres líneas de criterio, la pieza queda anotada e
 con esta fila:
 
 ```
-| Fecha | Formato | Idea en una frase | Pilar | Objetivo | Entrada (familia) | Estado | Resultado |
+| Fecha | Formato | Idea en una frase | Pilar (tema) | Trabajo | Para qué | Entrada (familia) | Estado | Resultado |
 ```
 
+- **Formato:** el tipo de pieza (reel hablado, voz en off, carrusel, foto con una línea, clip
+  corto, historias) y, si usó uno de los formatos con estructura probada, su nombre después de
+  un punto: "Reel hablado · Lo que se confunde". Siempre el mismo nombre, para poder contarlos.
+- **Pilar (tema):** uno de sus 3 a 5 temas de `mi-voz.md`.
+- **Trabajo:** autoridad, trama, personalidad o señal (ver `planificar-contenido`).
+- **Para qué:** descubrimiento, confianza o venta.
 - **Estado:** idea, guion listo, grabado, publicado.
 - **Resultado:** se llena después, como múltiplo de su mediana (0,6 · 1,2 · 2,0). Ver `medicion.md`.
+
+Si su `mis-piezas.md` es de antes (con las columnas "Pilar" y "Objetivo"), no se reescriben las
+filas viejas: se agregan las columnas nuevas vacías y se sigue. El "Pilar" viejo (branding,
+engagement, venta) se lee como "Para qué" (descubrimiento, confianza, venta).
 
 Cómo se guarda:
 
@@ -41,6 +52,22 @@ Cómo se guarda:
 
 La misma regla vale para `mi-voz.md` y para cualquier archivo suyo que una skill cambie: se le
 devuelve entero y listo para reemplazar, nunca un pedazo para que ella lo acomode.
+
+## Qué formatos me funcionaron
+
+Cuando la alumna pregunta "qué formatos me funcionaron", o una skill tiene que recomendar un
+formato, se cuenta desde `mis-piezas.md`: por cada formato con nombre, cuántas piezas tiene con
+Resultado y la mediana de esos resultados (el múltiplo del medio). Se entrega así:
+
+| Formato | Piezas medidas | Su resultado del medio | Qué dice |
+|---|---|---|---|
+
+- **Con 3 o más piezas medidas, manda su historial** por encima de la guía general de
+  los formatos: si le da 1,5 o más, es de su 70; si le da menos de 0,75 con ángulos distintos,
+  se pausa y se dice por qué.
+- **Con 1 o 2 piezas**, es una pista, no una conclusión. Antes de descartar un formato se
+  cambia el ángulo y se vuelve a probar: una pieza baja no juzga la estructura.
+- Un reel sin voz se compara con su mediana de reels sin voz, no con la de reels hablados.
 
 ## Si no encuentras sus archivos
 

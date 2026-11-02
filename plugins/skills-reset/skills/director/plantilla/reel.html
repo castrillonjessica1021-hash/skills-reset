@@ -82,6 +82,7 @@ table.sfx td{padding:9px 8px;border-bottom:1px solid var(--linea);vertical-align
 const DATA = /*DATOS*/{
   "titulo": "Tu reel", "fecha": "hoy", "momento": "creciendo", "objetivo": "", "confianza": 7, "veredicto": "Grábala", "palabra": "",
   "idea": "La idea en una frase.", "porque": "", "gancho_leido": {"arriba": "", "grande": ""},
+  "plan": {"pilar": "", "para_quien": "", "accion": "", "emocion": "", "forma": "", "idea": "", "ganchos": ""},
   "guion": [{"parte": "ABRIR", "nota": "", "lineas": [{"t": "Primera frase.", "ver": ""}]}],
   "lugares": [{"nombre": "Lugar 1", "setup": ["Cámara a la altura de los ojos"], "tomas": [{"tipo": "cam", "t": "Toma"}]}],
   "pantallas": [],
@@ -115,8 +116,15 @@ function vIdea() {
     <div class="dato"><span>Tu momento</span><b>${esc(DATA.momento)}</b></div>
     <div class="dato"><span>Lo que tiene que lograr</span><b>${esc(DATA.objetivo)}</b></div>
     <div class="dato"><span>Palabra</span><b>${esc(DATA.palabra)}</b></div></div></div>
+  ${planReel()}
   ${g.grande ? `<div class="caja"><span class="lbl">El gancho escrito (arriba en pantalla)</span><p style="font-size:14px;color:var(--suave)">${esc(g.arriba)}</p><h2>${esc(g.grande)}</h2><p style="font-size:13px;color:var(--suave)">No repite lo que dices: hace otro trabajo.</p></div>` : ""}
   <div class="btns"><button class="btn osc" onclick="ir('guion')">Ver el guion →</button></div>`;
+}
+function planReel() {
+  const p = DATA.plan || {};
+  const filas = [["pilar", "Pilar"], ["para_quien", "Para quién"], ["accion", "Qué tiene que hacer al terminar"], ["emocion", "Qué tiene que sentir"], ["forma", "La forma"], ["idea", "La idea"], ["ganchos", "Los dos ganchos"]].filter(([k]) => p[k]);
+  if (!filas.length) return "";
+  return `<div class="caja"><span class="lbl">El plan del reel</span>${filas.map(([k, n]) => `<div class="dato"><span>${n}</span><b>${esc(p[k])}</b></div>`).join("")}</div>`;
 }
 function vGuion() {
   let h = `<div class="caja"><span class="lbl">Tu guion</span><div class="partes">${DATA.guion.map(p => `<span>${esc(p.parte)}</span>`).join("")}</div>

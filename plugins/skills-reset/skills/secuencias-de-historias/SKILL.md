@@ -61,6 +61,16 @@ Después se escriben una por una, empezando por la que va a publicar primero.
 Los ejemplos de ese archivo son de otros oficios y están para mostrar la forma. No se copian ni
 se adaptan: la secuencia sale del material de ella.
 
+## 1.2 Si es parte de una trama
+
+Entre un reel y el siguiente, la trama sigue en historias. Ahí van los avances chicos que no dan
+para un reel: un número de esta semana, una duda, una decisión a medias.
+
+- La primera pantalla dice en qué va ("día 9", "semana 3", "todavía no sé").
+- La última dice qué viene y más o menos cuándo, sin prometer un final que no sabe.
+- Si hay una encuesta o una pregunta, que sea sobre la trama: "¿qué harías tú?".
+- Se anota en `mis-historias.md`, en la historia de tipo "en curso", qué capítulo se contó.
+
 ## 2. Cinco entradas típicas — elige la que calza con lo que está pasando
 
 | Si hoy… | Entrada | Pregunta de fondo a responder en la secuencia |

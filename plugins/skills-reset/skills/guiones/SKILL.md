@@ -41,6 +41,9 @@ poder llegar más rápido al texto.
   tiene.
 - **CTA coherente.** El cierre debe pedir algo que de verdad corresponde con lo que se acaba de
   enseñar o contar — nunca un CTA genérico pegado al final.
+- **Una persona, una pieza.** Antes de escribir, nombra a quién le habla esta pieza: una persona
+  nueva que no la conoce, la que ya la sigue, o la que está por comprar. Cambia cuánto contexto
+  hace falta y qué se pide al final.
 
 ## 1.5. Primero, el formato
 
@@ -48,6 +51,20 @@ Antes de escribir, lee `formatos/README.md` y escoge el formato con ella (o prop
 del porqué). Después lee la ficha completa de ese formato y síguela: sus reglas, su prueba de valor,
 su duración, su plan visual y su revisión. Si la idea no cabe en ningún formato, usa las
 arquitecturas de la sección 2. Si la alumna tiene `mis-formatos/` en su proyecto, también cuentan.
+
+**Si eligió (o el `director` le recomendó) uno de los formatos de `biblioteca/formatos.md`**
+(Lo que se confunde, Mi ritmo real, Aquí no, Lo que me pide el cuerpo, Para esto esto, Así se vive
+de verdad, Con pruebas), esa ficha manda:
+- Primero las preguntas de la ficha, en una sola tanda, con tu sugerencia cuando ya sabes la
+  respuesta por sus archivos.
+- Después tres ángulos sacados de su material real (`mi-voz.md`, `mis-historias.md`,
+  `mis-piezas.md`), cada uno diciendo de dónde salió. Si el formato es de enseñanza, cada ángulo
+  lleva su línea de `biblioteca/evaluar-angulo.md` (familiaridad, interés, revelación). Si es de
+  conexión o sin voz, no.
+- Sus reglas de verdad y su filtro de conexión, sin excepción. Lo que falta va entre corchetes y
+  se le pide. Si no tiene el material que pide la ficha, se le dice y se propone otro formato.
+- "Lo que se confunde" se parece a "¿Cuál uso?" de `formatos/`: si la pieza termina eligiendo una
+  opción, es "¿Cuál uso?"; si solo aclara la diferencia, es "Lo que se confunde".
 
 Con cualquier formato:
 - **Tres ángulos, y recomiendas uno,** con por qué lo miraría su audiencia, qué se lleva que no
@@ -175,6 +192,21 @@ cuerpo, y di qué cambia entre las dos. Ella graba las dos y publica una.
     antes de entregarlo. Si dos o más respuestas del checklist son "sí", reescribe antes de
     entregar.
 
+## 3.5 Marcado para decirlo
+
+Un guion para reel hablado se entrega marcado, para que lo pueda decir y no solo leer:
+
+- **/** donde va una pausa. Siempre una antes de la frase que más importa y otra justo después.
+- **MAYÚSCULAS** en la palabra que se golpea. Una por frase, como mucho.
+- **(rápido)** en el contexto o lo que es relleno necesario. **(lento)** en la línea que importa.
+- Cada frase termina en punto, no en pregunta, salvo que sea una pregunta de verdad. Al decirla,
+  la voz baja al final, no sube ni se apaga.
+- Frases que se dicen en un respiro. Si hay que tomar aire en la mitad, se parte en dos.
+- Le habla a una persona: "tú" (o "vos"), nunca "chicas" ni "ustedes".
+
+Si va a leer del teleprompter, el marcado va en el teleprompter. Leer no le quita nada: lo que se
+nota es leer sin pausas.
+
 ## 4. Qué entregar
 
 - El formato elegido y, si te lo pidió, los tres ángulos con tu recomendación.
@@ -185,6 +217,10 @@ cuerpo, y di qué cambia entre las dos. Ella graba las dos y publica una.
 - Si hay recurso visual, una lista corta aparte al final — nunca mezclada en el texto del guion.
 - Si falta prueba para una afirmación fuerte, dilo explícitamente en vez de inventarla: trátala
   como hipótesis o pide el dato real antes de cerrar el guion.
+- El guion **marcado** (sección 3.5), aparte del guion limpio. El limpio es para la edición; el
+  marcado, para grabar.
+- Si es un reel importante, las dos entradas con su texto en pantalla (ver `hooks`, sección 4.5).
+- Al final, una línea: "Antes de grabar: `a-camara`."
 
 - **Si es un reel hablado que va a editar con AskCut** (o tiene AskCut instalado), la ficha de
   edición: lee `biblioteca/ficha-edicion.md` y síguelo. Así el guion ya llega a la edición con el

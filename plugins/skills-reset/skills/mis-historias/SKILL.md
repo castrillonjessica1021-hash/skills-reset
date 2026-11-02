@@ -29,6 +29,23 @@ falta un detalle, se pregunta; si no lo recuerda, se queda sin ese detalle.
 Dile en dos líneas cuántas historias tiene guardadas y qué tipo le falta. Así ve que no empieza
 de cero.
 
+## 0.5 La primera vez: tu banco de base
+
+Si `mis-historias.md` tiene menos de cinco historias, la primera entrevista arma la base, en
+varios mensajes, sin apuro:
+
+1. **Tu origen, la versión real.** No la del perfil profesional. ¿Cómo empezó de verdad, con lo
+   desordenado incluido?
+2. **De 3 a 5 tropiezos.** Lo que salió mal. Dan más confianza que los logros.
+3. **De 3 a 5 logros**, tuyos o de clientas, con el número exacto y cuándo. Nunca redondeado.
+4. **El momento en que cambió tu forma de pensar.** "Antes pensaba ___, pasó ___, ahora pienso ___."
+5. **Tu vida de antes.** Un trabajo, una etapa, un lugar, que te hace ver tu tema distinto que las
+   demás.
+6. **Lo que estás viviendo ahora** y todavía no sabes cómo termina. Esta es la que se vuelve trama
+   (ver `planificar-contenido`).
+
+Se hacen dos o tres por mensaje y se guardan con el mismo formato de siempre.
+
 ## 1. La entrevista de la semana
 
 Corta. **Un bloque por mensaje, máximo tres preguntas**, y esperas la respuesta. Que pueda
@@ -72,6 +89,7 @@ Cada historia en `mis-historias.md` va así:
 
 ```
 ### <título corto, con sus palabras>
+- **Tipo:** origen / tropiezo / logro / cambio de idea / vida de antes / en curso / de la semana
 - **Cuándo:** <fecha o época>
 - **Qué pasó:** <dos a cinco líneas, con sus palabras>
 - **El detalle:** <el objeto, la hora, la frase textual, el número>
@@ -79,6 +97,12 @@ Cada historia en `mis-historias.md` va así:
 - **Sirve para:** <tema o temas de su mi-voz> · <objetivo: alcance, interacción, conexión, autoridad o venta>
 - **Se puede usar:** sí / con cuidado / privada
 - **Usada en:** <fecha y pieza, o "todavía no">
+```
+
+Y para las de tipo **en curso**, una línea más:
+
+```
+- **Próximo capítulo:** <qué tiene que pasar para contar lo siguiente, y más o menos cuándo>
 ```
 
 Si el archivo no existe, créalo con este encabezado:
@@ -109,7 +133,7 @@ volver a contar más adelante, desde otro ángulo.
 
 ## Y qué sigue
 
-Para decidir cuál de las ideas grabar primero: `que-grabo`. Si ya sabe cuál: `estructura-de-contenido`.
+Para decidir cuál de las ideas grabar primero: `director`. Si ya sabe cuál: `estructura-de-contenido`.
 
 ## Qué evitar siempre
 

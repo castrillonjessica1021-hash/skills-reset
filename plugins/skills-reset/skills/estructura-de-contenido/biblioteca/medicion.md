@@ -21,7 +21,8 @@ No se mira un video. Se mira la mediana.
 | Menos de 0,75 varias veces seguidas | Se cambia UNA sola cosa y se vuelve a medir. |
 
 Una pieza baja no define la cuenta. Cuentas con medianas muy altas también tienen piezas que se
-quedan en la décima parte.
+quedan en la décima parte. A una pieza baja no se le dice fracaso: cuatro personas que se
+detuvieron son cuatro personas.
 
 ## Cada pieza por su trabajo
 
@@ -29,8 +30,8 @@ Las vistas no son la única medida. Depende de para qué era la pieza:
 
 | La pieza era para | Se mira |
 |---|---|
-| Que la conozcan (branding) | Compartidos, guardados y seguidores nuevos |
-| Que respondan (engagement) | Comentarios y respuestas |
+| Que la conozcan (descubrimiento) | Compartidos, guardados y seguidores nuevos |
+| Que confíen y respondan (confianza) | Comentarios y respuestas |
 | Que pidan algo (venta) | Comentarios con la palabra clave por cada mil vistas, mensajes y ventas |
 
 Una pieza de venta con pocas vistas y muchos pedidos hizo su trabajo.
@@ -53,12 +54,17 @@ las vistas:
 
 Si un experimento pasa la mediana, sube al 20. Si algo del 20 la pasa dos veces, sube al 70.
 
+**La señal de la semana:** una pieza que pasa 2 veces su mediana en las últimas dos semanas se
+dobla con una parte 2, otra entrada o la respuesta a un comentario (ver `planificar-contenido`).
+
 Si todavía nada pasa su mediana, o está empezando, se invierte por un mes: más experimentos
 pequeños, y se van subiendo los que respondan.
 
 ## Lo que no se concluye
 
 - Que algo "funciona" por un solo video. Es una hipótesis hasta que se repite.
+- Que un formato no sirve por una pieza baja. Antes se cambia el ángulo y se vuelve a probar; con
+  3 o más piezas medidas de ese formato, ya se puede concluir (ver `memoria.md`).
 - Que la cuenta está dañada porque bajaron las vistas. Casi siempre falta claridad en la
   entrada o en a quién le habla, no una cuenta nueva.
 - Que hay una frecuencia correcta. Entre cuentas que lanzaron con buenos resultados, una

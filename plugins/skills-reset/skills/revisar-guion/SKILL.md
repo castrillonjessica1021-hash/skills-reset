@@ -1,6 +1,6 @@
 ---
 name: revisar-guion
-description: Revisa un guion de reel que la alumna YA escribió (sola, con otra herramienta o con `guiones`) contra una lista de diez puntos, y le dice qué funciona, las tres cosas que más pesan y cómo arreglarlas. Úsalo cuando dice "revisa mi guion", "qué le falta a este guion", "está bien este reel", "mejora este guion", "recórtalo" o pega un guion y pregunta si sirve. No escribe un guion desde cero: para eso está `guiones`.
+description: Revisa un guion de reel que la alumna YA escribió (sola, con otra herramienta o con `guiones`) contra una lista de doce puntos, y le dice qué funciona, las tres cosas que más pesan y cómo arreglarlas. Úsalo cuando dice "revisa mi guion", "qué le falta a este guion", "está bien este reel", "mejora este guion", "recórtalo" o pega un guion y pregunta si sirve. No escribe un guion desde cero, para eso está `guiones`.
 ---
 
 # Revisar guion
@@ -22,7 +22,7 @@ frenando la pieza, y que lo arregle con el menor cambio posible.
 
 ## 1. La lista
 
-Pasa el guion por los diez puntos. Marca cada uno **bien**, **a medias** o **falta**. No pongas
+Pasa el guion por los doce puntos. Marca cada uno **bien**, **a medias** o **falta**. No pongas
 nota ni puntaje: un número no le dice qué hacer.
 
 1. **Una sola idea.** Se puede decir en una frase. Si necesita tres, son tres reels.
@@ -41,6 +41,11 @@ nota ni puntaje: un número no le dice qué hacer.
    Pasa el checklist de `biblioteca/reglas-autenticidad.md`.
 9. **Tiene una frase para repetir**, corta, cerca del final.
 10. **Un solo pedido**, y tiene que ver con lo que acaba de contar.
+11. **Le habla a una sola persona.** Nada de "chicas", "todas", "ustedes". Y queda claro si es
+    para alguien nuevo, para la que ya la sigue o para la que está por comprar.
+12. **Se puede decir.** Cada frase cabe en un respiro, la línea que importa tiene espacio para
+    una pausa antes, y ninguna frase termina sonando a pregunta sin serlo. Si trae texto en
+    pantalla, no repite lo que dice.
 
 ## 2. Qué entregar
 
@@ -59,6 +64,8 @@ No reescribas el guion entero salvo que lo pida.
 - **"Recórtalo a X segundos":** quita primero lo repetido, después el contexto que sobra,
   después los ejemplos de más. La entrada, la prueba y el pedido no se tocan. Si no cabe sin
   romper la idea, dilo.
+- **"Marcado":** si pide el guion listo para grabar, se entrega con las marcas de `guiones`
+  (sección 3.5), sin cambiar palabras. Para practicarlo, `a-camara`.
 
 ## 4. Si el problema no está en las palabras
 
@@ -72,7 +79,7 @@ qué sigue (grabar, o `captions` si ya lo grabó).
 
 ## Qué evitar siempre
 
-- Entregar una lista de diez correcciones. Tres.
+- Entregar una lista de doce correcciones. Tres.
 - Reescribir con tu estilo lo que ya sonaba a ella.
 - Agregar una prueba, un dato o una historia que ella no dio.
 - Decir que "está muy bien" cuando falla el objetivo.

@@ -123,6 +123,9 @@ function veredicto(id) {
   if (id.guardada) return ["guardada", "Guárdala " + id.guardada];
   if (id.orgullo === false) return ["no", "No la grabes"];
   const n = nota(id);
+  const fallas = id.angulo ? Object.values(id.angulo).filter(x => x === false).length : 0;
+  if (fallas >= 2) return ["no", "No la grabes (por ahora)"];
+  if (fallas === 1 && n >= 7) return ["ajustala", "Ajústala y grábala"];
   return n >= 7 ? ["grabala", "Grábala"] : n >= 5 ? ["ajustala", "Ajústala y grábala"] : ["no", "No la grabes (por ahora)"];
 }
 function anillo(n, sube, guardada) {

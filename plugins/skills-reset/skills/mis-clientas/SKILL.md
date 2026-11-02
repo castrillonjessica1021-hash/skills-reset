@@ -51,6 +51,8 @@ nombre ni usuario. Sin cita no entra.
    Instagram").
 6. **Sus palabras.** Las que ellas usan y la alumna no. Por ejemplo, ellas dicen "me da pena
    salir en cámara" y la alumna dice "miedo a la visibilidad". Gana la de ellas.
+7. **Lo que piensan y no dicen.** Lo que se lee entre líneas en un mensaje privado y nunca
+   aparece en un comentario público. Solo con cita, igual que los demás.
 
 Algo cuenta como hallazgo solo si aparece **dos veces o más**. Lo que aparece una vez se anota
 como "una sola vez" y no se trata como patrón.
@@ -64,12 +66,13 @@ como "una sola vez" y no se trata como patrón.
    sirve (alcance, interacción, conexión, autoridad o venta). Las preguntas repetidas suelen ser
    buenas para autoridad; las objeciones, para venta.
 4. **Las objeciones**, listas para `lanzamientos` o `mi-oferta`.
-5. **Su `mi-voz.md` completo y actualizado**, con "Sus palabras" y "Sus momentos" mejorados,
+5. **Su `mi-voz.md` completo y actualizado**, con "Sus palabras" y "Sus momentos" mejorados, lo
+   del grupo 7 en "Lo que piensa y no dice",
    siguiendo `biblioteca/memoria.md`: todo lo que ya tenía, sin quitar nada, más lo nuevo.
 
 ## Y qué sigue
 
-Para decidir cuál de esas ideas grabar: `que-grabo`. Si salieron objeciones y está por vender:
+Para decidir cuál de esas ideas grabar: `director`. Si salieron objeciones y está por vender:
 `lanzamientos`.
 
 ## Qué evitar siempre

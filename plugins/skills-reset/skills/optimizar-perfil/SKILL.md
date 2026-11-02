@@ -41,6 +41,10 @@ prueba vienen de ahí — nunca se inventa un nicho más atractivo ni una creden
   responde "¿por qué debería escucharte a ti y no a otra persona del mismo nicho?".
 - **Línea 3 — CTA claro hacia el link.** Una acción específica ("agenda tu llamada", "descarga la
   guía", "mira el último reel") — nunca un genérico "link en bio" sin decir qué hay ahí.
+- **El correo de contacto** va en el botón de contacto o en una cuarta línea corta, si quiere que
+  le escriban marcas o clientas. Si no lo quiere visible, está bien; se le pregunta una vez.
+- **Una palabra buscable** en el campo nombre (sección 1) y la claridad antes que el ingenio: si
+  hay que pensar para entender la bio, se reescribe.
 - Emojis solo como separador visual si van con su tono, nunca como relleno decorativo.
 - Nada de jerga vacía ni promesas que no puede sostener (ver
   `biblioteca/reglas-autenticidad.md`).
@@ -78,14 +82,34 @@ Instagram permite fijar hasta 3 publicaciones arriba del grid. Son, junto con la
 destacadas, la primera impresión completa de la cuenta — por eso no se dejan al azar ni se fijan
 simplemente "los que más gustaron".
 
-Una combinación que cubre la mayoría de los casos (adaptar, no copiar sin pensar):
+Una combinación que cubre la mayoría de los casos (importa el mensaje, no el formato: puede ser
+reel hablado, carrusel o voz en off sobre fotos):
 
-1. **Quién es y qué hace** — el contenido que mejor resume su propuesta en un solo reel o post.
-2. **Prueba o resultado** — lo más fuerte que puede mostrar como evidencia real.
-3. **Oferta o CTA vigente** — lo que está promoviendo ahora mismo.
+1. **Empieza aquí.** Para la que llega nueva: quién es, a quién ayuda, qué va a encontrar aquí y
+   qué hacer primero.
+2. **Su origen.** Cómo empezó, lo que le costó, el giro y por qué comparte. Sale de
+   `mis-historias.md` (tipo "origen"). Funciona bien en voz en off sobre fotos viejas.
+3. **Su mayor ajá.** La idea suya que más le cambia la cabeza a alguien, o su opinión más fuerte
+   (de "Lo que creo" en `mi-voz.md`).
 
-Se actualizan cuando cambian las prioridades (nuevo lanzamiento, nueva oferta) — no se dejan fijos
-para siempre solo porque "ya están ahí".
+Mientras tiene algo abierto (lista de espera o carrito), el tercer fijado pasa a ser la oferta, y
+vuelve a su lugar cuando cierra.
+
+Si no tiene todavía la pieza para uno de los tres, se dice cuál falta y qué skill la escribe. No se
+fija algo solo porque tuvo vistas.
+
+## 5b. Mientras lanzas
+
+Mientras la lista de espera o el carrito están abiertos, el perfil habla solo de eso:
+
+- Bio, línea 1: qué abre y para quién. Línea 2: la fecha en que cierra. Línea 3: la palabra o el
+  enlace.
+- El enlace lleva a la página de registro, no a un menú.
+- El tercer fijado es la oferta.
+- Una destacada con el nombre de lo que abre, primera de izquierda a derecha.
+
+Se le recuerda que lo vuelva a como estaba el día después de cerrar, y se le entrega la versión
+de antes para que no la tenga que reescribir.
 
 ## 6. Qué evitar siempre
 
@@ -100,6 +124,20 @@ Antes de entregar el texto final de la bio o la lista de destacadas/fijados, pá
 `biblioteca/reglas-autenticidad.md` — el mismo filtro anti-ChatGPT aplica aquí: una bio que
 suena a plantilla genérica de LinkedIn falla igual que un guion que suena a clase.
 
+## 6b. El perfil listo, en 30 minutos
+
+Al final, entrega esta lista para que la haga de una sentada:
+
+- [ ] Nombre con palabra buscable y su nombre real.
+- [ ] Foto de su cara, de cerca, sola, con luz.
+- [ ] Bio en tres líneas, más el correo si lo quiere visible.
+- [ ] Un enlace que lleva a una sola cosa, la misma que pide la bio.
+- [ ] Tres fijados (o los que tenga) en el orden de la sección 5.
+- [ ] Destacadas en orden, con portadas del mismo estilo.
+- [ ] Portadas de reels con un título corto, para que en la cuadrícula se lean sus temas.
+- [ ] La respuesta automática de su palabra clave probada con un comentario propio.
+- [ ] En el celular: una carpeta de ideas guardadas y una carpeta de tomas de apoyo.
+
 ## 7. Qué entregar
 
 - El texto de la bio, línea por línea, en el tú/vos de la alumna.
@@ -107,6 +145,8 @@ suena a plantilla genérica de LinkedIn falla igual que un guion que suena a cla
 - Qué va en el link y por qué corresponde con el CTA.
 - Lista de destacadas sugeridas, en orden, con qué pregunta responde cada una.
 - Los 3 fijados sugeridos y por qué esos tres, en ese orden.
+- Si está lanzando, la versión "mientras lanzas" (5b) y la de siempre, para volver a ella.
+- La lista de 30 minutos (6b).
 
 Si para alguna de estas piezas (destacadas, fijados) falta contenido real que mostrar como
 prueba, dilo — no se inventa un resultado para llenar el espacio.
