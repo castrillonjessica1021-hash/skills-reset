@@ -406,6 +406,58 @@ palabra clave del cierre, grande y en otro color.
 
 ---
 
+## Mis caídas
+
+**Duración y tipo:** carrusel de 7 a 10 slides. Sus fotos reales con texto encima. Conexión.
+
+**Para qué sirve:** comentarios y cercanía. Abre conversación: si está bien hecho, la gente cuenta lo suyo.
+
+**Por qué funciona:** casi todo lo que se ve en redes son logros. Una dueña de negocio que muestra sus caídas
+de verdad rompe eso, y quien mira se siente acompañada. Cada slide es una confesión que normalmente no se dice
+en voz alta. Es una tendencia que la gente reconoce, así que la portada se entiende de un vistazo.
+
+**La estructura:**
+- Portada: una foto suya donde se le vea la cara, y la promesa de mostrar lo que no le salió bien (todo el
+  mundo muestra sus logros; yo te muestro mis caídas).
+- De 5 a 8 slides: una sola caída por slide, cada una independiente, sobre una foto suya distinta.
+- Cierre: la invita a contar una caída suya en los comentarios.
+
+**Lo que necesita tener:** caídas reales que le dé un poco de vergüenza contar, y fotos suyas reales (pueden
+ser viejas o casuales). Nada de fotos hechas con IA.
+
+**Cuándo NO usarlo:** si todavía no está lista para contar algo propio, o si lo que tiene son quejas sin nada
+vivido detrás. Tampoco en plena venta: es una pieza de conexión.
+
+**Preguntas:**
+1. ¿Qué te pasó en tu negocio o en tu contenido que casi nunca cuentas?
+2. ¿Qué te da vergüenza admitir como dueña de negocio?
+3. ¿Qué te dicen las personas cercanas que te duele?
+4. ¿Qué número real te pesa (lo que invertiste, lo que facturaste, lo que no llegó)?
+
+**Cómo salen los 3 ángulos:** tres juegos de caídas con un hilo distinto (dinero, vergüenza, familia y
+maternidad). Se juzgan así: ¿cada una es concreta, con un detalle o un número real? ¿Su clienta diría "eso me
+pasa a mí"? ¿Se atreve a publicarla?
+
+**Reglas de verdad y de forma:**
+- Solo caídas que vivió. Nunca se inventa ni se exagera una para que pegue más.
+- Una caída por slide, en primera persona, en frases cortas.
+- Números reales y exactos, sin redondear. Las deudas se nombran sin montos si ella no quiere decirlos.
+- Diseño simple y consistente: la foto con una capa oscura suave y el texto encima, con el mismo estilo en todas.
+  Puede combinar dos letras: una gruesa para el texto y otra (a mano o cursiva) para la frase que más duele.
+
+**Cómo armarlo:** se pasa a `disena-carruseles` con sus fotos, una distinta por slide, con la cara visible en la
+portada y el texto sin taparle la cara.
+
+**Filtro de conexión:**
+- No es una lista de quejas: cada caída muestra algo de quién es ella. Si tiene fe, puede aparecer con
+  naturalidad en la última.
+- La protagonista de la conversación es quien comenta: el cierre le pregunta a ella, no pide nada para la marca.
+
+**Cierre / pedido:** "¿Y tú? Cuéntame una caída tuya en los comentarios." Si hay palabra clave, va solo al final
+del caption.
+
+---
+
 ## Resumen
 
 | Formato | Tipo | Para qué sirve | Lo que necesita | Momento |
@@ -417,6 +469,7 @@ palabra clave del cierre, grande y en otro color.
 | Para esto, esto | Hablado, enseñanza | Guardados y envíos | Opciones que usó, para tareas de una misma clienta | Creciendo |
 | Así se vive de verdad | Hablado, conexión | Comentarios, conexión, siguiente capítulo | Un proceso largo que vivió o acompañó | Calentando |
 | Con pruebas | Hablado, enseñanza | Confianza y comentarios con palabra clave | Un estudio serio que leyó + su propia prueba | Calentando y abriendo |
+| Mis caídas | Carrusel, conexión | Comentarios y cercanía | Caídas reales y fotos suyas | Empezando, creciendo y calentando |
 
 Los momentos son los de `mi-momento.md` (empezando, creciendo, calentando, abriendo, después). Son
 una guía: con 3 o más piezas medidas de un formato, manda lo que le dio a ella.
