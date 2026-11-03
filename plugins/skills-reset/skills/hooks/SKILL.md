@@ -1,6 +1,6 @@
 ---
 name: hooks
-description: Escribe diez entradas (hooks) distintas para UNA idea de reel, con el material real de la alumna, y escoge dos para probar. Úsalo cuando dice "dame hooks", "dame ganchos para...", "cómo empiezo este reel", "no sé cómo abrir", "el inicio no me convence", "qué texto pongo arriba en pantalla", o tiene la idea pero todavía no el guion. No escribe el guion completo: para eso está `guiones`. Si la idea todavía no cabe en una frase, pasa primero por `estructura-de-contenido`.
+description: Escribe diez entradas (hooks) distintas para UNA idea de reel, con el material real de la alumna, y escoge dos para probar. Úsalo cuando dice "dame hooks", "dame ganchos para...", "cómo empiezo este reel", "no sé cómo abrir", "el inicio no me convence", "qué texto pongo arriba en pantalla", o tiene la idea pero todavía no el guion. No escribe el guion completo: para eso está `guiones`. Si la idea todavía no cabe en una frase, pasa primero por `estructura-de-contenido`. También cuando pide un formato por nombre o número: "formato 0" o "formato cero" (Lo que se confunde), Mi ritmo real, Aquí no, Lo que me pide el cuerpo, Para esto esto, Así se vive de verdad, Con pruebas, Mis caídas.
 ---
 
 # Hooks
