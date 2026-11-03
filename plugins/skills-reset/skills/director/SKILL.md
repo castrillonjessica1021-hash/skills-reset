@@ -171,7 +171,9 @@ suficiente, el siguiente paso es `mis-historias` (la entrevista) o `mis-clientas
 entre `/*DATOS*/` y `/*FIN*/` con el JSON de esta decisión (formato abajo). Entrégala:
 - **En el chat de Claude:** como un artefacto HTML (el archivo completo), para que se abra en el panel.
 - **En Claude Code:** guárdala como `director.html` en su carpeta de contenido y ábrela en su navegador
-  (Windows: `start "" "director.html"` · Mac: `open director.html`).
+  (Windows: `start "" "director.html"` · Mac: `open director.html`). Siempre: no esperes a que la pida.
+  Ábrela antes de escribir tu respuesta en el chat y, al final, dile en una línea "Te abrí la página del
+  director en tu navegador". Si no se pudo abrir, dile dónde quedó el archivo para que le dé doble clic.
 
 En la página ve su momento en una línea de tiempo, los días que faltan para abrir, la idea que va
 primero, cada idea con su número en un anillo y su veredicto, y "¿Por qué este número?": las siete
