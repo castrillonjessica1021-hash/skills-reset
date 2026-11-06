@@ -262,6 +262,7 @@ Cierra siempre con **un solo** siguiente paso, la skill que corresponde, no un m
 | calza con un formato de la biblioteca | `hooks` o `guiones` con ese formato: le hacen sus preguntas y le proponen tres ángulos |
 | pide algo que ella todavía no vende, o está por abrir sin oferta clara | `mi-oferta`, después `lanzamientos` |
 | sale de lo que pregunta o comenta su gente | `mis-clientas` |
+| no es contenido: le escribieron y no sabe qué responder o cómo llevar la conversación | `mis-mensajes` |
 | son las ideas de la semana o del mes | `planificar-contenido`, que arma la parrilla solo con las que aprobaste aquí |
 | no tiene sus números medidos | `que-me-funciona` |
 
