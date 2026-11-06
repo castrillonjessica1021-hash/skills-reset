@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi día</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+const DATA = /*DATOS*/{
+  "nombre": "Ana",
+  "fecha": "Lunes, 9 de marzo de *2026*",
+  "hora": "7:00 a.m.",
+  "colores": {"acento": "#B00B00", "suave": "#F7E3DF", "fondo": "#F7F2EA", "tinta": "#141414"},
+  "frase": {"texto": "No tienes que hacerlo todo hoy. Solo lo que de verdad te toca.", "cita": "", "fuente": "escrita"},
+  "resumen": {"texto": "Ejemplo: hoy tienes *dos* cosas con hora y un correo que pide respuesta.", "una_cosa": "Lo más importante de hoy"},
+  "numeros": [
+    {"n": "2", "lb": "Eventos hoy", "icono": "calendario"},
+    {"n": "1", "lb": "Correos por responder", "icono": "correo"},
+    {"n": "3", "lb": "Pendientes abiertos", "icono": "check"},
+    {"n": "5", "lb": "Días para tu fecha", "icono": "estrella"}
+  ],
+  "mes": {"anio": 2026, "mes": 3, "hoy": 9, "marcados": [9, 12, 20]},
+  "proximos": [{"dia": "Jue 12", "que": "Ejemplo de evento", "tono": "rojo"}],
+  "agenda_rango": "hoy y mañana",
+  "agenda": [{"cuando": "10:00", "que": "Ejemplo de evento", "detalle": "10:00 – 11:00", "icono": "video", "tono": "rojo"}],
+  "correos": {"conectado": false, "lista": []},
+  "pendientes": [{"t": "Ejemplo de pendiente", "nota": "vence hoy", "hecho": false, "estrella": true}],
+  "cuenta_atras": {"n": 5, "texto": "días para tu fecha", "nota": "sábado 14"}
+}/*FIN*/;
+</script>
+<style>
+:root{--rojo:#B00B00;--rojo2:#D9372B;--rosa:#F7E3DF;--rosa2:#FBEFEC;--negro:#141414;--crema:#F7F2EA;--blanco:#FFFDF9;--linea:#ECE4D8;--gris:#857C70;--gris2:#B5AC9F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#1B1A19;font-family:'Space Grotesk',system-ui,sans-serif;color:var(--negro);padding:clamp(12px,2.6vw,40px)}
+.app{max-width:1500px;margin:0 auto;min-height:calc(100vh - 80px);background:var(--crema);border-radius:22px;overflow:hidden;display:flex;box-shadow:0 30px 80px rgba(0,0,0,.45);border:1px solid #2c2a28}
+/* barra lateral */
+.side{width:232px;background:var(--blanco);border-right:1px solid var(--linea);padding:22px 18px;display:flex;flex-direction:column}
+.dots{display:flex;gap:7px;margin-bottom:26px}.dots i{width:12px;height:12px;border-radius:50%;background:#E0D7CA}.dots i:first-child{background:var(--rojo)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:30px}
+.logo .m{width:38px;height:38px;border-radius:11px;background:var(--rojo);color:#fff;font-family:Anton;font-size:19px;display:grid;place-items:center;letter-spacing:.5px}
+.logo b{font-family:Anton;font-weight:400;font-size:24px;letter-spacing:1px}
+.nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:15px;font-weight:500;color:#3a3631;margin-bottom:4px}
+.nav a.on{background:var(--rosa);color:var(--rojo);font-weight:700}
+.nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.nav .n{margin-left:auto;background:var(--rojo);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:2px 7px}
+.frase{margin-top:auto;background:var(--negro);color:#F2EBDF;border-radius:16px;padding:18px 16px}
+.frase small{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:#a9a091}
+.frase p{font-family:'Instrument Serif';font-style:italic;font-size:23px;line-height:1.1;margin:8px 0 6px}
+.frase span{font-family:Caveat;color:#FF6B5E;font-size:20px;font-weight:700}
+/* principal */
+.main{flex:1;padding:22px 30px;display:flex;flex-direction:column;min-width:0}
+.bar{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.search{flex:1;background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:11px 16px;font-size:14px;color:var(--gris2);display:flex;gap:10px;align-items:center}
+.search svg,.ic svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.ic{width:42px;height:42px;border-radius:12px;background:var(--blanco);border:1px solid var(--linea);display:grid;place-items:center;color:#3a3631;position:relative}
+.ic .p{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--rojo);border:2px solid var(--blanco)}
+.ava{width:42px;height:42px;border-radius:50%;background:var(--negro);color:#fff;font-family:Anton;font-size:18px;display:grid;place-items:center}
+.hola{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px}
+.hola h1{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.hola h1 em{font-family:'Instrument Serif';font-weight:400;font-size:40px;color:var(--rojo)}
+.hola p{color:var(--gris);font-size:15px;margin-top:4px}
+.fecha{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600}
+.fecha b{color:var(--rojo)}
+.fecha .ic{width:34px;height:34px;border-radius:10px}
+/* resumen */
+.res{background:var(--negro);border-radius:18px;padding:20px 24px;display:flex;gap:26px;align-items:center;margin-bottom:18px;color:#F2EBDF;position:relative;overflow:hidden}
+.res .sol{width:52px;height:52px;border-radius:15px;background:var(--rojo);display:grid;place-items:center;flex:none}
+.res .sol svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.res .tx small{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#a9a091}
+.res .tx p{font-size:16.5px;line-height:1.45;margin-top:5px;color:#E8E0D3}
+.res .tx p em{font-family:'Instrument Serif';font-size:21px;color:#FF6B5E}
+.res .una{margin-left:auto;flex:none;background:var(--rojo);border-radius:13px;padding:14px 18px;width:250px}
+.res .una small{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+.res .una div{font-family:Anton;font-size:20px;line-height:1.12;margin-top:4px;letter-spacing:.3px}
+/* estadísticas */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.st{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+.st .o{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none}
+.st .o svg{width:21px;height:21px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st .num{font-family:Anton;font-size:30px;line-height:1}
+.st .lb{font-size:13px;color:var(--gris);margin-top:3px}
+.r1 .o{background:var(--rojo)}.r1 svg{stroke:#fff}
+.r2 .o{background:var(--negro)}.r2 svg{stroke:#fff}
+.r3 .o{background:var(--rosa)}.r3 svg{stroke:var(--rojo)}
+.r4 .o{background:#EFE7DA}.r4 svg{stroke:var(--negro)}
+/* fila de abajo */
+.row{display:grid;grid-template-columns:300px 1fr 1fr;gap:16px;flex:1}
+.pan{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;min-height:0}
+.pan h3{font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pan h3 a{cursor:pointer;font-size:12px;color:var(--rojo);font-weight:600}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12.5px;row-gap:9px}
+.cal .d{color:var(--gris2);font-size:11px;font-weight:600}
+.cal span{width:28px;height:28px;line-height:28px;margin:0 auto;border-radius:50%;position:relative}
+.cal .f{color:#cfc7ba}
+.cal .hoy{background:var(--rojo);color:#fff;font-weight:700}
+.cal .ev:after{content:'';position:absolute;bottom:-3px;left:50%;margin-left:-2.5px;width:5px;height:5px;border-radius:50%;background:var(--rojo)}
+.prox{margin-top:16px;border-top:1px solid var(--linea);padding-top:12px}
+.prox h4{font-size:13px;font-weight:700;margin-bottom:8px}
+.pr{display:flex;gap:10px;align-items:center;font-size:13px;padding:5px 0}
+.pr i{width:3px;height:18px;border-radius:2px;background:var(--rojo);flex:none}.pr i.k{background:var(--negro)}
+.pr span{color:var(--gris);width:62px;flex:none}
+.tl{position:relative;padding-left:74px;flex:1}
+.tl:before{content:'';position:absolute;left:58px;top:6px;bottom:6px;width:2px;background:var(--linea)}
+.it{position:relative;margin-bottom:12px}
+.it .hr{position:absolute;left:-74px;top:13px;font-size:11px;font-weight:600;color:var(--gris);width:46px;text-align:right}
+.it .pt{position:absolute;left:-20px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--rojo);border:2px solid var(--blanco);box-shadow:0 0 0 1.5px var(--rojo)}
+.it .bx{border-radius:13px;padding:11px 13px;display:flex;align-items:center;gap:12px}
+.it .bx .o{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none}
+.it .bx svg{width:17px;height:17px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.it b{font-size:14px;display:block}
+.it small{font-size:12px;color:var(--gris)}
+.it .ck{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.8px solid currentColor}
+.ro{background:var(--rosa2)}.ro .o{background:var(--rojo)}.ro svg{stroke:#fff}.ro .ck{color:var(--rojo)}
+.ne{background:#F1ECE4}.ne .o{background:var(--negro)}.ne svg{stroke:#fff}.ne .ck{color:var(--negro)}
+.cr{background:#F6F1E8}.cr .o{background:#fff;border:1.5px solid var(--linea)}.cr svg{stroke:var(--rojo)}.cr .ck{color:var(--gris2)}
+.it.k .pt{background:var(--negro);box-shadow:0 0 0 1.5px var(--negro)}
+.col{display:flex;flex-direction:column;gap:16px;min-height:0}
+.vac{border:1.5px dashed #D9CFC0;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;font-size:13px;color:var(--gris);line-height:1.4}
+.vac .o{width:36px;height:36px;border-radius:50%;background:var(--rosa);display:grid;place-items:center;flex:none}
+.vac svg{width:17px;height:17px;stroke:var(--rojo);fill:none;stroke-width:2}
+.vac b{color:var(--negro);display:block;font-size:13.5px}
+.pe{display:flex;align-items:center;gap:11px;padding:8px 0;border-top:1px solid var(--linea);font-size:14px}
+.pe:first-of-type{border-top:0}
+.pe .c{width:18px;height:18px;border-radius:50%;border:1.8px solid var(--gris2);flex:none}
+.pe.ok .c{background:var(--rojo);border-color:var(--rojo);position:relative}
+.pe.ok .c:after{content:'';position:absolute;left:5px;top:2px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.pe.ok .t{text-decoration:line-through;color:var(--gris2)}
+.pe .bar2{width:3px;height:26px;border-radius:2px;background:var(--rojo);flex:none}.pe .bar2.k{background:var(--negro)}.pe .bar2.g{background:var(--gris2)}
+.pe .t small{display:block;font-size:11.5px;color:var(--gris)}
+.pe .star{margin-left:auto;color:var(--rojo);font-size:15px}.pe .star.v{color:#ddd3c4}
+.anota{font-family:Caveat;font-weight:700;color:var(--rojo);font-size:21px;transform:rotate(-4deg);position:absolute}
+.frasehoy{position:relative;font-family:'Instrument Serif';font-style:italic;font-size:27px;line-height:1.15;color:#3a3631;margin-top:8px;padding-left:22px;max-width:640px}
+.frasehoy .q{position:absolute;left:0;top:-6px;font-size:46px;color:var(--rojo);font-style:normal}
+.frasehoy .firma{font-family:Caveat;font-style:normal;font-weight:700;color:var(--rojo);font-size:21px;margin-left:12px;display:inline-block;transform:rotate(-3deg)}
+
+a{text-decoration:none;color:inherit}
+.search input{border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--negro);flex:1}
+.search input::placeholder{color:var(--gris2)}
+.frasehoy .cita{font-style:normal;font-family:'Space Grotesk';font-size:13px;color:var(--gris);margin-left:6px}
+.ml{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--linea)}
+.ml:first-child{border-top:0}
+.ml .av{width:34px;height:34px;border-radius:50%;background:#EFE7DA;color:var(--negro);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.ml .av.rj{background:var(--rojo);color:#fff}
+.ml .mt{flex:1;min-width:0;font-size:13.5px;line-height:1.3}
+.ml .mt b{display:block;font-size:13.5px}
+.ml .as{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ml .pd{display:block;color:var(--gris);font-size:12.5px}
+.ml .dot{width:8px;height:8px;border-radius:50%;background:var(--rojo);margin-top:6px;flex:none}
+.pe{cursor:pointer;user-select:none}
+.pie{margin-top:18px;font-size:13px;color:var(--gris);text-align:center}
+.pie b{color:var(--negro)}
+.fecha em{font-style:normal;color:var(--rojo);font-weight:700}
+.res .una div{text-transform:uppercase}
+#cuenta .cn{font-family:Anton;font-weight:400;font-size:44px;font-style:normal;color:#FF6B5E;line-height:.9}
+#cuenta .ct{font-style:italic}
+.vista{display:none}.vista.on{display:block}
+.nav a{cursor:pointer}
+.vh{margin-bottom:22px}.vh h1{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.vh h1 em{font-family:'Instrument Serif';font-weight:400;font-size:42px;color:var(--rojo)}
+.vh p{color:var(--gris);font-size:15px;margin-top:4px}
+.row2{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.cal-xl{row-gap:16px;font-size:15px}.cal-xl span{width:38px;height:38px;line-height:38px}
+.notas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.nt{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:18px 20px;position:relative;min-height:150px}
+.nt:nth-child(3n+1){background:var(--rosa2)}.nt:nth-child(3n+2){background:#F1ECE4}
+.nt .et{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--rojo);font-weight:700}
+.nt p{font-size:16px;line-height:1.45;margin-top:8px}
+.nt small{position:absolute;bottom:14px;right:18px;font-family:Caveat;font-weight:700;color:var(--rojo);font-size:19px}
+.hab .hd,.hab .hr2{display:grid;grid-template-columns:1fr repeat(7,44px) 70px;align-items:center;gap:6px}
+.hab .hd{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gris2);text-transform:uppercase;padding-bottom:8px;text-align:center}
+.hab .hd span:first-child{text-align:left}
+.hab .hr2{padding:12px 0;border-top:1px solid var(--linea);font-size:15px;font-weight:500}
+.hab .dd{width:30px;height:30px;border-radius:50%;border:1.8px solid #D9CFC0;margin:0 auto;display:grid;place-items:center}
+.hab .dd.si{background:var(--rojo);border-color:var(--rojo)}
+.hab .dd.si:after{content:'';width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.hab .dd.hoy{box-shadow:0 0 0 3px var(--rosa);cursor:pointer}
+.hab .dd.fut{border-style:dashed;opacity:.5}
+.hab .rach{text-align:center;font-family:Anton;font-size:20px}.hab .rach small{display:block;font-family:'Space Grotesk';font-size:10px;color:var(--gris);letter-spacing:1px}
+.hd .hoyc{color:var(--rojo)}
+.proys{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.pj{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:20px 22px}
+.pj .top2{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.pj h4{font-size:18px;font-weight:700}
+.pj .fe{font-size:12px;font-weight:700;color:var(--rojo);background:var(--rosa);border-radius:20px;padding:4px 10px;white-space:nowrap}
+.pj .bar3{height:8px;background:#EFE7DA;border-radius:6px;margin:14px 0 6px;overflow:hidden}.pj .bar3 i{display:block;height:100%;background:var(--rojo);border-radius:6px}
+.pj .pc{font-size:12px;color:var(--gris)}
+.pj .sig{margin-top:12px;background:#F6F1E8;border-radius:10px;padding:10px 12px;font-size:14px}
+.pj .sig b{display:block;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gris);margin-bottom:3px}
+.pj ul{list-style:none;margin-top:10px}.pj li{font-size:13.5px;padding:4px 0;display:flex;gap:8px;align-items:center}
+.pj li:before{content:'';width:14px;height:14px;border-radius:4px;border:1.6px solid var(--gris2);flex:none}
+.pj li.ok{color:var(--gris2);text-decoration:line-through}.pj li.ok:before{background:var(--rojo);border-color:var(--rojo)}
+@media (max-width:1150px){.notas{grid-template-columns:1fr 1fr}.row2,.proys{grid-template-columns:1fr}}
+@media (max-width:600px){.notas{grid-template-columns:1fr}.hab .hd,.hab .hr2{grid-template-columns:1fr repeat(7,28px) 44px;gap:3px}.hab .dd{width:24px;height:24px}}
+@media (max-width:1150px){.row{grid-template-columns:1fr 1fr}.row>.col{grid-column:span 2}.res{flex-wrap:wrap}.res .una{margin-left:0;width:100%}}
+@media (max-width:860px){.app{flex-direction:column}.side{width:auto;border-right:0;border-bottom:1px solid var(--linea);padding:10px 12px}.side .dots,.side .logo,.side .frase{display:none}.nav{display:flex;overflow-x:auto;gap:4px}.nav a{flex:none;margin:0;padding:9px 12px;font-size:14px}.stats{grid-template-columns:1fr 1fr}.hola{flex-direction:column;align-items:flex-start;gap:14px}}
+@media (max-width:600px){.main{padding:16px}.row{grid-template-columns:1fr}.row>.col{grid-column:auto}.stats{gap:10px}.st{padding:12px}.res{padding:16px}.app{border-radius:16px}.hola h1{font-size:28px}.fecha{font-size:13px;gap:6px}.fecha .ic{width:28px;height:28px}.frasehoy{font-size:22px}}
+</style></head><body>
+<div class="app">
+  <aside class="side">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div class="logo"><div class="m">MD</div><b>MI DÍA</b></div>
+    <nav class="nav">
+      <a class="on" data-v="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+      <a data-v="calendario"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
+      <a data-v="correos"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Correos<span class="n" id="nCorreos" hidden></span></a>
+      <a data-v="pendientes"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg>Pendientes<span class="n" id="nPend" hidden></span></a>
+      <a data-v="notas"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>Notas</a>
+      <a data-v="habitos"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Hábitos</a>
+      <a data-v="proyectos"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Proyectos</a>
+    </nav>
+    <div class="frase" id="cuenta"><small>Cuenta atrás</small><p><b class="cn"></b> <i class="ct"></i></p><span class="cnota"></span></div>
+  </aside>
+
+  <main class="main" id="inicio">
+    <div class="bar">
+      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="buscar" placeholder="Busca en tu calendario, correos o pendientes…"></div>
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg><span class="p"></span></div>
+      <div class="ava" id="ava"></div>
+    </div>
+
+    <section class="vista on" id="v-inicio">
+    <div class="hola">
+      <div><h1>Hola, <em id="nombre"></em></h1>
+        <div class="frasehoy" id="frase"><span class="q">“</span><span id="fraseTx"></span><span class="cita" id="fraseCita"></span><span class="firma">tu frase de hoy ↙</span></div></div>
+      <div class="fecha"><div class="ic"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></div><span id="fecha"></span><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div></div>
+    </div>
+
+    <div class="res">
+      <div class="sol"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+      <div class="tx"><small id="resHora"></small><p id="resumen"></p></div>
+      <div class="una" id="una"><small>Si hoy solo haces una cosa</small><div></div></div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="row">
+      <div class="pan" id="calendario">
+        <h3><span id="mes"></span> <a data-ir="calendario">Ver todo ›</a></h3>
+        <div class="cal" id="cal"></div>
+        <div class="prox"><h4>Lo que viene</h4><div id="prox"></div></div>
+      </div>
+      <div class="pan" id="agenda">
+        <h3>Agenda <a data-ir="calendario">Ver todo ›</a></h3>
+        <div class="tl" id="tl"></div>
+      </div>
+      <div class="col">
+        <div class="pan" id="correos"><h3>Correos importantes <a data-ir="correos">Ver todo ›</a></h3><div id="mails"></div></div>
+        <div class="pan" id="pendientes" style="flex:1"><h3>Pendientes de hoy <a data-ir="pendientes"><span id="pendCuenta"></span> · Ver todo ›</a></h3><div id="pend"></div></div>
+      </div>
+    </div>
+    </section>
+
+    <section class="vista" id="v-calendario">
+      <div class="vh"><h1>Tu <em>calendario</em></h1><p id="calSub"></p></div>
+      <div class="row2"><div class="pan"><h3><span id="mes2"></span></h3><div class="cal cal-xl" id="cal2"></div></div>
+      <div class="pan"><h3>Todo lo que viene</h3><div class="tl" id="tl2"></div></div></div>
+    </section>
+
+    <section class="vista" id="v-correos">
+      <div class="vh"><h1>Tus <em>correos</em></h1><p>Solo lo que llegó desde ayer y de verdad te importa. Lo demás, ni te lo muestro.</p></div>
+      <div class="pan"><div id="mails2"></div></div>
+    </section>
+
+    <section class="vista" id="v-pendientes">
+      <div class="vh"><h1>Tus <em>pendientes</em></h1><p>Toca uno para marcarlo. Para agregar, dile a Claude "agrega a mis pendientes…".</p></div>
+      <div class="pan"><div id="pend2"></div></div>
+    </section>
+
+    <section class="vista" id="v-notas">
+      <div class="vh"><h1>Tus <em>notas</em></h1><p>Ideas sueltas, cosas que no quieres olvidar. Dile a Claude "anota que…".</p></div>
+      <div class="notas" id="notas"></div>
+    </section>
+
+    <section class="vista" id="v-habitos">
+      <div class="vh"><h1>Tus <em>hábitos</em></h1><p id="habSub">Toca el círculo de hoy cuando lo cumplas.</p></div>
+      <div class="pan"><div class="hab" id="hab"></div></div>
+    </section>
+
+    <section class="vista" id="v-proyectos">
+      <div class="vh"><h1>Tus <em>proyectos</em></h1><p>Cada proyecto con su fecha y su siguiente paso.</p></div>
+      <div class="proys" id="proys"></div>
+    </section>
+
+    <div class="pie">Escribe <b>“mi día”</b> en Claude y se vuelve a armar con lo de hoy.</div>
+  </main>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const enf = s => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+const ICON = {
+  calendario:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  correo:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  check:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/>',
+  estrella:'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
+  video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/>',
+  clase:'<path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/>',
+  cohete:'<path d="M5 19c4-1 6-4 7-8l3-7 2 2-3 7c-1 3-1 6 1 7"/><circle cx="6" cy="18" r="2"/>',
+  persona:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
+  telefono:'<path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  corazon:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  casa:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  dinero:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+  reloj:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+};
+const svg = k => `<svg viewBox="0 0 24 24">${ICON[k] || ICON.estrella}</svg>`;
+const D = DATA, st = document.documentElement.style;
+const C = D.colores || {};
+if (C.acento) st.setProperty('--rojo', C.acento);
+if (C.suave) { st.setProperty('--rosa', C.suave); }
+if (C.fondo) st.setProperty('--crema', C.fondo);
+if (C.tinta) st.setProperty('--negro', C.tinta);
+
+$('nombre').textContent = D.nombre || '';
+$('ava').textContent = (D.nombre || '?').trim()[0].toUpperCase();
+$('fecha').innerHTML = enf(D.fecha || '');
+const F = D.frase || {};
+if (F.texto) { $('fraseTx').textContent = F.texto; $('fraseCita').textContent = F.cita ? ' — ' + F.cita : ''; } else $('frase').hidden = true;
+$('resHora').textContent = 'Tu resumen de la mañana' + (D.hora ? ' · ' + D.hora : '');
+$('resumen').innerHTML = enf((D.resumen || {}).texto);
+const una = (D.resumen || {}).una_cosa;
+if (una) $('una').querySelector('div').textContent = una; else $('una').hidden = true;
+
+const tonos = ['r1','r2','r3','r4'];
+$('stats').innerHTML = (D.numeros || []).slice(0,4).map((n,i) => `<div class="st ${tonos[i]}"><div class="o">${svg(n.icono)}</div><div><div class="num">${esc(n.n)}</div><div class="lb">${esc(n.lb)}</div></div></div>`).join('');
+
+const M = D.mes || {};
+const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+if (M.anio && M.mes) {
+  $('mes').textContent = `${meses[M.mes-1]} ${M.anio}`;
+  const primero = new Date(M.anio, M.mes-1, 1), dias = new Date(M.anio, M.mes, 0).getDate();
+  const antes = (primero.getDay() + 6) % 7, diasPrev = new Date(M.anio, M.mes-1, 0).getDate();
+  const marc = new Set(M.marcados || []);
+  let h = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d => `<span class="d">${d}</span>`).join('');
+  for (let i = antes; i > 0; i--) h += `<span class="f">${diasPrev - i + 1}</span>`;
+  for (let d = 1; d <= dias; d++) h += `<span class="${d === M.hoy ? 'hoy' : ''}${marc.has(d) ? ' ev' : ''}">${d}</span>`;
+  const resto = (7 - (antes + dias) % 7) % 7;
+  for (let d = 1; d <= resto; d++) h += `<span class="f">${d}</span>`;
+  $('cal').innerHTML = h;
+}
+$('prox').innerHTML = (D.proximos || []).map(p => `<div class="pr"><i class="${p.tono === 'negro' ? 'k' : ''}"></i><span>${esc(p.dia)}</span>${esc(p.que)}</div>`).join('') || '<div class="pr" style="color:var(--gris)">Nada más este mes.</div>';
+
+const tono = {rojo:'ro', negro:'ne', crema:'cr'};
+$('tl').innerHTML = (D.agenda || []).map(a => `<div class="it${a.tono === 'negro' ? ' k' : ''}"><span class="hr">${esc(a.cuando)}</span><span class="pt"></span><div class="bx ${tono[a.tono] || 'cr'}"><div class="o">${svg(a.icono)}</div><div><b>${esc(a.que)}</b><small>${esc(a.detalle)}</small></div><span class="ck"></span></div></div>`).join('')
+  || '<div class="vac" style="margin-left:-74px"><div class="o">'+svg('calendario')+'</div><div><b>Día libre</b>No hay nada en tu calendario.</div></div>';
+
+const CO = D.correos || {};
+if (!CO.conectado) {
+  $('mails').innerHTML = `<div class="vac"><div class="o">${svg('correo')}</div><div><b>Conecta tu Gmail</b>En Claude: Personalización → Conectores → Gmail. Después aquí salen solo los que importan.</div></div>`;
+} else if (!(CO.lista || []).length) {
+  $('mails').innerHTML = `<div class="vac"><div class="o">${svg('correo')}</div><div><b>Nada que te pida respuesta</b>Tu bandeja puede esperar hoy.</div></div>`;
+} else {
+  $('mails').innerHTML = CO.lista.slice(0,4).map(m => `<div class="ml"><div class="av${m.responder ? ' rj' : ''}">${esc((m.de||'?').trim()[0].toUpperCase())}</div><div class="mt"><b>${esc(m.de)}</b><span class="as">${esc(m.asunto)}</span><span class="pd">${esc(m.pide)}</span></div>${m.responder ? '<span class="dot"></span>' : ''}</div>`).join('');
+  const nr = CO.lista.filter(m => m.responder).length;
+  if (nr) { $('nCorreos').textContent = nr; $('nCorreos').hidden = false; }
+}
+
+const P = D.pendientes || [], clave = 'midia:' + (D.fecha || '');
+let marcas = {};
+try { marcas = JSON.parse(localStorage.getItem(clave) || '{}'); } catch (e) {}
+function pintarPend() {
+  $('pend').innerHTML = $('pend2').innerHTML = P.length ? P.map((p,i) => {
+    const ok = marcas[i] ?? p.hecho;
+    return `<div class="pe${ok ? ' ok' : ''}" data-i="${i}"><span class="c"></span><span class="bar2 ${p.estrella ? '' : 'k'}"></span><span class="t">${esc(p.t)}<small>${esc(p.nota)}</small></span><span class="star${p.estrella ? '' : ' v'}">★</span></div>`;
+  }).join('') : `<div class="vac"><div class="o">${svg('check')}</div><div><b>Sin pendientes guardados</b>Dile a Claude "mis pendientes son…" y aparecen aquí.</div></div>`;
+  const abiertos = P.filter((p,i) => !(marcas[i] ?? p.hecho)).length;
+  $('pendCuenta').textContent = P.length ? `${P.length - abiertos} de ${P.length}` : '';
+  $('nPend').textContent = abiertos; $('nPend').hidden = !abiertos;
+}
+['pend','pend2'].forEach(id => $(id).addEventListener('click', e => {
+  const el = e.target.closest('.pe'); if (!el) return;
+  const i = el.dataset.i; marcas[i] = !(marcas[i] ?? P[i].hecho);
+  try { localStorage.setItem(clave, JSON.stringify(marcas)); } catch (e) {}
+  pintarPend();
+}));
+pintarPend();
+
+const CA = D.cuenta_atras;
+if (CA && CA.n !== undefined) {
+  document.querySelector('#cuenta .cn').textContent = CA.n;
+  document.querySelector('#cuenta .ct').textContent = CA.texto || '';
+  document.querySelector('#cuenta .cnota').textContent = CA.nota || '';
+} else $('cuenta').hidden = true;
+
+$('buscar').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.it,.pe,.ml,.pr').forEach(el => { el.style.opacity = !q || el.textContent.toLowerCase().includes(q) ? '' : '.25'; });
+});
+
+// ---- Secciones ----
+$('mes2').textContent = $('mes').textContent;
+$('cal2').innerHTML = $('cal').innerHTML;
+$('mails2').innerHTML = $('mails').innerHTML;
+const todo = (D.agenda || []).concat((D.proximos || []).filter(p => !(D.agenda || []).some(a => a.que && p.que && p.que.startsWith(a.que))).map(p => ({cuando: p.dia, que: p.que, detalle: '', icono: 'calendario', tono: p.tono === 'negro' ? 'negro' : 'crema'})));
+$('tl2').innerHTML = todo.map(a => `<div class="it${a.tono === 'negro' ? ' k' : ''}"><span class="hr">${esc(a.cuando)}</span><span class="pt"></span><div class="bx ${tono[a.tono] || 'cr'}"><div class="o">${svg(a.icono)}</div><div><b>${esc(a.que)}</b><small>${esc(a.detalle)}</small></div></div></div>`).join('') || '<div class="vac"><div class="o">'+svg('calendario')+'</div><div><b>Nada a la vista</b>Dile a Claude tus fechas y aparecen aquí.</div></div>';
+$('calSub').textContent = D.calendario_fuente || '';
+
+const N = D.notas || [];
+$('notas').innerHTML = N.length ? N.map(n => `<div class="nt"><span class="et">${esc(n.etiqueta || 'nota')}</span><p>${esc(n.t)}</p><small>${esc(n.fecha || '')}</small></div>`).join('')
+  : `<div class="vac" style="grid-column:1/-1"><div class="o">${svg('check')}</div><div><b>Todavía no hay notas</b>Dile a Claude "anota que…" y aparecen aquí.</div></div>`;
+
+const H = D.habitos || {}, HL = H.lista || [], hoyI = H.hoy ?? 0;
+const dn = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'], kh = 'midia-hab:' + (D.fecha || '');
+let hm = {}; try { hm = JSON.parse(localStorage.getItem(kh) || '{}'); } catch (e) {}
+function pintarHab() {
+  if (!HL.length) { $('hab').innerHTML = `<div class="vac"><div class="o">${svg('corazon')}</div><div><b>Elige tus hábitos</b>Dile a Claude "mis hábitos son…" (tres o cuatro, no más) y aquí los vas marcando cada día.</div></div>`; return; }
+  let h = `<div class="hd"><span>Esta semana</span>${dn.map((d,i) => `<span class="${i === hoyI ? 'hoyc' : ''}">${d}</span>`).join('')}<span>Racha</span></div>`;
+  h += HL.map((x,j) => {
+    const dias = (x.dias || []).slice(); if (hm[j] !== undefined) dias[hoyI] = hm[j] ? 1 : 0;
+    let r = 0; for (let i = hoyI; i >= 0 && dias[i]; i--) r++;
+    return `<div class="hr2"><span>${esc(x.t)}</span>${dn.map((d,i) => `<span class="dd${dias[i] ? ' si' : ''}${i === hoyI ? ' hoy' : ''}${i > hoyI ? ' fut' : ''}" ${i === hoyI ? `data-j="${j}"` : ''}></span>`).join('')}<span class="rach">${r}<small>días</small></span></div>`;
+  }).join('');
+  $('hab').innerHTML = h;
+}
+$('hab').addEventListener('click', e => { const el = e.target.closest('[data-j]'); if (!el) return; const j = el.dataset.j;
+  const ahora = hm[j] ?? !!(HL[j].dias || [])[hoyI]; hm[j] = !ahora; try { localStorage.setItem(kh, JSON.stringify(hm)); } catch (e) {} pintarHab(); });
+pintarHab();
+
+const PR = D.proyectos || [];
+$('proys').innerHTML = PR.length ? PR.map(p => {
+  const t = p.tareas || [], h = t.filter(x => x.hecho).length, pc = t.length ? Math.round(h / t.length * 100) : 0;
+  return `<div class="pj"><div class="top2"><h4>${esc(p.t)}</h4>${p.fecha ? `<span class="fe">${esc(p.fecha)}</span>` : ''}</div>
+    ${t.length ? `<div class="bar3"><i style="width:${pc}%"></i></div><div class="pc">${h} de ${t.length} pasos hechos</div>` : ''}
+    ${p.siguiente ? `<div class="sig"><b>Siguiente paso</b>${esc(p.siguiente)}</div>` : ''}
+    ${t.length ? `<ul>${t.map(x => `<li class="${x.hecho ? 'ok' : ''}">${esc(x.t)}</li>`).join('')}</ul>` : ''}</div>`;
+}).join('') : `<div class="vac" style="grid-column:1/-1"><div class="o">${svg('cohete')}</div><div><b>Sin proyectos todavía</b>Dile a Claude "mi proyecto es…" con su fecha y sus pasos.</div></div>`;
+
+document.querySelectorAll('.nav a[data-v]').forEach(a => a.addEventListener('click', () => {
+  document.querySelectorAll('.nav a').forEach(x => x.classList.toggle('on', x === a));
+  document.querySelectorAll('.vista').forEach(v => v.classList.toggle('on', v.id === 'v-' + a.dataset.v));
+  window.scrollTo(0, 0);
+  try { a.scrollIntoView({inline: 'center', block: 'nearest'}); } catch (e) {}
+}));
+const irA = v => { const a = document.querySelector(`.nav a[data-v="${v}"]`); if (a) a.click(); };
+document.querySelectorAll('[data-ir]').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); irA(el.dataset.ir); }));
+const destinoStat = ['calendario', 'correos', 'pendientes', 'calendario'];
+document.querySelectorAll('#stats .st').forEach((el, i) => { el.style.cursor = 'pointer'; el.addEventListener('click', () => irA(destinoStat[i])); });
+document.querySelectorAll('#tl .it, #prox .pr, #cal span, #mails .ml').forEach(el => { el.style.cursor = 'pointer'; el.addEventListener('click', () => irA(el.closest('#mails') ? 'correos' : 'calendario')); });
+const ini = (location.hash || '').slice(1); const ia = document.querySelector(`.nav a[data-v="${ini}"]`); if (ia) ia.click();
+</script>
+</body></html>
