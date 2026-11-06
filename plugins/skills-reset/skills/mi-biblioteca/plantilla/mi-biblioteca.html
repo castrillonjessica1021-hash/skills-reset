@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi biblioteca</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+const DATA = /*DATOS*/{
+  "nombre": "Ana",
+  "colores": {"acento": "#B00B00", "suave": "#F5E2DC", "fondo": "#F4EEE4", "oscuro": "#161412", "tinta": "#161412"},
+  "fuente": "tu Notion · Mi biblioteca",
+  "pregunta": {"q": "", "r": "", "nota": "", "ejemplo": false},
+  "items": [
+    {"tipo": "reel", "titulo": "Ejemplo", "autor": "", "link": "", "resumen": "Lo que guardes aparece aquí.", "por_que": "", "temas": ["ejemplo"], "fecha": "2026-03-09", "estado": "visto"}
+  ]
+}/*FIN*/;
+</script>
+<style>
+:root{--acento:#B00B00;--suave:#F5E2DC;--fondo:#F4EEE4;--oscuro:#161412;--tinta:#161412;--blanco:#FFFCF7;--linea:#E7DDCD;--gris:#857C70;--gris2:#B7AD9F;--claro:#FF6B5E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#1B1A19;font-family:'Space Grotesk',system-ui,sans-serif;color:var(--tinta);padding:clamp(12px,2.6vw,40px)}
+.app{max-width:1500px;margin:0 auto;min-height:calc(100vh - 80px);background:var(--fondo);border-radius:22px;overflow:hidden;display:flex;box-shadow:0 30px 80px rgba(0,0,0,.45);position:relative}
+.side{width:232px;background:var(--blanco);border-right:1px solid var(--linea);padding:22px 18px;display:flex;flex-direction:column}
+.dots{display:flex;gap:7px;margin-bottom:26px}.dots i{width:12px;height:12px;border-radius:50%;background:#E0D7CA}.dots i:first-child{background:var(--acento)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:30px}
+.logo .m{width:38px;height:38px;border-radius:11px;background:var(--oscuro);color:#fff;font-family:Anton;font-size:19px;display:grid;place-items:center}
+.logo b{font-family:Anton;font-weight:400;font-size:21px;letter-spacing:1px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:11px;font-size:15px;font-weight:500;color:#3a3631;margin-bottom:3px}
+.nav a.on{background:var(--suave);color:var(--acento);font-weight:700}
+.nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.nav .n{margin-left:auto;font-size:12px;color:var(--gris2);font-weight:600}
+.grupo{display:block;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gris2);margin:14px 12px 6px}
+.tip{margin-top:auto;border-radius:16px;padding:16px 14px;background:var(--fondo)}
+.tip small{display:block;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--acento);margin-bottom:6px}
+.tip b{display:block;font-size:14px;line-height:1.3}
+.tip span{font-size:12px;color:var(--gris);line-height:1.4;display:block;margin-top:6px}
+.main{flex:1;padding:24px 30px;display:flex;flex-direction:column;min-width:0}
+.hola{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px}
+.hola h1{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.hola h1 em{font-family:'Instrument Serif';font-weight:400;font-size:42px;color:var(--acento)}
+.hola p{color:var(--gris);font-size:15px;margin-top:4px}
+.pregunta{background:var(--oscuro);border-radius:18px;padding:22px 26px;color:#F2EBDF;margin-bottom:16px;display:flex;gap:22px;align-items:center}
+.pregunta .ico{width:52px;height:52px;border-radius:15px;background:var(--acento);display:grid;place-items:center;flex:none}
+.pregunta svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.pregunta small{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#a9a091}
+.pregunta .q{font-family:'Instrument Serif';font-style:italic;font-size:28px;margin:4px 0 6px}
+.pregunta .r{font-size:15px;line-height:1.5;color:#E8E0D3}
+.pregunta .r b{color:#fff}
+.pregunta .r em{font-family:Caveat;font-style:normal;font-weight:700;color:var(--claro);font-size:20px}
+.tipos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.tp{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+.tp .o{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none}
+.tp svg{width:21px;height:21px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tp .num{font-family:Anton;font-size:30px;line-height:1}
+.tp .lb{font-size:13px;color:var(--gris);margin-top:2px}
+.t1 .o{background:var(--acento)}.t1 svg{stroke:#fff}
+.t2 .o{background:var(--oscuro)}.t2 svg{stroke:#fff}
+.t3 .o{background:var(--suave)}.t3 svg{stroke:var(--acento)}
+.t4 .o{background:#EAE1D3}.t4 svg{stroke:var(--oscuro)}
+.row{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;flex:1}
+.pan{background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:20px 22px;display:flex;flex-direction:column}
+.pan h3{font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pan h3 a{font-size:12px;color:var(--acento);font-weight:600}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.it{border:1px solid var(--linea);border-radius:14px;padding:14px;background:#FFFEFB;display:flex;flex-direction:column;gap:8px}
+.it .tag{display:flex;justify-content:space-between;align-items:center}
+.chip{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:20px;padding:3px 9px}
+.c-reel{background:var(--acento);color:#fff}.c-art{background:var(--oscuro);color:#fff}.c-vid{background:var(--suave);color:var(--acento)}.c-lib{background:#EAE1D3;color:var(--oscuro)}.c-car{background:#F1E9DC;color:#6b5c48}
+.it .f{font-size:11.5px;color:var(--gris2)}
+.it b{font-size:14.5px;line-height:1.3}
+.it p{font-size:12.5px;color:var(--gris);line-height:1.45}
+.it .por{font-family:Caveat;font-weight:700;color:var(--acento);font-size:18px;line-height:1.1}
+.temas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.temas span{font-size:13px;font-weight:600;border-radius:20px;padding:7px 12px;background:var(--fondo);border:1px solid var(--linea)}
+.temas span b{color:var(--acento);margin-left:4px}
+.porver{border-top:1px solid var(--linea);padding-top:12px}
+.porver h4{font-size:13px;font-weight:700;margin-bottom:8px}
+.pv{display:flex;gap:10px;align-items:center;padding:7px 0;font-size:13.5px}
+.pv i{width:16px;height:16px;border-radius:50%;border:1.8px solid var(--gris2);flex:none}
+.pv span{color:var(--gris);font-size:12px;margin-left:auto}
+.notion{margin-top:auto;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--gris);border-top:1px dashed var(--linea);padding-top:12px}
+.notion b{color:var(--tinta)}
+
+a{color:inherit;text-decoration:none}
+.side{flex:none}
+.nav a{cursor:pointer}
+.vista{display:none}.vista.on{display:flex;flex-direction:column;flex:1}
+.pregunta,.tp,.temas span,.tm{cursor:pointer}
+.it{transition:transform .15s,box-shadow .15s}
+a.it:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.chip.pvc{background:var(--acento);color:#fff;font-size:9.5px;padding:2px 7px}
+.mini-temas{display:flex;flex-wrap:wrap;gap:5px}.mini-temas span{font-size:11px;color:var(--gris);background:var(--fondo);border-radius:10px;padding:2px 8px}
+.items.grande{grid-template-columns:repeat(3,1fr);gap:14px}
+.porver h4{display:flex;justify-content:space-between}.porver h4 a{font-size:12px;color:var(--acento);font-weight:600;cursor:pointer}
+.buscador{display:flex;align-items:center;gap:12px;background:var(--blanco);border:1.5px solid var(--oscuro);border-radius:14px;padding:14px 18px;margin-bottom:16px}
+.buscador svg{width:22px;height:22px;stroke:var(--acento);fill:none;stroke-width:2.2;stroke-linecap:round;flex:none}
+.buscador input{border:0;outline:0;background:transparent;font:inherit;font-size:17px;flex:1;color:var(--tinta)}
+.temas2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tm{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:18px 20px}
+.tm b{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-size:28px;color:var(--acento);display:block}
+.tm span{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gris)}
+.tm p{font-size:13px;color:var(--tinta);margin-top:8px;line-height:1.45}
+.vac{border:1.5px dashed var(--gris2);border-radius:12px;padding:16px;font-size:14px;color:var(--gris);line-height:1.45}
+.vac b{color:var(--tinta);display:block}
+.pie2{margin-top:18px;font-size:13px;color:var(--gris);text-align:center}.pie2 b{color:var(--tinta)}
+@media (max-width:1150px){.items.grande,.temas2{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.pregunta{flex-wrap:wrap}}
+@media (max-width:860px){.app{flex-direction:column}.side{width:auto;border-right:0;border-bottom:1px solid var(--linea);padding:10px 12px}.side .dots,.side .logo,.side .tip,.grupo{display:none}.nav{display:flex;overflow-x:auto;gap:4px}.nav a{flex:none;margin:0;padding:9px 12px;font-size:14px}.nav .n{margin-left:6px}.tipos{grid-template-columns:1fr 1fr}.vista.on,.row{flex:none}}
+@media (max-width:600px){.main{padding:16px}.items,.items.grande,.temas2{grid-template-columns:1fr}.hola h1{font-size:28px}.hola h1 em{font-size:34px}.pregunta{padding:18px}.pregunta .q{font-size:23px}.app{border-radius:16px}}
+</style></head><body>
+<div class="app">
+  <aside class="side">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div class="logo"><div class="m">MB</div><b>MI BIBLIOTECA</b></div>
+    <nav class="nav">
+      <a class="on" data-v="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+      <a data-v="buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Pregúntale</a>
+      <span class="grupo">Lo que guardé</span>
+      <a data-v="reel"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Reels<span class="n" data-c="reel"></span></a>
+      <a data-v="video"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Videos y clases<span class="n" data-c="video"></span></a>
+      <a data-v="articulo"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>Artículos<span class="n" data-c="articulo"></span></a>
+      <a data-v="libro"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>Libros<span class="n" data-c="libro"></span></a>
+      <a data-v="carrusel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg>Carruseles<span class="n" data-c="carrusel"></span></a>
+      <span class="grupo">Ordenar</span>
+      <a data-v="temas"><svg viewBox="0 0 24 24"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.5"/></svg>Temas</a>
+      <a data-v="porver"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Por ver<span class="n" data-c="porver"></span></a>
+    </nav>
+    <div class="tip"><small>Cómo guardar</small><b>En el chat de Claude, no aquí:</b><span>pega el link o la captura y dile "guarda esto". Después escribe "mi biblioteca" y esta página se vuelve a armar.</span></div>
+  </aside>
+
+  <main class="main">
+    <section class="vista on" id="v-inicio">
+      <div class="hola"><div><h1>Mi <em>biblioteca</em></h1><p id="sub"></p></div></div>
+      <div class="pregunta" data-ir="buscar"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div>
+        <div><small id="pTit"></small><div class="q" id="pQ"></div><div class="r" id="pR"></div></div></div>
+      <div class="tipos" id="tipos"></div>
+      <div class="row">
+        <div class="pan"><h3>Lo último que guardaste <a data-ir="buscar">Ver todo ›</a></h3><div class="items" id="ultimos"></div></div>
+        <div class="pan"><h3>Tus temas <a data-ir="temas">Ver temas ›</a></h3><div class="temas" id="temas1"></div>
+          <div class="porver"><h4>Por ver <a data-ir="porver">Ver ›</a></h4><div id="pv1"></div></div>
+          <div class="notion" id="fuente"></div></div>
+      </div>
+    </section>
+
+    <section class="vista" id="v-buscar">
+      <div class="hola"><div><h1>Pregúntale a tu <em>biblioteca</em></h1><p>Escribe una palabra y te muestro lo que guardaste. Para preguntas más grandes, pregúntale a Claude en el chat.</p></div></div>
+      <div class="buscador"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" placeholder="Por ejemplo: ganchos, edición, Claude…"></div>
+      <div class="items grande" id="res"></div>
+    </section>
+
+    <section class="vista" id="v-lista">
+      <div class="hola"><div><h1 id="lTit"></h1><p id="lSub"></p></div></div>
+      <div class="items grande" id="lista"></div>
+    </section>
+
+    <section class="vista" id="v-temas">
+      <div class="hola"><div><h1>Tus <em>temas</em></h1><p>Toca un tema para ver todo lo que guardaste sobre eso.</p></div></div>
+      <div class="temas2" id="temas2"></div>
+    </section>
+
+    <div class="pie2">Pega un link en el chat y dile a Claude <b>“guarda esto”</b>, o pregúntale <b>“¿qué guardé sobre…?”</b></div>
+  </main>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const D = DATA, st = document.documentElement.style, C = D.colores || {};
+[['acento','--acento'],['suave','--suave'],['fondo','--fondo'],['oscuro','--oscuro'],['tinta','--tinta']].forEach(([k,v]) => C[k] && st.setProperty(v, C[k]));
+const TIPO = {reel: ['Reel','c-reel'], video: ['Video','c-vid'], clase: ['Clase','c-vid'], podcast: ['Podcast','c-vid'], articulo: ['Artículo','c-art'], libro: ['Libro','c-lib'], carrusel: ['Carrusel','c-car']};
+const grupo = t => (t === 'clase' || t === 'podcast') ? 'video' : t;
+const IT = (D.items || []).slice().sort((a,b) => (b.fecha || '').localeCompare(a.fecha || ''));
+const fechaTxt = f => { if (!f) return ''; const d = new Date(f + 'T12:00'); return isNaN(d) ? f : d.toLocaleDateString('es', {day: 'numeric', month: 'short'}).replace('.', ''); };
+const vac = (t, s) => `<div class="vac"><b>${t}</b>${s}</div>`;
+const card = x => { const [l, c] = TIPO[x.tipo] || ['Guardado', 'c-car'];
+  const tag = x.link ? `<a class="it" href="${esc(x.link)}" target="_blank" rel="noopener">` : '<div class="it">';
+  return `${tag}<div class="tag"><span class="chip ${c}">${l}</span><span class="f">${x.estado === 'por ver' ? '<span class="chip pvc">Por ver</span> ' : ''}${fechaTxt(x.fecha)}</span></div><b>${esc(x.titulo)}</b><p>${esc((x.autor ? x.autor + '. ' : '') + (x.resumen || ''))}</p>${x.por_que ? `<span class="por">por qué lo guardé: ${esc(x.por_que)}</span>` : ''}${(x.temas || []).length ? `<div class="mini-temas">${x.temas.map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}${x.link ? '</a>' : '</div>'}`; };
+
+const cuenta = {reel: 0, video: 0, articulo: 0, libro: 0, carrusel: 0, porver: 0};
+IT.forEach(x => { const g = grupo(x.tipo); if (g in cuenta) cuenta[g]++; if (x.estado === 'por ver') cuenta.porver++; });
+document.querySelectorAll('[data-c]').forEach(el => el.textContent = cuenta[el.dataset.c]);
+$('sub').textContent = IT.length ? `${IT.length} cosa${IT.length === 1 ? '' : 's'} guardada${IT.length === 1 ? '' : 's'} para aprender, en un solo lugar.` : 'Todavía no guardaste nada. Pega un link en el chat y dile "guarda esto".';
+
+const P = D.pregunta || {};
+$('pTit').textContent = P.q ? (P.ejemplo ? 'Así le preguntas a tu biblioteca' : 'Lo último que le preguntaste') : 'Pregúntale a tu biblioteca';
+$('pQ').textContent = P.q ? `“${P.q}”` : '“¿Qué guardé sobre…?”';
+$('pR').innerHTML = P.q ? `${esc(P.r || '')}${P.nota ? ` <em>${esc(P.nota)}</em>` : ''}` : 'Cuando no te acuerdes de algo que viste, pregúntale a Claude en el chat. Te contesta con lo que guardaste, no con lo que se inventa.';
+
+const tiposCard = [['reel','Reels','t1','<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>'],['video','Videos y clases','t2','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>'],['carrusel','Carruseles','t3','<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/>'],['libro','Libros','t4','<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/>']];
+$('tipos').innerHTML = tiposCard.map(([k,l,c,p]) => `<div class="tp ${c}" data-ir="${k}"><div class="o"><svg viewBox="0 0 24 24">${p}</svg></div><div><div class="num">${cuenta[k]}</div><div class="lb">${l}</div></div></div>`).join('');
+$('ultimos').innerHTML = IT.slice(0,4).map(card).join('') || `<div style="grid-column:1/-1">${vac('Tu biblioteca está vacía', 'Pega el link de un reel, un video o un artículo en el chat y dile a Claude "guarda esto".')}</div>`;
+
+const temas = {}; IT.forEach(x => (x.temas || []).forEach(t => temas[t] = (temas[t] || 0) + 1));
+const TM = Object.entries(temas).sort((a,b) => b[1] - a[1]);
+$('temas1').innerHTML = TM.slice(0,8).map(([t,n]) => `<span data-tema="${esc(t)}">${esc(t)}<b>${n}</b></span>`).join('') || '<span>Sin temas todavía</span>';
+$('temas2').innerHTML = TM.map(([t,n]) => `<div class="tm" data-tema="${esc(t)}"><b>${esc(t)}</b><span>${n} guardado${n === 1 ? '' : 's'}</span><p>${IT.filter(x => (x.temas || []).includes(t)).slice(0,3).map(x => esc(x.titulo)).join(' · ')}</p></div>`).join('') || vac('Sin temas todavía', 'Cada cosa que guardes lleva uno o dos temas.');
+const PV = IT.filter(x => x.estado === 'por ver');
+$('pv1').innerHTML = PV.slice(0,4).map(x => `<div class="pv"><i></i>${esc(x.titulo)}<span>${(TIPO[x.tipo] || ['Guardado'])[0].toLowerCase()}</span></div>`).join('') || '<div class="pv" style="color:var(--gris)">Nada pendiente.</div>';
+$('fuente').innerHTML = D.fuente ? `Guardado en ${esc(D.fuente)}` : '';
+
+const titulos = {reel: ['Tus <em>reels</em>', 'Reels que guardaste para aprender de ellos.'], video: ['Videos y <em>clases</em>', 'Videos, clases y podcasts.'], articulo: ['Tus <em>artículos</em>', 'Lo que guardaste para leer.'], libro: ['Tus <em>libros</em>', 'Libros que leíste o que quieres leer.'], carrusel: ['Tus <em>carruseles</em>', 'Carruseles que guardaste.'], porver: ['Por <em>ver</em>', 'Lo que guardaste y todavía no miraste.']};
+function lista(k, tema) {
+  const L = tema ? IT.filter(x => (x.temas || []).includes(tema)) : k === 'porver' ? PV : IT.filter(x => grupo(x.tipo) === k);
+  $('lTit').innerHTML = tema ? `Tema: <em>${esc(tema)}</em>` : titulos[k][0];
+  $('lSub').textContent = tema ? `${L.length} guardado${L.length === 1 ? '' : 's'} sobre ${tema}.` : titulos[k][1];
+  $('lista').innerHTML = L.map(card).join('') || `<div style="grid-column:1/-1">${vac('Nada aquí todavía', 'Cuando guardes algo de este tipo, aparece aquí.')}</div>`;
+}
+const buscar = () => { const q = $('q').value.trim().toLowerCase();
+  const L = !q ? IT : IT.filter(x => [x.titulo, x.autor, x.resumen, x.por_que, (x.temas || []).join(' ')].join(' ').toLowerCase().includes(q));
+  $('res').innerHTML = L.map(card).join('') || `<div style="grid-column:1/-1">${vac('No encontré nada con esa palabra', 'Prueba con otra, o pregúntale a Claude en el chat.')}</div>`; };
+$('q').addEventListener('input', buscar); buscar();
+
+function ir(v, tema) {
+  const vista = ['inicio','buscar','temas'].includes(v) ? v : 'lista';
+  if (vista === 'lista') lista(v, tema);
+  document.querySelectorAll('.nav a').forEach(x => x.classList.toggle('on', x.dataset.v === v && !tema));
+  document.querySelectorAll('.vista').forEach(s => s.classList.toggle('on', s.id === 'v-' + vista));
+  window.scrollTo(0, 0);
+  const a = document.querySelector(`.nav a[data-v="${v}"]`); if (a) try { a.scrollIntoView({inline: 'center', block: 'nearest'}); } catch (e) {}
+}
+document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => ir(a.dataset.v)));
+document.addEventListener('click', e => { const t = e.target.closest('[data-tema]'); if (t) { ir('tema', t.dataset.tema); return; } const d = e.target.closest('[data-ir]'); if (d) { e.stopPropagation(); ir(d.dataset.ir); } });
+const ini = (location.hash || '').slice(1); if (ini) ir(ini);
+</script>
+</body></html>
