@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi jornada</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+const DATA = /*DATOS*/{
+  "nombre": "Ana",
+  "colores": {},
+  "fecha_txt": "Lunes 9 de marzo",
+  "hora": "9:30 p.m.",
+  "hoy": {"bien": [], "no": [], "cambio": "", "energia": null, "aprendi": []},
+  "semana": [{"dia": "Lun", "n": 9, "estado": "hoy", "energia": null}],
+  "racha": 0,
+  "plan": {"llega": "cada domingo", "rango": "", "prioridades": [], "dias": [], "no_hacer": [], "nota": ""},
+  "historial": []
+}/*FIN*/;
+</script>
+<style>
+:root{--acento:#E2483B;--rojo:#B00B00;--fondo:#121110;--panel:#1C1A18;--panel2:#24211E;--linea:#2F2B27;--crema:#F2EBDF;--gris:#9C9286;--gris2:#6E665D;--oro:#E9C46A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#0B0A09;font-family:'Space Grotesk',system-ui,sans-serif;color:var(--crema);padding:clamp(12px,2.6vw,40px)}
+.app{max-width:1500px;margin:0 auto;min-height:calc(100vh - 80px);background:var(--fondo);border-radius:22px;overflow:hidden;display:flex;box-shadow:0 30px 80px rgba(0,0,0,.6);border:1px solid #23201d;position:relative}
+.side{width:232px;background:#161513;border-right:1px solid var(--linea);padding:22px 18px;display:flex;flex-direction:column}
+.dots{display:flex;gap:7px;margin-bottom:26px}.dots i{width:12px;height:12px;border-radius:50%;background:#3a352f}.dots i:first-child{background:var(--acento)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:30px}
+.logo .m{width:38px;height:38px;border-radius:11px;background:var(--crema);color:var(--fondo);font-family:Anton;font-size:19px;display:grid;place-items:center}
+.logo b{font-family:Anton;font-weight:400;font-size:22px;letter-spacing:1px}
+.nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;font-size:15px;font-weight:500;color:#cfc6b8;margin-bottom:3px}
+.nav a.on{background:#2a1714;color:#FF7A6E;font-weight:700}
+.nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.grupo{display:block;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gris2);margin:14px 12px 6px}
+.racha{margin-top:auto;border-radius:16px;padding:16px;background:var(--panel2)}
+.racha small{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gris)}
+.racha .n{font-family:Anton;font-size:44px;color:var(--oro);line-height:1;margin-top:6px}
+.racha span{font-size:12.5px;color:var(--gris);display:block;margin-top:2px}
+.racha .d{display:flex;gap:5px;margin-top:10px}.racha .d i{flex:1;height:6px;border-radius:3px;background:#3a352f}.racha .d i.si{background:var(--oro)}
+.main{flex:1;padding:24px 30px;display:flex;flex-direction:column;min-width:0}
+.hola{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px}
+.hola h1{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.hola h1 em{font-family:'Instrument Serif';font-weight:400;font-size:42px;color:#FF7A6E}
+.hola p{color:var(--gris);font-size:15px;margin-top:4px}
+.luna{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gris)}
+.luna svg{width:22px;height:22px;fill:var(--oro)}
+.grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;flex:1}
+.col{display:flex;flex-direction:column;gap:16px;min-height:0}
+.pan{background:var(--panel);border:1px solid var(--linea);border-radius:18px;padding:20px 22px}
+.pan h3{font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pan h3 a{font-size:12px;color:#FF7A6E;font-weight:600}
+.pan h3 small{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gris);font-weight:700}
+.preg{padding:12px 0;border-top:1px solid var(--linea)}
+.preg:first-of-type{border-top:0;padding-top:0}
+.preg .q{font-family:'Instrument Serif';font-style:italic;font-size:22px;color:#fff}
+.preg .q b{font-family:Anton;font-style:normal;font-weight:400;color:var(--acento);font-size:18px;margin-right:8px}
+.preg ul{list-style:none;margin-top:6px}
+.preg li{font-size:14.5px;line-height:1.45;color:#ddd4c7;padding:3px 0 3px 18px;position:relative}
+.preg li:before{content:'';position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--oro)}
+.preg.no li:before{background:var(--gris2)}
+.preg .mano{font-family:Caveat;font-weight:700;color:#FF7A6E;font-size:21px;margin-top:6px;display:block}
+.energia{display:flex;gap:8px;margin-top:4px}
+.energia i{width:34px;height:34px;border-radius:50%;border:1.6px solid #4a443d;display:grid;place-items:center;font-style:normal;font-size:13px;color:var(--gris)}
+.energia i.on{background:var(--oro);border-color:var(--oro);color:#1a1712;font-weight:700}
+.sem{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.dia{background:var(--panel2);border-radius:12px;padding:10px 8px;text-align:center}
+.dia small{font-size:10.5px;font-weight:700;letter-spacing:1.5px;color:var(--gris);text-transform:uppercase}
+.dia .n{font-family:Anton;font-size:22px;margin:2px 0 6px}
+.dia .e{height:44px;display:flex;align-items:flex-end;justify-content:center}
+.dia .e i{width:14px;border-radius:4px;background:var(--oro)}
+.dia.hoy{outline:1.5px solid var(--acento)}
+.dia.fut{opacity:.4}.dia.pas{opacity:.65}
+.dia .t{font-size:10.5px;color:var(--gris);margin-top:6px}
+.plan{background:var(--crema);color:#161412;border:0;flex:1;display:flex;flex-direction:column}
+.plan h3{color:#161412}.plan h3 small{color:#857C70}
+.plan .tit{font-family:Anton;font-size:30px;line-height:1.05;letter-spacing:.3px;margin-bottom:4px}
+.plan .tit span{color:var(--rojo)}
+.plan .sub{font-size:13.5px;color:#6b6258;margin-bottom:12px}
+.pri{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid #e3d9c8}
+.pri .num{font-family:Anton;font-size:26px;color:var(--rojo);width:22px;line-height:1}
+.pri b{display:block;font-size:14.5px}
+.pri span{font-size:12.5px;color:#7a7066}
+.dias2{margin-top:12px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dias2 div{border-radius:10px;background:#EFE6D8;padding:8px 6px;font-size:11px;line-height:1.3;min-height:66px}
+.dias2 div b{display:block;font-size:10px;letter-spacing:1.5px;color:#857C70;margin-bottom:3px}
+.dias2 div.k{background:var(--rojo);color:#fff}.dias2 div.k b{color:#ffd9d3}
+.plan .pie{margin-top:auto;padding-top:10px;font-family:Caveat;font-weight:700;color:var(--rojo);font-size:20px}
+.ej{position:absolute;top:18px;left:50%;transform:translateX(-50%);background:var(--acento);color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 14px;border-radius:20px}
+
+a{color:inherit;text-decoration:none}
+.side{flex:none}
+.nav a{cursor:pointer}
+[data-ir]{cursor:pointer}
+.vista{display:none}.vista.on{display:flex;flex-direction:column;flex:1}
+.falta{font-size:13px;color:var(--gris);margin-top:6px}
+.vac{border:1.5px dashed #4a443d;border-radius:12px;padding:16px;font-size:14px;color:var(--gris);line-height:1.45;margin-top:10px}
+.vac b{color:var(--crema);display:block}
+.plan .vac{border-color:#cfc3b0;color:#6b6258}.plan .vac b{color:#161412}
+.sem.grande .dia{padding:16px 8px}.sem.grande .e{height:90px}
+.noches{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.nn p{font-size:14px;line-height:1.5;color:#ddd4c7;margin-top:4px}.nn p b{color:#fff}
+.plan.grande .tit{font-size:44px}.plan.grande .pri b{font-size:17px}.plan.grande .dias2 div{min-height:90px;font-size:13px}
+.nohacer{margin-top:14px;font-size:14px;color:#6b6258}.nohacer b{color:var(--rojo)}
+.lista{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.li{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:14px 16px}
+.li span{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--oro)}
+.li p{font-size:15px;line-height:1.45;margin-top:4px}
+.pie2{margin-top:18px;font-size:13px;color:var(--gris);text-align:center}.pie2 b{color:var(--crema)}
+@media (max-width:1150px){.grid{grid-template-columns:1fr}.noches,.lista{grid-template-columns:1fr}}
+@media (max-width:860px){.app{flex-direction:column}.side{width:auto;border-right:0;border-bottom:1px solid var(--linea);padding:10px 12px}.side .dots,.side .logo,.side .racha,.grupo{display:none}.nav{display:flex;overflow-x:auto;gap:4px}.nav a{flex:none;margin:0;padding:9px 12px;font-size:14px}.vista.on,.grid{flex:none}}
+@media (max-width:600px){.main{padding:16px}.hola{flex-wrap:wrap;gap:8px}.hola h1{font-size:28px}.hola h1 em{font-size:34px}.sem{gap:4px}.dia{padding:8px 2px}.dia .t{font-size:9px}.dias2{grid-template-columns:repeat(2,1fr)}.plan .tit{font-size:26px}.app{border-radius:16px}}
+
+/* Paleta azul claro + amarillo */
+:root{--acento:#2F7FD0;--rojo:#13294B;--fondo:#E3F0FA;--panel:#FFFFFF;--panel2:#EEF5FB;--linea:#D3E3F1;--crema:#13294B;--gris:#5F7591;--gris2:#9DB0C6;--oro:#F4C70F}
+body{background:#BFD9F0}
+.app{border-color:#cfe0f0;box-shadow:0 30px 80px rgba(19,41,75,.18)}
+.side{background:#F7FBFF}.nav a{color:#2a3f5e}.nav a.on{background:#FFF3C4;color:#7a5a00}
+.logo .m{background:#13294B;color:#F4C70F}
+.hola h1 em{color:var(--acento)}
+.preg .q{color:#13294B}.preg .q b{color:var(--acento)}.preg li{color:#2a3f5e}.preg .mano{color:var(--acento)}
+.energia i{border-color:#B9CDE2}.energia i.on{color:#13294B}
+.racha{background:#FFF3C4}.racha .n{color:#13294B}.racha span,.racha small{color:#7a6a3a}.racha .d i{background:#E8DDB0}.racha .d i.si{background:#13294B}
+.plan{background:#13294B;color:#fff}.plan h3{color:#fff}.plan h3 small{color:#9db0c6}.plan .tit span{color:#F4C70F}.plan .sub{color:#b8c9de}
+.pri{border-color:#2b4670}.pri .num{color:#F4C70F}.pri span{color:#b8c9de}
+.dias2 div{background:#1d3a63;color:#e6eef8}.dias2 div b{color:#9db0c6}.dias2 div.k{background:#F4C70F;color:#13294B}.dias2 div.k b{color:#5c4a00}
+.plan .pie{color:#F4C70F}.nohacer{color:#b8c9de}.nohacer b{color:#F4C70F}
+.vac{border-color:#B9CDE2}.vac b{color:#13294B}.plan .vac{border-color:#2b4670;color:#b8c9de}.plan .vac b{color:#fff}
+.pan h3 a{color:var(--acento)}.nn p{color:#2a3f5e}.nn p b{color:#13294B}.li span{color:var(--acento)}.pie2 b{color:#13294B}
+</style></head><body>
+<div class="app">
+  <aside class="side">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <div class="logo"><div class="m">MJ</div><b>MI JORNADA</b></div>
+    <nav class="nav">
+      <a class="on" data-v="noche"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Esta noche</a>
+      <a data-v="semana"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Mi semana</a>
+      <a data-v="plan"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Plan del domingo</a>
+      <span class="grupo">Lo que me llevo</span>
+      <a data-v="bien"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>Lo que salió bien</a>
+      <a data-v="aprendi"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>Lo que aprendí</a>
+      <a data-v="cambio"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 8-8"/><path d="M4 4v4h4"/></svg>Lo que cambio</a>
+    </nav>
+    <div class="racha"><small>Tu racha</small><div class="n" id="racha"></div><span id="rachaTx"></span><div class="d" id="rachaD"></div></div>
+  </aside>
+
+  <main class="main">
+    <section class="vista on" id="v-noche">
+      <div class="hola"><div><h1>Esta <em>noche</em></h1><p id="fecha"></p></div><div class="luna"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span id="hora"></span></div></div>
+      <div class="grid">
+        <div class="col"><div class="pan" style="flex:1"><h3>Tu revisión de hoy <small>2 minutos</small></h3><div id="revision"></div></div></div>
+        <div class="col">
+          <div class="pan" data-ir="semana"><h3>Tu semana <a>Ver semana ›</a></h3><div class="sem" id="sem1"></div></div>
+          <div class="pan plan" data-ir="plan" id="planMini"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vista" id="v-semana">
+      <div class="hola"><div><h1>Mi <em>semana</em></h1><p>Cada noche que revisaste, con tu energía.</p></div></div>
+      <div class="pan" style="margin-bottom:16px"><div class="sem grande" id="sem2"></div></div>
+      <div class="noches" id="noches"></div>
+    </section>
+
+    <section class="vista" id="v-plan">
+      <div class="hola"><div><h1>Plan del <em>domingo</em></h1><p id="planSub"></p></div></div>
+      <div class="pan plan grande" id="planFull"></div>
+    </section>
+
+    <section class="vista" id="v-bien">
+      <div class="hola"><div><h1>Lo que salió <em>bien</em></h1><p>Para los días en que sientes que no avanzas.</p></div></div>
+      <div class="lista" id="lBien"></div>
+    </section>
+    <section class="vista" id="v-aprendi">
+      <div class="hola"><div><h1>Lo que <em>aprendí</em></h1><p>Lo que te dejaron tus noches.</p></div></div>
+      <div class="lista" id="lAprendi"></div>
+    </section>
+    <section class="vista" id="v-cambio">
+      <div class="hola"><div><h1>Lo que <em>cambio</em></h1><p>La única cosa que decidiste cambiar cada día.</p></div></div>
+      <div class="lista" id="lCambio"></div>
+    </section>
+
+    <div class="pie2">Cada noche escribe <b>“mi jornada”</b> en Claude. El domingo, <b>“mi plan de la semana”</b>.</div>
+  </main>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const D = DATA, st = document.documentElement.style, C = D.colores || {};
+[['acento','--acento'],['rojo','--rojo'],['fondo','--fondo'],['panel','--panel'],['crema','--crema'],['oro','--oro']].forEach(([k,v]) => C[k] && st.setProperty(v, C[k]));
+const vac = (t, s) => `<div class="vac"><b>${t}</b>${s}</div>`;
+const H = D.hoy || {};
+$('fecha').textContent = (D.fecha_txt || '') + ' · tres preguntas y a dormir.';
+$('hora').textContent = D.hora || '';
+const lis = (L, cls) => (L || []).length ? `<ul class="${cls || ''}">${L.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="falta">Todavía no lo contestaste.</p>';
+const en = n => `<div class="energia">${[1,2,3,4,5].map(i => `<i class="${i === n ? 'on' : ''}">${i}</i>`).join('')}</div>${n ? '' : '<p class="falta">Díselo a Claude: "energía 3".</p>'}`;
+$('revision').innerHTML = (H.bien || H.no || H.cambio || H.energia) ?
+  `<div class="preg"><div class="q"><b>01</b>¿Qué salió bien?</div>${lis(H.bien)}</div>
+   <div class="preg no"><div class="q"><b>02</b>¿Qué no salió?</div>${lis(H.no, 'no')}</div>
+   <div class="preg"><div class="q"><b>03</b>¿Qué cambio mañana?</div>${H.cambio ? `<ul><li>${esc(H.cambio)}</li></ul><span class="mano">una sola cosa, no cinco ↑</span>` : '<p class="falta">Una sola cosa.</p>'}</div>
+   <div class="preg"><div class="q"><b>04</b>¿Cómo terminó tu energía?</div>${en(H.energia)}</div>`
+  : `<div class="preg"><div class="q"><b>01</b>¿Qué salió bien?</div></div><div class="preg"><div class="q"><b>02</b>¿Qué no salió?</div></div><div class="preg"><div class="q"><b>03</b>¿Qué cambio mañana?</div></div><div class="preg"><div class="q"><b>04</b>¿Cómo terminó tu energía?</div></div>${vac('Todavía no revisaste hoy', 'Escribe "mi jornada" en Claude y contesta como te salga, en dos minutos.')}`;
+
+const S = D.semana || [];
+const diaHTML = d => `<div class="dia ${d.estado === 'hoy' ? 'hoy' : d.estado === 'futuro' ? 'fut' : d.estado === 'sin revisar' ? 'pas' : ''}"><small>${esc(d.dia)}</small><div class="n">${esc(d.n)}</div><div class="e">${d.energia ? `<i style="height:${d.energia * 20}%"></i>` : (d.estado === 'hoy' ? '<i style="height:30%;background:var(--acento)"></i>' : '')}</div><div class="t">${d.energia ? 'energía ' + d.energia : d.estado === 'hoy' ? 'esta noche' : d.estado === 'sin revisar' ? 'sin revisar' : esc(d.nota || '')}</div></div>`;
+$('sem1').innerHTML = S.map(diaHTML).join(''); $('sem2').innerHTML = S.map(diaHTML).join('');
+const R = D.racha || 0;
+$('racha').textContent = R; $('rachaTx').textContent = R === 1 ? 'noche revisada esta semana' : 'noches revisadas esta semana';
+$('rachaD').innerHTML = S.map(d => `<i class="${d.energia || d.revisada ? 'si' : ''}"></i>`).join('');
+
+const P = D.plan || {};
+const planHTML = full => P.prioridades && P.prioridades.length ?
+  `<h3>Plan del domingo <small>${esc(P.llega || '')}</small></h3><div class="tit">TU SEMANA DEL <span>${esc(P.rango || '')}</span></div><div class="sub">${esc(P.sub || 'Sale de tus revisiones de cada noche, tus pendientes y tu calendario.')}</div>
+   ${P.prioridades.slice(0,3).map((p,i) => `<div class="pri"><span class="num">${i+1}</span><div><b>${esc(p.t)}</b><span>${esc(p.detalle || '')}</span></div></div>`).join('')}
+   <div class="dias2">${(P.dias || []).map(d => `<div class="${d.clave ? 'k' : ''}"><b>${esc(d.d)}</b>${esc(d.t)}</div>`).join('')}</div>
+   ${full && (P.no_hacer || []).length ? `<div class="nohacer"><b>Esta semana NO:</b> ${P.no_hacer.map(esc).join(' · ')}</div>` : ''}
+   <span class="pie">${esc(P.nota || 'tres cosas por semana. Lo demás espera.')}</span>`
+  : `<h3>Plan del domingo <small>${esc(P.llega || 'cada domingo')}</small></h3>${vac('Llega el domingo', 'Escribe "mi plan de la semana" el domingo y aquí aparecen tus tres prioridades y qué toca cada día.')}`;
+$('planMini').innerHTML = planHTML(false); $('planFull').innerHTML = planHTML(true);
+$('planSub').textContent = P.rango ? 'Tres prioridades y qué toca cada día. Nada más.' : 'Cada domingo, tu semana en una página.';
+
+const HI = D.historial || [];
+const listaDe = (k, txt) => { const L = []; HI.forEach(n => [].concat(n[k] || []).forEach(x => x && L.push({f: n.fecha, x}))); return L.length ? L.map(o => `<div class="li"><span>${esc(o.f)}</span><p>${esc(o.x)}</p></div>`).join('') : vac('Todavía nada aquí', txt); };
+$('lBien').innerHTML = listaDe('bien', 'Cada noche que revises, lo que salió bien se guarda aquí.');
+$('lAprendi').innerHTML = listaDe('aprendi', 'Cuando una noche te deje algo, dile a Claude "aprendí que…".');
+$('lCambio').innerHTML = listaDe('cambio', 'Cada noche eliges una sola cosa para cambiar mañana.');
+$('noches').innerHTML = HI.length ? HI.map(n => `<div class="pan nn"><h3>${esc(n.fecha)} ${n.energia ? `<small>energía ${n.energia}</small>` : ''}</h3>${(n.bien || []).length ? `<p><b>Bien:</b> ${n.bien.map(esc).join(' · ')}</p>` : ''}${(n.no || []).length ? `<p><b>No salió:</b> ${n.no.map(esc).join(' · ')}</p>` : ''}${n.cambio ? `<p><b>Cambio:</b> ${esc(n.cambio)}</p>` : ''}</div>`).join('') : '';
+
+function ir(v) {
+  document.querySelectorAll('.nav a').forEach(x => x.classList.toggle('on', x.dataset.v === v));
+  document.querySelectorAll('.vista').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  window.scrollTo(0, 0);
+  const a = document.querySelector(`.nav a[data-v="${v}"]`); if (a) try { a.scrollIntoView({inline: 'center', block: 'nearest'}); } catch (e) {}
+}
+document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => ir(a.dataset.v)));
+document.querySelectorAll('[data-ir]').forEach(el => el.addEventListener('click', () => ir(el.dataset.ir)));
+const ini = (location.hash || '').slice(1); if (document.getElementById('v-' + ini)) ir(ini);
+</script>
+</body></html>
