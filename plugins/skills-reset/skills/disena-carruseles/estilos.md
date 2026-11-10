@@ -1,4 +1,4 @@
-# Los 8 estilos base
+# Los 9 estilos base
 
 Cada uno usa siempre los colores, las letras y las fotos de la alumna. Lo que cambia es la forma.
 
@@ -12,6 +12,7 @@ Cada uno usa siempre los colores, las letras y las fotos de la alumna. Lo que ca
 | 6 | `oferta` | Banda de color con el nombre del producto, ella recortada, tarjetas de lo que incluye y precio | Lanzamientos y ventas (solo datos reales) | Una en la portada (mejor sin fondo) |
 | 7 | `agenda` | Su foto trabajando con una tarjeta tipo calendario encima | Detrás de cámaras, "mi día", su proceso | Una en cada slide |
 | 8 | `aesthetic` | Foto cálida de su vida real, titular grande en su color de resalte, etiquetas que señalan | "Sobre mí", conexión, historias | Una en cada slide |
+| 9 | `escritorio` | Fondo crema, su foto dentro de una ventana de computador (con los tres puntitos y un nombre de archivo), titular grueso con la palabra clave resaltada en un tono clarito de su color, lista tipo Notas, chat tipo Mensajes, estrellitas. Algunas slides en fondo oscuro (`"oscura": true`) para el giro | Contar algo que le pasó o que hace ("no tengo editor", "así trabajo"), mostrar herramientas, pantallazos y resultados reales | Una en la portada; en las demás, capturas o polaroids |
 
 ## Cuál recomendar
 
@@ -19,6 +20,7 @@ Cada uno usa siempre los colores, las letras y las fotos de la alumna. Lo que ca
 - Quiere enseñar algo → `cuaderno` o `editorial`.
 - Quiere conectar o contar algo suyo → `oscura` o `aesthetic`.
 - No tiene buenas fotos → `cuaderno` o `collage`.
+- Quiere contar su proceso o mostrar pantallazos, apps y resultados → `escritorio`. Pocos colores: fondo claro, su color oscuro y el resalte en tono clarito; nunca cuatro colores fuertes a la vez.
 - Quiere que se vea "de revista" y tiene una buena foto de cuerpo entero → `revista`.
 
 ## Tipos de slide que mejor le van a cada uno
@@ -27,3 +29,4 @@ Cada uno usa siempre los colores, las letras y las fotos de la alumna. Lo que ca
 - `cuaderno`, `collage`: lista, comparación, chat, texto.
 - `oferta`: portada, lista ("qué incluye"), oferta (precio), cierre.
 - `agenda`: portada y lista (los bloques del día).
+- `escritorio`: portada (foto en ventana; `"archivo": "mi_reel.mov"` cambia el nombre de la ventana), lista (Notas), chat (Mensajes), comparación (dos ventanas), cierre (botón grande). Pon `"oscura": true` en 1 o 2 slides del medio (el giro, lo que aprendió).

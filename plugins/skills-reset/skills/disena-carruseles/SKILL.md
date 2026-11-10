@@ -1,6 +1,6 @@
 ---
 name: disena-carruseles
-description: Diseña un carrusel de Instagram ya escrito y lo entrega en imágenes listas para subir (1080 × 1350), con los colores, las letras y las fotos de la alumna. Usa su propio diseño si sube referencias o plantilla, o uno de los 8 estilos base (editorial, revista, cuaderno, foto oscura, collage, oferta, mi día, aesthetic). Úsalo cuando dice "diséñame el carrusel", "ponlo bonito", "hazlo en imágenes", "quiero el carrusel listo para subir", "usa mi diseño", "este es mi estilo", o justo después de que la skill `carruseles` entrega el texto. Funciona en el chat de Claude (panel al lado) y en Claude Code (se abre en el navegador). No escribe el carrusel desde cero: si no hay texto, primero va `carruseles`.
+description: Diseña un carrusel de Instagram ya escrito y lo entrega en imágenes listas para subir (1080 × 1350), con los colores, las letras y las fotos de la alumna. Usa su propio diseño si sube referencias o plantilla, o uno de los 9 estilos base (editorial, revista, cuaderno, foto oscura, collage, oferta, mi día, aesthetic, escritorio). Úsalo cuando dice "diséñame el carrusel", "ponlo bonito", "hazlo en imágenes", "quiero el carrusel listo para subir", "usa mi diseño", "este es mi estilo", o justo después de que la skill `carruseles` entrega el texto. Funciona en el chat de Claude (panel al lado) y en Claude Code (se abre en el navegador). No escribe el carrusel desde cero: si no hay texto, primero va `carruseles`.
 ---
 
 # Diseña carruseles
@@ -24,12 +24,12 @@ ella descarga y sube.
    Guarda la respuesta en `mi-estilo-carrusel.md` (formato abajo) para no volver a preguntar.
 3. **Su usuario de Instagram**, para la firma de cada slide (está en `mi-voz.md` o se pregunta).
 
-## 1. Qué diseño usar: el suyo o uno de los 8
+## 1. Qué diseño usar: el suyo o uno de los 9
 
 **Siempre, al empezar cada carrusel, pregúntale primero esto** (en un solo mensaje, corto):
 
 > ¿Tienes una referencia visual para este carrusel? Puedes subir capturas o pegar links de carruseles que te
-> gusten (Instagram o Pinterest), o tu propia plantilla. Si no, elegimos uno de mis 8 estilos.
+> gusten (Instagram o Pinterest), o tu propia plantilla. Si no, elegimos uno de mis 9 estilos.
 
 Si ya tiene `mi-estilo-carrusel.md` guardado, la pregunta incluye esa opción: "¿usamos tu estilo guardado
 (<nombre>), subes una referencia nueva, o elegimos de la lista?". Nunca empieces a diseñar sin esta respuesta.
@@ -46,7 +46,7 @@ o tiene la carpeta `Mis referencias de diseño`):
    viste ("tus referencias usan titular gigante arriba y foto a sangre abajo").
 4. Si dice "actualiza mi estilo" y sube referencias nuevas, se vuelve a estudiar y se reemplaza el archivo.
 
-**Si no tiene diseño**, muéstrale los 8 estilos de `estilos.md` en una lista corta (nombre + para qué sirve) y
+**Si no tiene diseño**, muéstrale los 9 estilos de `estilos.md` en una lista corta (nombre + para qué sirve) y
 recomienda uno según el objetivo del carrusel. Ella elige; si dice "el que tú veas", elige tú y dile cuál.
 
 ## 2. Armar el carrusel
@@ -144,7 +144,7 @@ Actualizado: <fecha>
 Usuario: @suusuario
 Colores: fondo #..., texto #..., acento #..., resalte #...
 Letras: titulares <letra> · texto <letra> · a mano <letra>
-Estilo base: <uno de los 8> (o "propio, a partir de mis referencias")
+Estilo base: <uno de los 9> (o "propio, a partir de mis referencias")
 Lo que tomé de mis referencias: <una línea por referencia>
 css_extra: <el CSS, si hay>
 ```

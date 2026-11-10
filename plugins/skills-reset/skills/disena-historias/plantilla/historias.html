@@ -49,7 +49,8 @@ body.editando .story [contenteditable]{outline:3px dashed rgba(0,120,255,.6);out
 .pos-abajo .tx{bottom:360px}
 .k{font-style:normal}
 .mano{font-family:var(--f-mano);font-weight:700}
-/* espacio para el sticker: se ve aquí, no sale en la imagen */
+/* sticker: NUNCA se dibuja un cuadro (Instagram lo pone de otro tamaño y se ve feo); solo queda el espacio libre y la nota de abajo */
+.stk{display:none!important}
 .stk{position:absolute;left:50%;width:640px;margin-left:-320px;border:5px dashed rgba(255,255,255,.95);border-radius:36px;background:rgba(0,0,0,.28);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:'DM Sans',sans-serif;padding:20px 30px}
 .stk b{font-size:40px;display:block}
 .stk span{font-size:30px;opacity:.9;margin-top:8px;display:block}
@@ -178,7 +179,7 @@ body.editando .story [contenteditable]{outline:3px dashed rgba(0,120,255,.6);out
 </style></head>
 <body class="visor">
 <div class="cab"><div><h1 id="titulo">Tus historias</h1>
-<p>Toca 📷 para poner tu foto en cada historia y toca cualquier texto para corregirlo. Los cuadros punteados son el espacio del sticker: no salen en la imagen, los pones tú en Instagram.</p></div>
+<p>Toca 📷 para poner tu foto en cada historia y toca cualquier texto para corregirlo. Debajo de cada historia te digo qué sticker poner en Instagram y dónde queda el espacio libre para él.</p></div>
 <div><button class="btn" onclick="todas()">⬇ Descargar todas</button></div></div>
 <div class="panel" id="panel"></div>
 <div class="grid" id="grid"></div>

@@ -76,8 +76,8 @@ Mezclar estilos dentro de una secuencia está bien y es lo normal. Que no haya m
    - Toca **📷 Foto** para poner su foto, y **🖼 Capturas** o el hueco punteado para pegar pruebas.
    - Toca **✨ Elementos** para ponerle lo que quiera, como en Canva: todos los emojis, formas (recuadros, círculos, manchas, estrellas), flechas, textos (globos, burbujas de chat, post-it, etiquetas, nota a mano) y mockups (celular, laptop, polaroid, post de Instagram, ventana, foto en círculo) con su foto o captura adentro. Se arrastran y, abajo de la slide, se agrandan, se giran, se pintan, se les cambia la opacidad, se les pone sombra y se pasan al frente o atrás.
    - Toca cualquier texto para corregirlo. **↕ Texto** si le tapa la cara. El menú cambia el estilo.
-   - Los **cuadros punteados son el espacio del sticker**: no salen en la imagen. Debajo de cada historia
-     dice qué sticker poner en Instagram y con qué texto.
+   - **Donde va un sticker no se dibuja ningún cuadro** (Instagram lo pone de otro tamaño y queda feo): solo
+     queda el espacio libre. Debajo de cada historia dice qué sticker poner en Instagram y con qué texto.
    - **⬇ Descargar todas** baja las imágenes y una lista de stickers. Si una historia es un video,
      **⬇ Solo el texto** le da el diseño transparente para ponerlo encima del video.
 

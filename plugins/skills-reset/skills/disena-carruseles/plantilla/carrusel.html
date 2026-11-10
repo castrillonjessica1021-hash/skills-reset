@@ -334,6 +334,40 @@ body.editando .slide [contenteditable]{outline:2px dashed rgba(0,120,255,.55);ou
 
 .st-agenda .vel{background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.08) 38%,rgba(0,0,0,.72))!important}
 .st-agenda.var-0 .precio b{display:block;font-family:var(--f-titulo);font-size:110px;color:var(--tinta)!important;padding:18px 30px 24px}
+/* ===== 9 · escritorio: ventanas de computador, notas, mensajes, polaroids y estrellitas ===== */
+.st-escritorio{background:var(--fondo);color:var(--tinta)}
+.st-escritorio .tit{font-family:var(--f-cuerpo);font-weight:800;letter-spacing:-.03em;word-spacing:.06em;line-height:1.1;font-size:104px;color:var(--tinta)}
+.st-escritorio .tit .k{font-family:var(--f-cuerpo);font-style:normal;font-weight:800;color:var(--tinta);background:var(--resalte-claro);padding:0 .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.st-escritorio .eti{display:inline-block;border:3px solid currentColor;border-radius:999px;padding:8px 28px;font-size:26px;letter-spacing:.18em;font-weight:500}
+.st-escritorio .apo{display:inline-block;background:var(--resalte-claro);border-radius:26px;padding:20px 34px;font-size:33px;line-height:1.35;font-weight:500}
+.st-escritorio .ph{left:76px;right:76px;top:70px;height:600px;border-radius:22px;border:2px solid #d9d2c8;border-top:64px solid #ECE7E0;box-shadow:0 22px 50px rgba(40,20,10,.14)}
+.st-escritorio .winbar{position:absolute;left:78px;right:78px;top:72px;height:62px;background:radial-gradient(circle at 34px 32px,#FF5F57 9px,transparent 10px),radial-gradient(circle at 62px 32px,#FEBC2E 9px,transparent 10px),radial-gradient(circle at 90px 32px,#28C840 9px,transparent 10px),#ECE7E0;border-radius:20px 20px 0 0;z-index:2;font-family:'DM Sans',monospace;font-size:26px;color:#5d554e;display:flex;align-items:center;justify-content:center}
+.st-escritorio.pos-abajo .tx{bottom:130px}
+.st-escritorio .firma{text-align:left;left:76px;right:76px;font-family:'DM Sans',monospace;text-transform:none;letter-spacing:.02em;font-size:26px}
+.st-escritorio .deco{position:absolute;font-size:96px;color:var(--resalte);line-height:1;z-index:3}
+.st-escritorio.osc{background:var(--tinta);color:var(--fondo)}
+.st-escritorio.osc .tit{color:var(--fondo)}
+.st-escritorio.osc .tit .k{color:var(--tinta)}
+.st-escritorio.osc .apo{color:var(--tinta)}
+.st-escritorio.var-0 .lst,.st-escritorio.var-0 .chat,.st-escritorio.var-0 .cmp>div,.st-escritorio.var-0 .precio{background:#fff;color:var(--tinta);border:2px solid #d9d2c8;border-radius:22px;box-shadow:0 22px 50px rgba(40,20,10,.12);overflow:hidden}
+.st-escritorio.var-0 .lst::before,.st-escritorio.var-0 .chat::before,.st-escritorio.var-0 .cmp>div::before{display:flex;align-items:center;justify-content:center;height:62px;background:radial-gradient(circle at 34px 32px,#FF5F57 9px,transparent 10px),radial-gradient(circle at 62px 32px,#FEBC2E 9px,transparent 10px),radial-gradient(circle at 90px 32px,#28C840 9px,transparent 10px),#ECE7E0;border-bottom:2px solid #ddd5ca;font-family:'DM Sans',monospace;font-size:26px;font-weight:400;color:#5d554e;letter-spacing:0}
+.st-escritorio.var-0 .lst::before{content:"Notas"}
+.st-escritorio.var-0 .chat::before{content:"Mensajes";margin:-40px -36px 20px}
+.st-escritorio.var-0 .cmp>div::before{content:"";margin:-40px -36px 26px}
+.st-escritorio.var-0 .lst{padding:0 0 14px}
+.st-escritorio.var-0 .lst div{background:none;border-radius:0;margin:0 36px;padding:20px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:40px;font-weight:500}
+.st-escritorio.var-0 .lst div:last-child{border-bottom:0}
+.st-escritorio.var-0 .lst b{font-size:0;width:46px;height:46px;flex:none;border-radius:50%;background:var(--tinta);position:relative}
+.st-escritorio.var-0 .lst b::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--fondo);font-family:var(--f-cuerpo)}
+.st-escritorio.var-0 .chat p{background:#EFEAE3;border-radius:34px;border-top-left-radius:8px}
+.st-escritorio.var-0 .chat p.yo{background:var(--resalte-claro);color:var(--tinta);border-radius:34px;border-bottom-right-radius:8px}
+.st-escritorio.var-0 .cmp>div:nth-child(2){border-color:var(--tinta)}
+.st-escritorio.var-0 .cmp h4{color:var(--tinta);font-size:26px}
+.st-escritorio.var-0 .precio b{color:var(--tinta)}
+.st-escritorio.var-0.r-cierre .palabra{display:block;background:var(--tinta);border-radius:999px;padding:30px 50px;text-align:center;margin-top:40px}
+.st-escritorio.var-0.r-cierre .palabra span{font-family:var(--f-cuerpo);font-style:normal;font-weight:800;font-size:78px;white-space:nowrap;letter-spacing:-.03em;color:var(--fondo)}
+.st-escritorio.osc.var-0.r-cierre .palabra{background:var(--resalte-claro)}
+.st-escritorio.osc.var-0.r-cierre .palabra span{color:var(--tinta)}
 /*ELEM*/
 .el{position:absolute;z-index:30;cursor:grab;line-height:1.15;user-select:none;touch-action:none;white-space:nowrap}
 .el svg{display:block;overflow:visible}
@@ -632,6 +666,8 @@ const M = DATA.marca, C = M.colores, L = M.letras;
 const FB = {titulo: "Impact,'Arial Narrow',sans-serif", serif: "Georgia,serif", cuerpo: "Arial,sans-serif", mano: "'Segoe Script','Comic Sans MS',cursive"};
 const root = document.documentElement.style;
 for (const [k, v] of Object.entries(C)) root.setProperty("--" + k, v);
+function claro(hex, t) { const n = parseInt(String(hex).replace('#', ''), 16); if (isNaN(n)) return hex; const c = [n >> 16 & 255, n >> 8 & 255, n & 255].map(x => Math.round(x + (255 - x) * t)); return '#' + c.map(x => x.toString(16).padStart(2, '0')).join(''); }
+root.setProperty('--resalte-claro', claro(C.resalte, .62));
 for (const [k, v] of Object.entries(L)) root.setProperty("--f-" + k, `'${v}',${FB[k]}`);
 document.getElementById("titulo").textContent = "Tu carrusel · " + DATA.slides.length + " slides";
 document.getElementById("cap").textContent = DATA.caption || "";
@@ -665,16 +701,18 @@ function cuerpo(sl) {
 function pintar() {
   const g = document.getElementById("grid"); g.innerHTML = "";
   DATA.slides.forEach((sl, i) => {
-    const conFoto = sl.foto !== false && sl.tipo !== "comparacion" && sl.tipo !== "chat" && !(["cuaderno", "collage"].includes(DATA.estilo) && sl.tipo === "lista");
-    const pos = sl.pos || (["revista", "oscura", "aesthetic", "agenda"].includes(DATA.estilo) && conFoto ? "abajo" : "arriba");
+    const conFoto = sl.foto !== false && sl.tipo !== "comparacion" && sl.tipo !== "chat" && !(["cuaderno", "collage"].includes(DATA.estilo) && sl.tipo === "lista") && !(DATA.estilo === "escritorio" && sl.tipo !== "portada" && sl.foto !== true);
+    const pos = sl.pos || (["revista", "oscura", "aesthetic", "agenda", "escritorio"].includes(DATA.estilo) && conFoto ? "abajo" : "arriba");
     const est = DATA.estilo;
     const s = document.createElement("div");
-    s.className = `slide st-${est} r-${sl.tipo} pos-${pos} var-${sl.variante || 0}` + (conFoto ? "" : " sinfoto");
+    s.className = `slide st-${est} r-${sl.tipo} pos-${pos} var-${sl.variante || 0}` + (conFoto ? "" : " sinfoto") + (sl.oscura ? " osc" : "");
     s.dataset.i = i;
     let h = "";
     if (est === "oferta") h += `<div class="banda"></div>`;
     if (conFoto) h += `<div class="ph ${fotos[i] ? "" : "vacia"}" style="${fotos[i] ? `background-image:url(${fotos[i]})` : ""}">${fotos[i] ? "" : "📷 tu foto"}</div>`;
     h += `<div class="vel"></div>`;
+    if (est === "escritorio" && conFoto && !(sl.variante > 0)) h += `<div class="winbar">${esc(sl.archivo || (i === 0 ? "Photo Booth" : "foto.jpg"))}</div>`;
+    if (est === "escritorio") h += `<div class="deco" style="right:70px;top:${i % 2 ? 40 : 560}px">✦</div><div class="deco" style="right:150px;top:${i % 2 ? 120 : 640}px;font-size:54px">✦</div>`;
     if (est === "collage") h += `<div class="deco" style="left:70px;top:1130px">✦</div><div class="deco" style="right:80px;top:120px;font-size:50px">✦</div>`;
     h += `<div class="mast"><span>${esc(M.usuario)}</span><span>Nº ${String(i + 1).padStart(2, "0")}</span></div>`;
     h += `<div class="tx">${cuerpo(sl)}</div>`;
@@ -748,7 +786,7 @@ function guardar() { try { localStorage.setItem("carrusel-fotos", JSON.stringify
 try { Object.assign(fotos, JSON.parse(localStorage.getItem("carrusel-fotos") || "{}")); } catch (e) {}
 /*FOTOS*/
 /* ===== panel de ajustes: estilo, colores, letras, textos ===== */
-const ESTILOS = {editorial: "Editorial con foto", revista: "Portada de revista", cuaderno: "Guía tipo cuaderno", oscura: "Foto oscura", collage: "Collage", oferta: "Oferta o curso", agenda: "Mi día (agenda)", aesthetic: "Aesthetic"};
+const ESTILOS = {editorial: "Editorial con foto", revista: "Portada de revista", cuaderno: "Guía tipo cuaderno", oscura: "Foto oscura", collage: "Collage", oferta: "Oferta o curso", agenda: "Mi día (agenda)", aesthetic: "Aesthetic", escritorio: "Escritorio (ventanas)"};
 const LETRAS = {titulo: ["Anton", "Bebas Neue", "Oswald", "Archivo Black", "Poppins", "Montserrat", "Playfair Display", "Inter Tight"],
   serif: ["Instrument Serif", "Playfair Display", "Cormorant Garamond", "Caveat", "Dancing Script"],
   cuerpo: ["Inter Tight", "DM Sans", "Montserrat", "Poppins"],
@@ -758,6 +796,7 @@ const ORIG = JSON.parse(JSON.stringify(DATA));
 try { const g = JSON.parse(localStorage.getItem("carrusel-ajustes") || "null"); if (g && g.n === DATA.slides.length) Object.assign(DATA, g.d); } catch (e) {}
 function aplicarMarca() {
   for (const [k, v] of Object.entries(DATA.marca.colores)) root.setProperty("--" + k, v);
+  root.setProperty('--resalte-claro', claro(DATA.marca.colores.resalte, .62));
   for (const [k, v] of Object.entries(DATA.marca.letras)) root.setProperty("--f-" + k, `'${v}',${FB[k]}`);
 }
 function guardarAjustes() { try { localStorage.setItem("carrusel-ajustes", JSON.stringify({n: DATA.slides.length, d: {estilo: DATA.estilo, marca: DATA.marca, slides: DATA.slides}})); } catch (e) {} }
