@@ -5,6 +5,8 @@ description: Arma el plan de contenido de una semana o de un mes — qué piezas
 
 # Planificar contenido
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > **Antes de escribir, y cada vez que la alumna corrija:** lee `biblioteca/criterio-y-correcciones.md`
 > y síguelo. Sin las cinco respuestas no se escribe, se entrega una sola versión revisada contra el
 > objetivo, y las correcciones se responden con criterio: nunca con un "tienes razón" automático ni

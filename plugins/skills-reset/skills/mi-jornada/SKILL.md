@@ -5,6 +5,8 @@ description: MI JORNADA. Cada noche, en dos minutos, la alumna revisa con Claude
 
 # MI JORNADA
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > Antes de empezar, y cada vez que la alumna corrija: lee `biblioteca/criterio-y-correcciones.md` y síguelo.
 
 Dos minutos cada noche para cerrar el día, y un plan cada domingo para no empezar la semana a ciegas. Lo

@@ -5,6 +5,8 @@ description: Prepara a la alumna para grabar un reel hablado y la ayuda a mejora
 
 # A cámara
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > **Antes de empezar, y cada vez que la alumna corrija:** lee `biblioteca/criterio-y-correcciones.md`
 > y síguelo. Las correcciones se responden con criterio: nunca con un "tienes razón" automático.
 

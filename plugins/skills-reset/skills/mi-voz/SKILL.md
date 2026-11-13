@@ -121,12 +121,21 @@ eso.
 
 ## 7. Entrega y dónde se guarda
 
-Entrega `mi-voz.md` completo, de una vez, como archivo para descargar. Dile dónde va:
+Un solo archivo `mi-voz.md` sirve para todo: la mesa de Génesis Estudio, el chat de Claude Code y el
+chat normal de Claude. Lo que cambia es dónde lo dejas, según dónde estén hablando:
 
-- Si usa las skills en una carpeta: en la raíz de su proyecto.
-- Si usa las skills en la app de Claude: dentro de los archivos de su proyecto, para que esté
-  en todos sus chats y no tenga que volver a contar nada. Si ya había uno, lo reemplaza. Y
-  recuérdale abrir siempre sus chats dentro de ese proyecto.
+- **Si puedes guardar archivos en su computador** (Claude Code o Génesis Estudio): guárdalo tú en
+  `Documentos/Mi contenido/mi-voz.md` (o `OneDrive/Documentos/Mi contenido/` si su Documentos está en
+  OneDrive). Si ya había uno, lo reemplazas. Después dile: «Para que el chat normal de Claude también
+  te conozca, sube este mismo archivo a tu Proyecto de Claude (en el Proyecto: Archivos → Agregar).»
+- **Si están en el chat normal de Claude** (no puedes guardar en su computador): entrégalo completo,
+  de una vez, como archivo para descargar, y dile las dos cosas:
+  1. «Súbelo a los archivos de tu Proyecto de Claude (si ya había uno, lo reemplazas), y abre siempre
+     tus chats dentro de ese Proyecto.»
+  2. «Si usas Génesis Estudio, guarda también este archivo en tu computador, en Documentos → Mi
+     contenido, con el nombre `mi-voz.md`.»
+
+Cada vez que lo actualicen, en un lado o en el otro, recuérdale que lo deje igual en el otro lado.
 
 Dile cuándo volver: cuando cambie lo que ofrece, cuando note que los textos ya no suenan a ella,
 o cada tres meses.

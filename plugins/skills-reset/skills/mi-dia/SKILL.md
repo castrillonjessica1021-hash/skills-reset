@@ -5,6 +5,8 @@ description: MI DÍA. Arma cada mañana un tablero muy bonito, como una app, con
 
 # MI DÍA
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > Antes de empezar, y cada vez que la alumna corrija: lee `biblioteca/criterio-y-correcciones.md` y síguelo.
 
 Una página que se abre en la mañana y te dice cómo viene el día: lo que tienes en el calendario, los correos

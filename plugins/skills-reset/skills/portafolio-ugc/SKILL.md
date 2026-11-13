@@ -5,6 +5,8 @@ description: Arma el portafolio de una creadora UGC (contenido para marcas) y lo
 
 # Portafolio UGC
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > Antes de empezar, y cada vez que la alumna corrija: lee `biblioteca/criterio-y-correcciones.md` y síguelo.
 
 Una marca no lee un portafolio de arriba abajo: lo mira por encima en menos de un minuto, buscando respuesta

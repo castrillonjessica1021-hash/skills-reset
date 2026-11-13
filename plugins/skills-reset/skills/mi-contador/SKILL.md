@@ -5,6 +5,8 @@ description: MI CONTADOR. Lleva las finanzas personales y las del negocio de la 
 
 # MI CONTADOR
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > Antes de empezar, y cada vez que la alumna corrija: lee `biblioteca/criterio-y-correcciones.md` y síguelo.
 
 Le mandas la foto del recibo y se anota sola. Cuando quieras ver tu mes, escribes "mi contador" y sale tu

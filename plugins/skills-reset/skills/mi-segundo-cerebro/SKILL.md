@@ -5,6 +5,8 @@ description: MI SEGUNDO CEREBRO. Le contesta a la alumna cualquier pregunta usan
 
 # MI SEGUNDO CEREBRO
 
+> **Lo primero, siempre:** busca `mi-voz.md`. En el chat normal de Claude está en los archivos de su Proyecto (o en lo que adjuntó). Si puedes ver su computador (Claude Code o Génesis Estudio), está en su carpeta `Documentos/Mi contenido/` (o `OneDrive/Documentos/Mi contenido/`). Si no está en ningún lado, primero se hace su voz con la skill `mi-voz`.
+
 > Antes de empezar, y cada vez que la alumna corrija: lee `biblioteca/criterio-y-correcciones.md` y síguelo.
 
 Tus notas, tus clases y tus PDFs en un solo lugar. Le preguntas lo que no te acuerdas y te contesta con lo que
